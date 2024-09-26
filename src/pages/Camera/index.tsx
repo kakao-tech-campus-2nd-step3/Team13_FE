@@ -1,6 +1,6 @@
 import { MutableRefObject, useEffect, useRef, useState } from 'react'
 
-export const Camera = () => {
+export const CameraPage = () => {
   const videoRef = useRef<HTMLVideoElement>(null) as MutableRefObject<HTMLVideoElement>
   const [isCaptured, setIsCaptured] = useState(false)
   const [isFlipped, setIsFlipped] = useState(false)
