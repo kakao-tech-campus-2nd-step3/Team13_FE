@@ -93,7 +93,6 @@ export const Recipients = () => {
 
   return (
     <Wrapper>
-      <Back />
       <Heading.Medium style={{ width: '100%', margin: '20px 0' }}>피요양자 선택</Heading.Medium>
       <Search>
         <img src={searchIcon} alt="searchIcon" style={{ width: '22px' }} />
@@ -115,7 +114,7 @@ export const Recipients = () => {
 
 const Wrapper = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: start;
   align-items: center;

@@ -1,6 +1,8 @@
 export const RouterPath = {
+  root: '/',
   login: '/login',
   recipients: '/recipients',
+  chart: '/chart',
   notFound: '*',
 }
 

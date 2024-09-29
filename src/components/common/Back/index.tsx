@@ -11,6 +11,7 @@ function Back() {
         display: 'flex',
         alignItems: 'center',
         cursor: 'pointer',
+        height: '20px',
       }}
     >
       <img src={backArrow} alt="back_arrow" />
