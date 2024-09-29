@@ -10,6 +10,7 @@ function Back() {
         boxSizing: 'border-box',
         display: 'flex',
         alignItems: 'center',
+        cursor: 'pointer',
       }}
     >
       <img src={backArrow} alt="back_arrow" />
