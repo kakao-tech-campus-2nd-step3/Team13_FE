@@ -1,5 +1,6 @@
 export const RouterPath = {
   login: '/login',
+  recipients: '/recipients',
   notFound: '*',
 }
 
