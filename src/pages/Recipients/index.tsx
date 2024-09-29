@@ -114,12 +114,12 @@ export const Recipients = () => {
 
 const Wrapper = styled.div`
   width: 100vw;
-  height: 100%;
+  height: calc(100vh - 50px);
   display: flex;
   justify-content: start;
   align-items: center;
   flex-direction: column;
-  padding: 28px 28px 0 28px;
+  padding: 0 28px;
   box-sizing: border-box;
 `
 

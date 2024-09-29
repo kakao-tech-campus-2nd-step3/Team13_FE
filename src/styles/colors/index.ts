@@ -10,6 +10,8 @@ export const colors = {
   },
   background: {
     main: '#4894FE',
+    done: '#A3C9FF',
+    disable: '#D9D9D9',
   },
   border: {
     subtle: '#D0D0D0',

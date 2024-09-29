@@ -21,8 +21,10 @@ const Wrapper = styled.div`
 
 const InnerWrapper = styled.div`
   width: 100%;
+  height: calc(100vh-50px);
   position: absolute;
   top: 0;
   left: 0;
-  margin-top: 20px;
+
+  margin-top: 50px;
 `

@@ -5,6 +5,7 @@ import { LoginPage } from '@/pages/Login'
 import { RouterPath } from './path'
 import { Recipients } from '@/pages/Recipients'
 import { Layout } from '@/components/features/Layout'
+import { DIY } from '@/pages/Chart/DIY'
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
       },
       {
         path: RouterPath.chart,
+        children: [{ path: RouterPath.DIY, element: <DIY /> }],
       },
     ],
   },
