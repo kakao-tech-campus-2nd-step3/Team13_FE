@@ -3,10 +3,12 @@
     "baseUrl": "src",
     "paths": {
       "@/*": ["*"],
+      "@assets/*": ["/assets/*"],
       "@components/*": ["components/*"],
       "@routes/*": ["routes/*"],
       "@utils/*": ["utils/*"],
       "@styles/*": ["styles/*"],
+      "@types/*": ["types/*"],
       "@pages/*": ["pages/*"]
     },
     "jsx": "react-jsx",

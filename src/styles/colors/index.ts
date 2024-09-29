@@ -4,9 +4,9 @@ export const colors = {
     passive: 'rgba(255, 148, 51, 0.13)',
   },
   text: {
-    prominent: '#FFFFFF',
-    moderate: '#FFFFFF',
-    subtle: '#FFFFFF',
+    prominent: '#4894FE',
+    moderate: '#0D1B34',
+    subtle: '#8696BB',
   },
   background: {
     main: '#4894FE',
