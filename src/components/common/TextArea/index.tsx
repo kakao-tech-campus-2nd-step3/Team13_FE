@@ -4,11 +4,11 @@ import styled from '@emotion/styled'
 type Props = {
   invalid?: boolean
   customSize?: 'large' | 'small' | 'responsive'
-} & React.InputHTMLAttributes<HTMLInputElement>
+} & React.InputHTMLAttributes<HTMLTextAreaElement>
 
-export const TextField = (props: Props) => <Input {...props} />
+export const TextArea = (props: Props) => <Input {...props} />
 
-const Input = styled.input<Pick<Props, 'invalid' | 'customSize'>>(
+const Input = styled.textarea<Pick<Props, 'invalid' | 'customSize'>>(
   {
     width: '100%',
     boxSizing: 'border-box',
@@ -36,7 +36,10 @@ const Input = styled.input<Pick<Props, 'invalid' | 'customSize'>>(
       minHeight: '404px',
       fontSize: '20px',
       lineHeight: '25px',
-      padding: '10px 0 8px',
+      padding: '10px',
+      display: 'inline-block',
+      verticalAlign: 'top',
+      textAlign: 'start',
     }
 
     const smallStyle = {

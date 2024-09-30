@@ -36,7 +36,6 @@ function Steps({ currentStep, totalSteps }: StepsProps) {
 const StepWrapper = styled.div`
   display: flex;
   width: 100%;
-  padding: 0 32px;
   box-sizing: border-box;
   justify-content: space-between;
   flex-direction: row;

@@ -9,6 +9,7 @@ function Back() {
         paddingLeft: '15px',
         boxSizing: 'border-box',
         display: 'flex',
+        zIndex: '1000',
         alignItems: 'center',
         cursor: 'pointer',
         height: '20px',
