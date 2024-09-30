@@ -159,7 +159,7 @@ const ListWrapper = styled.div<ListWrapperProps>`
   flex-direction: column;
   box-sizing: border-box;
   overflow-y: auto;
-
+  flex-grow: 1;
   padding: 0 28px;
 
   box-shadow: ${({ isScrolled }) =>

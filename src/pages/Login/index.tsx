@@ -1,5 +1,5 @@
 import Button from '@/components/common/Button'
-import { TextField } from '@/components/common/TextField'
+import { InputField } from '@/components/common/InputField'
 import { colors } from '@/styles/colors'
 import styled from '@emotion/styled'
 import { useState } from 'react'
@@ -44,21 +44,21 @@ export const LoginPage = () => {
           </div>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <TextField
+          <InputField
             customSize="small"
             placeholder="전화번호 ( '-' 제외)"
             value={id}
             onChange={(e) => setId(e.target.value)}
             style={{ fontSize: '20px', marginBottom: '20px' }}
-          ></TextField>
-          <TextField
+          ></InputField>
+          <InputField
             customSize="small"
             placeholder="비밀번호"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             style={{ fontSize: '20px' }}
-          ></TextField>
+          ></InputField>
         </div>
         <div>
           <Button
