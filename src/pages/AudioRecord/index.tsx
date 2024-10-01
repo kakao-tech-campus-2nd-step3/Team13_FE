@@ -1,30 +1,31 @@
-import React, { useState } from 'react'
+import { useRef, useState } from 'react'
 
 export const AudioRecordPage = () => {
   const [isRecording, setIsRecording] = useState(false)
   const [audioUrl, setAudioUrl] = useState<string | null>(null)
-  const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null)
-  const [audioChunks, setAudioChunks] = useState<Blob[]>([])
+  const audioChunks = useRef<Blob[]>([])
+  const mediaRecorder = useRef<MediaRecorder | null>(null)
 
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
       const recorder = new MediaRecorder(stream, { mimeType: 'audio/webm;codecs=opus' })
-      setMediaRecorder(recorder)
+      mediaRecorder.current = recorder
 
       recorder.ondataavailable = (event) => {
-        setAudioChunks((prev) => [...prev, event.data])
+        audioChunks.current.push(event.data)
       }
 
       recorder.onstop = () => {
         if (audioUrl) {
           URL.revokeObjectURL(audioUrl)
         }
-        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' })
+        const audioBlob = new Blob(audioChunks.current, { type: 'audio/webm' })
         const newAudioUrl = `${URL.createObjectURL(audioBlob)}#${Date.now()}`
         setAudioUrl(newAudioUrl)
         downloadAudioFile(audioBlob)
-        setAudioChunks([])
+
+        audioChunks.current = []
       }
 
       recorder.start()
@@ -37,7 +38,7 @@ export const AudioRecordPage = () => {
 
   const stopRecording = () => {
     if (mediaRecorder) {
-      mediaRecorder.stop()
+      mediaRecorder.current?.stop()
       setIsRecording(false)
     }
   }
