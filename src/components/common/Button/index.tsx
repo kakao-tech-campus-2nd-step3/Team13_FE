@@ -6,10 +6,31 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: ReactNode
   children?: ReactNode
   theme: ButtonTheme
+  width?: string
+  height?: string
+  margin?: string
 }
 
-function Button({ icon, children, theme, ...rest }: ButtonProps) {
+const themeStyles = {
+  dark: {
+    background: colors.background.main,
+    color: 'white',
+    border: `1px solid ${colors.primary.main}`,
+  },
+  'light-outlined': {
+    background: 'transparent',
+    color: colors.primary.main,
+    border: `2px solid ${colors.primary.main}`,
+  },
+}
+
+function Button({ icon, children, theme, width, height, margin, ...rest }: ButtonProps) {
+  const { background, color, border } = themeStyles[theme] || themeStyles.dark // default색은 자유롭게 변경해 주세요!
+
   const buttonStyle = css`
+    width: ${width || 'auto'};
+    height: ${height || 'auto'};
+    margin: ${margin || '0'};
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,9 +38,9 @@ function Button({ icon, children, theme, ...rest }: ButtonProps) {
     padding: 19px 27px;
     font-size: 19px;
     border-radius: 16px;
-    color: ${theme === 'dark' ? 'white' : colors.primary.main};
-    border: ${getBorderStyle(theme)};
-    background-color: ${getBackgroundColor(theme)};
+    color: ${color};
+    border: ${border};
+    background-color: ${background};
     transition:
       background-color 0.3s ease,
       color 0.3s ease,
@@ -39,24 +60,6 @@ function Button({ icon, children, theme, ...rest }: ButtonProps) {
       {children}
     </button>
   )
-}
-
-function getBackgroundColor(theme: ButtonTheme) {
-  if (theme === 'light-outlined') {
-    return 'transparent'
-  }
-  if (theme === 'dark') {
-    return colors.background.main
-  }
-  return colors.background.main
-}
-
-function getBorderStyle(theme: ButtonTheme) {
-  if (theme === 'light-outlined') {
-    return `2px solid ${colors.primary.main}`
-  }
-  const baseStyle = '1px solid '
-  return baseStyle + (theme === 'dark' ? colors.primary.main : colors.text.subtle)
 }
 
 type ButtonTheme = 'dark' | 'light-outlined'

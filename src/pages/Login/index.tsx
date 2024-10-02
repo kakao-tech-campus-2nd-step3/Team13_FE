@@ -10,18 +10,7 @@ export const LoginPage = () => {
 
   return (
     <Wrapper>
-      <form
-        style={{
-          width: '100vw',
-          height: '460px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          alignContent: 'center',
-          padding: '0 26px',
-          boxSizing: 'border-box',
-        }}
-      >
+      <StyledForm>
         <div
           style={{
             justifyContent: 'start',
@@ -61,17 +50,11 @@ export const LoginPage = () => {
           ></InputField>
         </div>
         <div>
-          <Button
-            theme="dark"
-            css={{
-              width: '100%',
-              height: '62px',
-            }}
-          >
+          <Button theme="dark" width="100%" height="62px">
             로그인
           </Button>
         </div>
-      </form>
+      </StyledForm>
     </Wrapper>
   )
 }
@@ -83,4 +66,15 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+`
+
+const StyledForm = styled.form`
+  width: 100vw;
+  height: 460px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: center;
+  padding: 0 26px;
+  box-sizing: border-box;
 `
