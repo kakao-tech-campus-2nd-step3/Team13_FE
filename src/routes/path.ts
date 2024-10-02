@@ -5,5 +5,6 @@ export const RouterPath = {
   audioRecord: '/audioRecord',
   careLog: 'careLog',
   speechToText: '/speechToText',
+  ocr: '/ocr',
   notFound: '*',
 }
