@@ -4,5 +4,6 @@ export const RouterPath = {
   camera: '/camera',
   audioRecord: '/audioRecord',
   careLog: 'careLog',
+  speechToText: '/speechToText',
   notFound: '*',
 }
