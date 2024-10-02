@@ -70,7 +70,7 @@ export const CameraPage = () => {
         ref={videoRef}
         autoPlay
         playsInline
-        style={{ transform: isFlipped ? 'scaleX(-1)' : 'scaleX(1)' }}
+        style={{ transform: isFlipped ? 'scaleX(-1)' : 'scaleX(1)', width: '500px' }}
       ></video>
       <button disabled={isCaptured} onClick={pauseVideo}>
         촬영

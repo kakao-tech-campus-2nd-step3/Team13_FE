@@ -5,6 +5,7 @@ import { RouterPath } from './path'
 import { HomePage } from '@/pages/Home'
 import { CameraPage } from '@/pages/Camera'
 import { AudioRecordPage } from '@/pages/AudioRecord'
+import { CareLogPage } from '@/pages/CareLog'
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
   },
   { path: RouterPath.camera, element: <CameraPage /> },
   { path: RouterPath.audioRecord, element: <AudioRecordPage /> },
+  { path: RouterPath.careLog, element: <CareLogPage /> },
   { path: RouterPath.notFound, element: <HomePage /> },
 ])
 
