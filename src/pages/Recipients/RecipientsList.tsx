@@ -5,17 +5,27 @@ interface Props {
   picture: string
   name: string
   birthday: string
+  width?: string
+  height?: string
+  borderRadius?: string
 }
 
-export const RecipientsList = ({ picture, name, birthday }: Props) => {
+export const RecipientsList = ({
+  picture,
+  name,
+  birthday,
+  width = '48px',
+  height = '48px',
+  borderRadius = '50%',
+}: Props) => {
   return (
     <Wrapper>
       <img
         src={picture}
         style={{
-          height: '48px',
-          width: '48px',
-          borderRadius: '50%',
+          height,
+          width,
+          borderRadius,
           marginRight: '26px',
         }}
       ></img>
