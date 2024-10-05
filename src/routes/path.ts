@@ -4,6 +4,10 @@ export const RouterPath = {
   recipients: '/recipients',
   chart: '/chart',
   DIY: '/chart/DIY',
+  home: '/',
+  camera: '/camera',
+  audioRecord: '/audioRecord',
+  careLog: 'careLog',
   notFound: '*',
 }
 

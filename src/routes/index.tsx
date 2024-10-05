@@ -1,7 +1,10 @@
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 
 import { LoginPage } from '@/pages/Login'
-
+import { HomePage } from '@/pages/Home'
+import { CameraPage } from '@/pages/Camera'
+import { AudioRecordPage } from '@/pages/AudioRecord'
+import { CareLogPage } from '@/pages/CareLog'
 import { RouterPath } from './path'
 import { Recipients } from '@/pages/Recipients'
 import { Layout } from '@/components/features/Layout'
@@ -24,6 +27,14 @@ const router = createBrowserRouter([
         path: RouterPath.chart,
         children: [{ path: RouterPath.DIY, element: <DIY /> }],
       },
+      {
+        path: RouterPath.home,
+        element: <HomePage />,
+      },
+      { path: RouterPath.camera, element: <CameraPage /> },
+      { path: RouterPath.audioRecord, element: <AudioRecordPage /> },
+      { path: RouterPath.careLog, element: <CareLogPage /> },
+      { path: RouterPath.notFound, element: <HomePage /> },
     ],
   },
 ])
