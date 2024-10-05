@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { FontWeight, ScreenSize } from '@/types/styles'
 import { TextProps } from '@/types/props'
-import { breakPoints } from '@/styles/breakpoints'
+import { breakpoints } from '@/styles/breakpoints'
 
 function Text({ children, weight, responsiveSize, as = 'p', color, ...rest }: TextProps) {
   const cssWeight = convertWeightToCss(weight)
@@ -22,12 +22,13 @@ const ResponsiveText = styled.p<TextProps>`
   font-weight: ${(props: TextProps) => props.weight};
   font-size: ${(props: TextProps) => props.defaultSize};
   color: ${(props: TextProps) => props.color};
+
   ${(props: TextProps) =>
     props.responsiveSize &&
-    Object.entries(props.responsiveSize)
+    (Object.entries(props.responsiveSize) as [keyof typeof breakpoints, string][])
       .map(
         ([breakpoint, value]) => `
-      @media (min-width: ${breakPoints[breakpoint as ScreenSize]}) {
+      @media (min-width: ${breakpoints[breakpoint]}) {
         font-size: ${value};
       }
   `,

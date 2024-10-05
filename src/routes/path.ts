@@ -1,10 +1,10 @@
 export const RouterPath = {
   root: '/',
+  home: '/',
   login: '/login',
   recipients: '/recipients',
   chart: '/chart',
   DIY: '/chart/DIY',
-  home: '/',
   camera: '/camera',
   audioRecord: '/audioRecord',
   careLog: 'careLog',
