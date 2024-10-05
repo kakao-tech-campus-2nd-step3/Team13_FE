@@ -1,6 +1,7 @@
 export const colors = {
   primary: {
     main: '#4894FE',
+    passive: 'rgba(255, 148, 51, 0.13)',
     mainOpacity15: '#4894FE15',
   },
   text: {
