@@ -4,6 +4,16 @@ import { Routes } from './routes'
 
 const queryClient = new QueryClient()
 
+// function App() {
+//   return (
+//     <QueryClientProvider client={queryClient}>
+//       <div className="App">
+//         <BrowserRouter>{/*<AppRoutes />*/}</BrowserRouter>
+//       </div>
+//     </QueryClientProvider>
+//   )
+// }
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
