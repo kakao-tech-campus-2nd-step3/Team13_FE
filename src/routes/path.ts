@@ -7,7 +7,9 @@ export const RouterPath = {
   DIY: '/chart/DIY',
   camera: '/camera',
   audioRecord: '/audioRecord',
-  careLog: 'careLog',
+  careLog: '/careLog',
+  speechToText: '/speechToText',
+  ocr: '/ocr',
   notFound: '*',
 }
 
