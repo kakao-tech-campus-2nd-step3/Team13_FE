@@ -10,6 +10,7 @@ export const RouterPath = {
   careLog: '/careLog',
   speechToText: '/speechToText',
   ocr: '/ocr',
+  ocrChecking: '/ocr/check',
   notFound: '*',
 }
 
