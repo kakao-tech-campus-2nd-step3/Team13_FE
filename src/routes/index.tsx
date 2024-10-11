@@ -11,6 +11,8 @@ import { LoginPage } from '@/pages/Login'
 import { Recipients } from '@/pages/Recipients'
 import { Layout } from '@/components/features/Layout'
 import { DIY } from '@/pages/Chart/DIY'
+import { OCRCheck } from '@/pages/OCR/OCRCheck'
+import { DetailLogPage } from '@/pages/CareLog/DetailLog'
 
 const router = createBrowserRouter([
   {
@@ -37,8 +39,16 @@ const router = createBrowserRouter([
       { path: RouterPath.camera, element: <CameraPage /> },
       { path: RouterPath.audioRecord, element: <AudioRecordPage /> },
       { path: RouterPath.careLog, element: <CareLogPage /> },
+      { path: RouterPath.detailLog, element: <DetailLogPage /> },
       { path: RouterPath.speechToText, element: <SpeechToTextPage /> },
-      { path: RouterPath.ocr, element: <OCRPage /> },
+      {
+        path: RouterPath.ocr,
+        element: <OCRPage />,
+      },
+      {
+        path: RouterPath.ocrChecking,
+        element: <OCRCheck />,
+      },
       { path: RouterPath.notFound, element: <HomePage /> },
     ],
   },
