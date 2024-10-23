@@ -1,52 +1,33 @@
-import { useState } from 'react'
-import Tesseract from 'tesseract.js'
+import React, { useState } from 'react'
+import { requestOCR } from '@/services/ocrService'
+import { OCRResponse } from '@/services/ocrService'
 
 export const OCRPage = () => {
-  const [progress, setProgress] = useState<number>(0)
-  const [text, setText] = useState<string>('')
-  const [imageUrl, setImageUrl] = useState<string | null>(null)
+  const [imageFile, setImageFile] = useState<File[]>([])
+  const [ocrResult, setOcrResult] = useState<OCRResponse | null>(null)
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onload = () => {
-        setImageUrl(reader.result as string)
-      }
-      reader.readAsDataURL(file)
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setImageFile(Array.from(e.target.files))
     }
   }
 
-  const handleClick = () => {
-    if (imageUrl) {
-      Tesseract.recognize(imageUrl, 'eng+kor', {
-        logger: (m) => {
-          if (m.status === 'recognizing text') {
-            const progressValue = (m.progress * 100).toFixed(2)
-            setProgress(parseFloat(progressValue))
-          }
-        },
-      }).then(({ data: { text } }) => {
-        setText(text)
-      })
-    }
+  const handleOCRRequest = async () => {
+    const result = await requestOCR(imageFile)
+    setOcrResult(result)
   }
 
   return (
     <div>
-      <input type="file" accept="image/*" onChange={handleImageUpload} />
-      {imageUrl && (
+      <input type="file" accept="image/*" onChange={handleFileChange} />
+      <button onClick={handleOCRRequest}>OCR 요청</button>
+
+      {ocrResult && (
         <div>
-          <img src={imageUrl} alt="Uploaded" style={{ maxWidth: '100%' }} />
+          <h3>분석 결과:</h3>
+          <pre>{JSON.stringify(ocrResult, null, 2)}</pre>
         </div>
       )}
-      <progress value={progress} max="100">
-        {progress}%
-      </progress>
-      <button onClick={handleClick} disabled={!imageUrl}>
-        Recognize Text
-      </button>
-      <p>Recognized Text: {text}</p>
     </div>
   )
 }
