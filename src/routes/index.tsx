@@ -14,6 +14,7 @@ import { DIY } from '@/pages/Chart/DIY'
 import { OCRCheck } from '@/pages/OCR/OCRCheck'
 import { DetailLogPage } from '@/pages/CareLog/DetailLog'
 import { SharePage } from '@/pages/Share/Share'
+import { ChartPage } from '@/pages/Chart/Chart'
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: RouterPath.recipients,
         element: <Recipients />,
+      },
+      {
+        path: RouterPath.chart,
+        element: <ChartPage />,
       },
       {
         path: RouterPath.DIY,

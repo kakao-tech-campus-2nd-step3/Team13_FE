@@ -3,6 +3,7 @@ export const RouterPath = {
   home: '/',
   login: '/login',
   recipients: '/recipients',
+  chart: '/chart',
   DIY: '/chart/DIY',
   share: '/share',
   camera: '/camera',
