@@ -1,4 +1,4 @@
-import Back from '@/components/common/Back'
+import Back from '@/components/common/Back/Back'
 import styled from '@emotion/styled'
 import { Outlet } from 'react-router-dom'
 

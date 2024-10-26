@@ -1,14 +1,14 @@
-import { CSSObject } from '@emotion/react';
-import { breakPoints } from '@styles/breakpoints';
+import { CSSObject } from '@emotion/react'
+import { breakPoints } from '@/styles/breakpoints/breakpoints'
 
-export type FontWeight = number | 'medium' | 'bold' | 'regular' | 'lighter' | 'bolder';
-export type ScreenSize = keyof typeof breakPoints;
+export type FontWeight = number | 'medium' | 'bold' | 'regular' | 'lighter' | 'bolder'
+export type ScreenSize = keyof typeof breakPoints
 
 export interface ResponsiveCSSObjects {
-  xs?: CSSObject;
-  sm?: CSSObject;
-  md?: CSSObject;
-  lg?: CSSObject;
+  xs?: CSSObject
+  sm?: CSSObject
+  md?: CSSObject
+  lg?: CSSObject
 }
 
-export type ResponsiveColumns = { [key in ScreenSize]: string | number };
+export type ResponsiveColumns = { [key in ScreenSize]: string | number }

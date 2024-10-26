@@ -1,5 +1,5 @@
 import { Heading, TextBody } from '@/components/common/Text/TextFactory'
-import { colors } from '@/styles/colors'
+import { colors } from '@/styles/colors/colors'
 import styled from 'styled-components'
 import cameraIcon from '@/assets/icons/camera.svg'
 import galleryIcon from '@/assets/icons/gallery.svg'

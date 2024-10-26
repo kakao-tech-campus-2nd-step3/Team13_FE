@@ -2,10 +2,10 @@ import styled from 'styled-components'
 import { RecipientsList } from './RecipientsList'
 import image from '@/assets/images/sample.png'
 import { Heading, TextBody } from '@/components/common/Text/TextFactory'
-import { colors } from '@/styles/colors'
+import { colors } from '@/styles/colors/colors'
 import searchIcon from '@/assets/icons/search_icon.svg'
 import { useState } from 'react'
-import Back from '@/components/common/Back'
+import Back from '@/components/common/Back/Back'
 
 const recipients = [
   {
@@ -84,7 +84,7 @@ interface ListWrapperProps {
   isScrolled: boolean
 }
 
-export const Recipients = () => {
+export const RecipientsPage = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const handleScroll = (event: any) => {
     const scrollTop = event.target.scrollTop

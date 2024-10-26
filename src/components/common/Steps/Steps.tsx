@@ -1,4 +1,4 @@
-import { colors } from '@/styles/colors'
+import { colors } from '@/styles/colors/colors'
 import styled from 'styled-components'
 import checkIcon from '@/assets/icons/check_icon.svg'
 
