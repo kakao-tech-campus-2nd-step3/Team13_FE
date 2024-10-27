@@ -5,11 +5,14 @@ export const RouterPath = {
   recipients: '/recipients',
   chart: '/chart',
   DIY: '/chart/DIY',
+  share: '/share',
   camera: '/camera',
   audioRecord: '/audioRecord',
   careLog: '/careLog',
+  detailLog: '/detailLog',
   speechToText: '/speechToText',
   ocr: '/ocr',
+  ocrChecking: '/ocr/check',
   notFound: '*',
 }
 
