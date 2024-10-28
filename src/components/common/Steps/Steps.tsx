@@ -58,7 +58,9 @@ const Done = styled.div`
   border-radius: 50%;
   background-color: ${colors.background.done};
 `
-const StepNumber = styled.div<{ isCurrent: boolean; isCompleted: boolean }>`
+const StepNumber = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['isCurrent', 'isCompleted'].includes(prop),
+})<{ isCurrent: boolean; isCompleted: boolean }>`
   width: 25px;
   height: 25px;
   display: flex;
@@ -74,7 +76,9 @@ const StepNumber = styled.div<{ isCurrent: boolean; isCompleted: boolean }>`
   font-weight: 500;
 `
 
-const Divider = styled.div<{ isCompleted: boolean }>`
+const Divider = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['isCompleted'].includes(prop),
+})<{ isCompleted: boolean }>`
   width: 100%;
   height: 2px;
   background-color: ${({ isCompleted }) =>
@@ -85,5 +89,4 @@ const Divider = styled.div<{ isCompleted: boolean }>`
   z-index: -1000;
   margin-left: 12.5px;
 `
-
 export default Steps

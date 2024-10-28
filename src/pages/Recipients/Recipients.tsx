@@ -149,7 +149,9 @@ const InputField = styled.input`
   }
 `
 
-const ListWrapper = styled.div<ListWrapperProps>`
+const ListWrapper = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['isScrolled'].includes(prop),
+})<ListWrapperProps>`
   width: 100vw;
   height: calc(100vh - 200px);
   margin-top: 10px;
