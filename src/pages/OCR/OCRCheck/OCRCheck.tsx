@@ -37,14 +37,7 @@ export const OCRCheckPage = () => {
           입력된 내용이 맞나요 ?
         </Heading.Medium>
       </div>
-      <Button
-        theme="dark"
-        css={{
-          margin: '0 0 26px 0',
-          width: '100%',
-          height: '62px',
-        }}
-      >
+      <Button theme="dark" margin="0 0 26px 0" width="100%" height="62px">
         확인
       </Button>
     </Wrapper>

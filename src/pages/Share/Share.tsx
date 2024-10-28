@@ -62,14 +62,7 @@ export const SharePage = () => {
         </ShareSquare>
       </div>
       <ButtonWrapper>
-        <Button
-          theme="dark"
-          css={{
-            width: '100%',
-            height: '62px',
-          }}
-          onClick={handleNext} // 클릭 시 handleNext 호출
-        >
+        <Button theme="dark" margin="26px 0" width="100%" height="62px" onClick={handleNext}>
           다음
         </Button>
       </ButtonWrapper>

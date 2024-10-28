@@ -35,14 +35,7 @@ export const DetailLogEntry = () => {
         있었던 오늘, 환자는 가족과의 대화에서 더욱 즐거워 보였으며, 전반적으로 긍정적인 반응을
         보였습니다. 환자의 상태가 잘 유지되고 있으므로, 계속 뭐시기 저시기 어쩌구 저쩌구 울랄라
       </TextBox>
-      <Button
-        theme="dark"
-        css={{
-          margin: '26px 0',
-          width: '100%',
-          height: '62px',
-        }}
-      >
+      <Button theme="dark" margin="26px 0" width="100%" height="62px">
         확인
       </Button>
     </Wrapper>
