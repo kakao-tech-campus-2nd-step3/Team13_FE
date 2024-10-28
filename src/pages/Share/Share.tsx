@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import cameraIcon from '@/assets/icons/camera.svg'
 import galleryIcon from '@/assets/icons/gallery.svg'
 import { useRef } from 'react'
+import { useNavigate } from 'react-router-dom' // 추가
 import Button from '@/components/common/Button/Button'
 
 interface Props {
@@ -16,11 +17,16 @@ interface Props {
 
 export const SharePage = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
+  const navigate = useNavigate() // 추가
 
   const handleFileSelect = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click()
     }
+  }
+
+  const handleNext = () => {
+    navigate('/chart') // 이동할 페이지 경로로 수정
   }
 
   return (
@@ -62,6 +68,7 @@ export const SharePage = () => {
             width: '100%',
             height: '62px',
           }}
+          onClick={handleNext} // 클릭 시 handleNext 호출
         >
           다음
         </Button>

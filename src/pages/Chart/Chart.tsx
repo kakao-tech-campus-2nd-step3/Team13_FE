@@ -8,6 +8,7 @@ import pencil from '@/assets/icons/pencil.svg'
 import cameraLineIcon from '@/assets/icons/camera_line.svg'
 import galleryLineIcon from '@/assets/icons/gallery_line.svg'
 import { useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 interface Props {
   icon: string
@@ -18,12 +19,23 @@ interface Props {
 
 export const ChartPage = () => {
   const [showPopup, setShowPopup] = useState(false)
-  const fileInputRef = useRef<HTMLInputElement | null>(null) // 타입 명시
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
+  const navigate = useNavigate()
 
   const handleFileSelect = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click()
     }
+  }
+
+  const handleCamera = () => {}
+
+  const handleRecord = () => {
+    navigate('/chart/audioRecord')
+  }
+
+  const handleDIY = () => {
+    navigate('/chart/DIY')
   }
 
   return (
@@ -53,13 +65,13 @@ export const ChartPage = () => {
           icon={recording}
           title="음성 녹음"
           sub="작성할 내용을 녹음해주세요."
-          onClick={() => {}}
+          onClick={handleRecord}
         ></ChartBlock>
         <ChartBlock
           icon={pencil}
           title="직접 입력"
           sub="작성할 내용을 직접 입력해주세요."
-          onClick={() => {}}
+          onClick={handleDIY}
         ></ChartBlock>
       </div>
       {showPopup && (
