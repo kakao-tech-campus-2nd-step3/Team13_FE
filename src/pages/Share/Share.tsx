@@ -3,14 +3,26 @@ import { colors } from '@/styles/colors/colors'
 import styled from 'styled-components'
 import cameraIcon from '@/assets/icons/camera.svg'
 import galleryIcon from '@/assets/icons/gallery.svg'
+import { useRef } from 'react'
+import Button from '@/components/common/Button/Button'
 
 interface Props {
   icon: string
   title: string
   sub: string
+  onClick: () => void
+  children?: React.ReactNode
 }
 
 export const SharePage = () => {
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
+
+  const handleFileSelect = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click()
+    }
+  }
+
   return (
     <Wrapper>
       <div
@@ -27,21 +39,40 @@ export const SharePage = () => {
         </TextBody.Large>
         <Heading.Medium>보호자와 일상을 공유해 보세요!</Heading.Medium>
       </div>
-      <div style={{ gap: '30px', display: 'flex', flexDirection: 'column' }}>
-        <ShareSquare icon={cameraIcon} title="사진 찍기" sub="피요양자의 일상을 촬영해 주세요." />
+      <div style={{ gap: '30px', display: 'flex', flexDirection: 'column', marginBottom: '50px' }}>
+        <ShareSquare
+          icon={cameraIcon}
+          title="사진 찍기"
+          sub="피요양자의 일상을 촬영해 주세요."
+          onClick={() => {}}
+        />
         <ShareSquare
           icon={galleryIcon}
           title="갤러리에서 선택"
           sub="미리 찍은 피요양자의 사진을 업로드 해주세요."
-        />
+          onClick={handleFileSelect}
+        >
+          <input type="file" ref={fileInputRef} style={{ display: 'none' }} />
+        </ShareSquare>
       </div>
+      <ButtonWrapper>
+        <Button
+          theme="dark"
+          css={{
+            width: '100%',
+            height: '62px',
+          }}
+        >
+          다음
+        </Button>
+      </ButtonWrapper>
     </Wrapper>
   )
 }
 
-const ShareSquare = ({ icon, title, sub }: Props) => {
+const ShareSquare = ({ icon, title, sub, onClick, children }: Props) => {
   return (
-    <SquareWrapper>
+    <SquareWrapper onClick={onClick}>
       <img src={icon} alt={icon} />
       <div
         style={{
@@ -57,6 +88,7 @@ const ShareSquare = ({ icon, title, sub }: Props) => {
           {sub}
         </TextBody.Large>
       </div>
+      {children}
     </SquareWrapper>
   )
 }
@@ -82,4 +114,13 @@ const SquareWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: pointer; /* 클릭할 수 있도록 커서 스타일 추가 */
+`
+
+const ButtonWrapper = styled.div`
+  width: 100%;
+  padding: 0 23px 26px 23px;
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 0;
 `
