@@ -8,6 +8,7 @@ export const RouterPath = {
   SHARE: '/share',
   CAMERA: '/camera',
   AUDIO_RECORD: '/audioRecord',
+  MULTIPLE_CHOICE: '/multipleChoice',
   CARE_LOG: '/careLog',
   DETAIL_LOG: '/detailLog',
   SPEECH_TO_TEXT: '/speechToText',

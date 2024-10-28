@@ -16,6 +16,7 @@ import { DetailLogPage } from '@/pages/CareLog/DetailLog/DetailLog'
 import { SharePage } from '@/pages/Share/Share'
 import { ChartPage } from '@/pages/Chart/Chart'
 import { OCRLoadingPage } from '@/pages/OCR/OCRLoading/OCRLoading'
+import { MultipleChoicePage } from '@/pages/MultipleChoice/MultipleChoice'
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: RouterPath.AUDIO_RECORD,
         element: <AudioRecordPage />,
+      },
+      {
+        path: RouterPath.MULTIPLE_CHOICE,
+        element: <MultipleChoicePage />,
       },
       {
         path: RouterPath.CARE_LOG,

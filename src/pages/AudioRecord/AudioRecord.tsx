@@ -91,22 +91,10 @@ export const AudioRecordPage = () => {
                 flexDirection: 'column',
                 justifyContent: 'start',
                 alignItems: 'center',
-                height: '200px',
+                height: '210px',
               }}
             >
-              <div
-                style={{
-                  width: '80px',
-                  height: '80px',
-                  borderRadius: '50%',
-                  backgroundColor: '#F8F8F8',
-                  justifyContent: 'center',
-                  alignContent: 'center',
-                  textAlign: 'center',
-                  marginTop: '50px',
-                  marginBottom: '20px',
-                }}
-              >
+              <RecordCircle>
                 <BeatLoader
                   color="#4894FE"
                   margin={6}
@@ -114,7 +102,7 @@ export const AudioRecordPage = () => {
                   speedMultiplier={1.2}
                   style={{ height: '80px', width: '80px' }}
                 />
-              </div>
+              </RecordCircle>
               <Paragraph.Large style={{ color: colors.text.subtle }}>00:05:36</Paragraph.Large>
             </div>
           ) : (
@@ -124,22 +112,10 @@ export const AudioRecordPage = () => {
                 flexDirection: 'column',
                 justifyContent: 'start',
                 alignItems: 'center',
-                height: '200px',
+                height: '210px',
               }}
             >
-              <div
-                style={{
-                  width: '80px',
-                  height: '80px',
-                  borderRadius: '50%',
-                  backgroundColor: '#F8F8F8',
-                  justifyContent: 'center',
-                  alignContent: 'center',
-                  textAlign: 'center',
-                  marginTop: '50px',
-                  marginBottom: '20px',
-                }}
-              >
+              <RecordCircle>
                 <BeatLoader
                   color="#4894FE"
                   margin={6}
@@ -147,12 +123,11 @@ export const AudioRecordPage = () => {
                   speedMultiplier={0}
                   style={{ height: '80px', width: '80px' }}
                 />
-              </div>
+              </RecordCircle>
             </div>
           )}
         </div>
       </div>
-
       <div>
         {isRecording ? (
           <button onClick={stopRecording}>녹음 중지</button>
@@ -183,6 +158,18 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 0 23px;
+`
+
+const RecordCircle = styled.div`
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #f8f8f8;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  margin-top: 80px;
+  margin-bottom: 20px;
 `
 
 const WaveBackground = styled.div`
