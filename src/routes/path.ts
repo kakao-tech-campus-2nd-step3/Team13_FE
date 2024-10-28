@@ -11,6 +11,7 @@ export const RouterPath = {
   MULTIPLE_CHOICE: '/multipleChoice',
   CARE_LOG: '/careLog',
   DETAIL_LOG: '/detailLog',
+  MULTIPLE_LOG: '/multipleLog',
   SPEECH_TO_TEXT: '/speechToText',
   OCR: '/ocr',
   OCR_LOADING: '/ocr/loading',

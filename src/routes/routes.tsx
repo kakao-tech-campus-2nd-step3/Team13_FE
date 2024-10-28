@@ -17,6 +17,7 @@ import { SharePage } from '@/pages/Share/Share'
 import { ChartPage } from '@/pages/Chart/Chart'
 import { OCRLoadingPage } from '@/pages/OCR/OCRLoading/OCRLoading'
 import { MultipleChoicePage } from '@/pages/MultipleChoice/MultipleChoice'
+import { MultipleLogPage } from '@/pages/CareLog/MultipleLog/MultipleLog'
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: RouterPath.DETAIL_LOG,
         element: <DetailLogPage />,
+      },
+      {
+        path: RouterPath.MULTIPLE_LOG,
+        element: <MultipleLogPage />,
       },
       {
         path: RouterPath.SPEECH_TO_TEXT,

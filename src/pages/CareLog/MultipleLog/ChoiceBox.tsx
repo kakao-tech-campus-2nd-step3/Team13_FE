@@ -7,13 +7,10 @@ import styled from 'styled-components'
 interface Props {
   icon: string
   title: string
+  times: number
 }
 
-export const ChoiceBox = ({ icon, title }: Props) => {
-  const [times, setTimes] = useState(0)
-  const increaseTimes = () => setTimes((prev) => prev + 1)
-  const decreaseTimes = () => setTimes((prev) => (prev > 0 ? prev - 1 : 0))
-
+export const ChoiceBox = ({ icon, title, times }: Props) => {
   return (
     <Box>
       <TitleBox>
@@ -23,28 +20,7 @@ export const ChoiceBox = ({ icon, title }: Props) => {
           <BackgroundBar />
         </TitleContainer>
       </TitleBox>
-      <PlusBox>
-        <Background>
-          <img src={minus} alt="minus" onClick={decreaseTimes} />
-          <div
-            style={{
-              width: '45px',
-              height: '32px',
-              backgroundColor: 'white',
-              borderRadius: '8px',
-              boxShadow: '0px 1px 5px rgba(0, 0, 0, 0.25)',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              fontSize: '17px',
-              fontWeight: '700',
-            }}
-          >
-            {times}
-          </div>
-          <img src={plus} alt="plus" onClick={increaseTimes} />
-        </Background>
-      </PlusBox>
+      <PlusBox>{times}회</PlusBox>
     </Box>
   )
 }
@@ -98,15 +74,8 @@ const PlusBox = styled.div`
   justify-content: center;
   align-items: center;
   display: flex;
-`
-
-const Background = styled.div`
-  width: 119px;
-  height: 41px;
-  border-radius: 8px;
-  background-color: #ececec;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  justify-content: space-evenly;
+  background-color: rgba(72, 148, 254, 0.15);
+  border-radius: 0 0 16px 16px;
+  font-weight: 700;
+  font-size: 15px;
 `
