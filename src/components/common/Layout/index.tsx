@@ -12,15 +12,12 @@ export const Layout = () => (
 )
 
 const Wrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
   padding-top: 15px;
   box-sizing: border-box;
   position: relative;
 `
 
 const InnerWrapper = styled.div`
-  height: 100vh;
   position: absolute;
   top: 0;
   left: 0;
