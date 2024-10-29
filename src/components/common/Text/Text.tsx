@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { FontWeight, ScreenSize } from '@/types/styles'
 import { TextProps } from '@/types/props'
-import { breakpoints } from '@/styles/breakpoints'
+import { breakpoints } from '@/styles/breakpoints/breakpoints'
 
 function Text({ children, weight, responsiveSize, as = 'p', color, ...rest }: TextProps) {
   const cssWeight = convertWeightToCss(weight)

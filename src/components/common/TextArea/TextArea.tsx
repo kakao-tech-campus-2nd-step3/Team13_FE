@@ -1,4 +1,4 @@
-import { colors } from '@/styles/colors'
+import { colors } from '@/styles/colors/colors'
 import styled from '@emotion/styled'
 
 type Props = {
@@ -17,6 +17,7 @@ const Input = styled.textarea<Pick<Props, 'invalid' | 'customSize'>>(
     border: '1px solid',
     borderRadius: '16px',
     padding: '18px',
+    resize: 'none',
 
     '&:focus': {
       outline: 'none',

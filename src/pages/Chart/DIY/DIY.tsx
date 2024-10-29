@@ -1,10 +1,10 @@
-import Button from '@/components/common/Button'
-import Steps from '@/components/common/Steps'
+import Button from '@/components/common/Button/Button'
+import Steps from '@/components/common/Steps/Steps'
 import { Heading } from '@/components/common/Text/TextFactory'
-import { TextArea } from '@/components/common/TextArea'
+import { TextArea } from '@/components/common/TextArea/TextArea'
 import styled from 'styled-components'
 
-export const DIY = () => {
+export const DIYPage = () => {
   return (
     <Wrapper>
       <Steps currentStep={2} totalSteps={5} />

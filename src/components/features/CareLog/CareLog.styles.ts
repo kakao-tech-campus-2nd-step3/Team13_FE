@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { colors } from '@/styles/colors'
+import { colors } from '@/styles/colors/colors'
 
 const Container = styled.div`
   padding: 2.5rem;

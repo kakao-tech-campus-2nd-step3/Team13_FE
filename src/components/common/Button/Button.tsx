@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react'
 import { css } from '@emotion/react'
-import { colors } from '@/styles/colors'
+import { colors } from '@/styles/colors/colors'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: ReactNode

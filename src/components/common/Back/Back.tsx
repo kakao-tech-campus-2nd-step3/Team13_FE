@@ -1,15 +1,22 @@
 import backArrow from '@/assets/icons/back_arrow.svg'
+import { useNavigate } from 'react-router-dom'
 
 function Back() {
+  const navigate = useNavigate()
+
+  const handleGoBack = () => {
+    navigate(-1)
+  }
+
   return (
     <div
-      onClick={() => {}}
+      onClick={handleGoBack}
       style={{
         width: '100vw',
         paddingLeft: '15px',
         boxSizing: 'border-box',
         display: 'flex',
-        zIndex: '1000',
+        zIndex: '5000',
         alignItems: 'center',
         cursor: 'pointer',
         height: '20px',
