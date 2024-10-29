@@ -5,7 +5,7 @@ import { MdDeleteOutline, MdOutlineModeEdit } from 'react-icons/md'
 import { FileUploadModal } from '../Modal/Modal'
 
 interface TableRow extends Record<string, unknown> {
-  id: number
+  id?: number
   isNew?: boolean
 }
 
@@ -48,7 +48,7 @@ export const Table = <T extends TableRow>({ title, columns, data }: TableProps<T
         </S.Thead>
         <S.Tbody>
           {tableData.map((row, rowIndex) => (
-            <tr key={row.id}>
+            <tr key={row.id || rowIndex}>
               {columns.map((col, colIndex) => (
                 <td key={colIndex}>
                   {col.key === 'id' ? (
