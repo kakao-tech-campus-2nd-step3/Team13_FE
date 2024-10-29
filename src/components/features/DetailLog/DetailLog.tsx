@@ -2,7 +2,6 @@ import Button from '@/components/common/Button/Button'
 import Date from '@/components/common/Date/Date'
 import Steps from '@/components/common/Steps/Steps'
 import { Heading } from '@/components/common/Text/TextFactory'
-import { TextArea } from '@/components/common/TextArea/TextArea'
 import styled from 'styled-components'
 
 export const DetailLogEntry = () => {

@@ -16,6 +16,13 @@ export const RouterPath = {
   OCR: '/ocr',
   OCR_LOADING: '/ocr/loading',
   OCR_CHECKING: '/ocr/check',
+  ADMIN: {
+    ROOT: '/admin',
+    CAREWORKER: '/admin/careWorker',
+    GUARDIAN: '/admin/guardian',
+    INSTITUTION: '/admin/institution',
+    RECIPIENT: '/admin/recipient',
+  },
   NOT_FOUND: '*',
 }
 

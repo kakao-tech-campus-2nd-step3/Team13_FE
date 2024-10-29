@@ -1,7 +1,4 @@
-import minus from '@/assets/icons/minus.svg'
-import plus from '@/assets/icons/plus.svg'
 import { colors } from '@/styles/colors/colors'
-import { useState } from 'react'
 import styled from 'styled-components'
 
 interface Props {
@@ -74,7 +71,7 @@ const PlusBox = styled.div`
   justify-content: center;
   align-items: center;
   display: flex;
-  background-color: rgba(72, 148, 254, 0.15);
+  background-color: ${colors.primary.mainOpacity15};
   border-radius: 0 0 16px 16px;
   font-weight: 700;
   font-size: 15px;
