@@ -104,8 +104,11 @@ const ChartBlock = ({ icon, title, sub, onClick }: Props) => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: '#FAFAFA',
+          // backgroundColor: '#FAFAFA',
           flexShrink: 0,
+          marginLeft: '8px',
+          marginRight: '7px',
+          boxShadow: '0px 3px 10px rgba(0, 0, 0, 0.1)',
         }}
       >
         <img src={icon} alt={icon} />

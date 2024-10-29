@@ -105,7 +105,7 @@ const Wrapper = styled.div`
 `
 
 const SquareWrapper = styled.div`
-  border: 3px dashed ${colors.border.subtle};
+  border: 2px dashed ${colors.border.subtle};
   border-radius: 8px;
   height: 180px;
   width: 100%;
