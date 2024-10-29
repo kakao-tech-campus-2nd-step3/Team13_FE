@@ -1,6 +1,7 @@
 import '@/App.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { Routes } from './routes'
+import { Routes } from './routes/routes'
+import { BrowserRouter } from 'react-router-dom'
 
 const queryClient = new QueryClient()
 
@@ -8,7 +9,7 @@ const queryClient = new QueryClient()
 //   return (
 //     <QueryClientProvider client={queryClient}>
 //       <div className="App">
-//         <BrowserRouter>{/*<AppRoutes />*/}</BrowserRouter>
+//         <BrowserRouter><Routes /></BrowserRouter>
 //       </div>
 //     </QueryClientProvider>
 //   )

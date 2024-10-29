@@ -1,18 +1,43 @@
-import { Heading, TextBody } from '@/components/common/Text/TextFactory'
-import { colors } from '@/styles/colors'
+import { Heading, Paragraph, TextBody } from '@/components/common/Text/TextFactory'
+import { colors } from '@/styles/colors/colors'
 import styled from 'styled-components'
 import cameraIcon from '@/assets/icons/camera.svg'
 import nextArrow from '@/assets/icons/next_arrow.svg'
 import recording from '@/assets/icons/recording.svg'
 import pencil from '@/assets/icons/pencil.svg'
+import cameraLineIcon from '@/assets/icons/camera_line.svg'
+import galleryLineIcon from '@/assets/icons/gallery_line.svg'
+import { useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 interface Props {
   icon: string
   title: string
   sub: string
+  onClick: () => void
 }
 
 export const ChartPage = () => {
+  const [showPopup, setShowPopup] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
+  const navigate = useNavigate()
+
+  const handleFileSelect = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click()
+    }
+  }
+
+  const handleCamera = () => {}
+
+  const handleRecord = () => {
+    navigate('/chart/audioRecord')
+  }
+
+  const handleDIY = () => {
+    navigate('/chart/DIY')
+  }
+
   return (
     <Wrapper>
       <div
@@ -34,25 +59,43 @@ export const ChartPage = () => {
           icon={cameraIcon}
           title="사진 촬영"
           sub="작성한 차트를 촬영하거나 업로드 해주세요."
+          onClick={() => setShowPopup(true)}
         ></ChartBlock>
         <ChartBlock
           icon={recording}
           title="음성 녹음"
           sub="작성할 내용을 녹음해주세요."
+          onClick={handleRecord}
         ></ChartBlock>
         <ChartBlock
           icon={pencil}
           title="직접 입력"
           sub="작성할 내용을 직접 입력해주세요."
+          onClick={handleDIY}
         ></ChartBlock>
       </div>
+      {showPopup && (
+        <PopupOverlay onClick={() => setShowPopup(false)}>
+          <PopupContent onClick={(e) => e.stopPropagation()} className="slide-up">
+            <Option>
+              <img src={cameraLineIcon} alt="camera" />
+              <Paragraph.Large>사진 촬영</Paragraph.Large>
+            </Option>
+            <Option onClick={handleFileSelect}>
+              <img src={galleryLineIcon} alt="gallery" />
+              <Paragraph.Large>갤러리에서 선택</Paragraph.Large>
+              <input type="file" ref={fileInputRef} style={{ display: 'none' }} />
+            </Option>
+          </PopupContent>
+        </PopupOverlay>
+      )}
     </Wrapper>
   )
 }
 
-const ChartBlock = ({ icon, title, sub }: Props) => {
+const ChartBlock = ({ icon, title, sub, onClick }: Props) => {
   return (
-    <BlockWrapper>
+    <BlockWrapper onClick={onClick}>
       <div
         style={{
           width: '70px',
@@ -61,8 +104,11 @@ const ChartBlock = ({ icon, title, sub }: Props) => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: '#FAFAFA',
+          // backgroundColor: '#FAFAFA',
           flexShrink: 0,
+          marginLeft: '8px',
+          marginRight: '7px',
+          boxShadow: '0px 3px 10px rgba(0, 0, 0, 0.1)',
         }}
       >
         <img src={icon} alt={icon} />
@@ -133,5 +179,45 @@ const BlockWrapper = styled.div`
   /* 붙어있는 블록 간의 중복되는 border 처리 */
   &:not(:first-child) {
     border-top: 0;
+  }
+`
+const PopupOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 1000;
+`
+
+const PopupContent = styled.div`
+  width: 100%;
+  max-width: 400px;
+  background: white;
+  padding: 41px;
+  border-radius: 24px 24px 0 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  transform: translateY(100%);
+  transition: transform 0.3s ease-in-out;
+
+  &.slide-up {
+    transform: translateY(0);
+  }
+`
+
+const Option = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  cursor: pointer;
+  img {
+    margin-right: 10px;
   }
 `
