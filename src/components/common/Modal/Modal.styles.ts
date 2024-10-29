@@ -1,6 +1,17 @@
 import { colors } from '@/styles/colors'
 import styled from '@emotion/styled'
 
+const FileListWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+`
+const FileList = styled.div`
+  border-radius: 4px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  background-color: ${colors.primary.mainOpacity15};
+`
+
 const FileInput = styled.input`
   display: none;
 `
@@ -35,4 +46,4 @@ const customModalStyles = {
   },
 }
 
-export { FileInput, SquareWrapper, ButtonWrapper, customModalStyles }
+export { FileListWrapper, FileList, FileInput, SquareWrapper, ButtonWrapper, customModalStyles }

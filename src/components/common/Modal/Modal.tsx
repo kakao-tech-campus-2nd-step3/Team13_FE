@@ -47,7 +47,9 @@ export const FileUploadModal: React.FC<FileUploadModalProps> = ({
       <label htmlFor="file-upload">
         <S.SquareWrapper>
           {selectedFile ? (
-            <span>{selectedFile.name}</span>
+            <S.FileListWrapper>
+              <S.FileList>{selectedFile.name}</S.FileList>
+            </S.FileListWrapper>
           ) : (
             <>
               <IoCloudUploadOutline size="30" />
