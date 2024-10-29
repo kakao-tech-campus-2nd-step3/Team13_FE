@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { RouterPath } from './path'
 
+// NON-ADMIN
 import { HomePage } from '@/pages/Home/Home'
 import { CameraPage } from '@/pages/Camera/Camera'
 import { AudioRecordPage } from '@/pages/AudioRecord/AudioRecord'
@@ -18,6 +19,12 @@ import { ChartPage } from '@/pages/Chart/Chart'
 import { OCRLoadingPage } from '@/pages/OCR/OCRLoading/OCRLoading'
 import { MultipleChoicePage } from '@/pages/MultipleChoice/MultipleChoice'
 import { MultipleLogPage } from '@/pages/CareLog/MultipleLog/MultipleLog'
+
+// ADMIN
+import { CareWorkerPage } from '@/pages/admin/CareWorkerPage'
+import { GuardianPage } from '@/pages/admin/GuardianPage'
+import { InstitutionPage } from '@/pages/admin/InstitutionPage'
+import { RecipientPage } from '@/pages/admin/RecipientPage'
 
 const router = createBrowserRouter([
   {
@@ -88,7 +95,26 @@ const router = createBrowserRouter([
         path: RouterPath.OCR_CHECKING,
         element: <OCRCheckPage />,
       },
-      { path: RouterPath.NOT_FOUND, element: <HomePage /> },
+      {
+        path: RouterPath.ADMIN.CAREWORKER,
+        element: <CareWorkerPage />,
+      },
+      {
+        path: RouterPath.ADMIN.GUARDIAN,
+        element: <GuardianPage />,
+      },
+      {
+        path: RouterPath.ADMIN.INSTITUTION,
+        element: <InstitutionPage />,
+      },
+      {
+        path: RouterPath.ADMIN.RECIPIENT,
+        element: <RecipientPage />,
+      },
+      {
+        path: RouterPath.NOT_FOUND,
+        element: <HomePage />,
+      },
     ],
   },
 ])

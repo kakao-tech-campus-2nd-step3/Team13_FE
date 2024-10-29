@@ -1,4 +1,4 @@
-import { colors } from '@/styles/colors'
+import { colors } from '@/styles/colors/colors'
 import styled from '@emotion/styled'
 
 const FileListWrapper = styled.div`

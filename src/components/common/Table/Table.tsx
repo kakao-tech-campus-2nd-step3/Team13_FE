@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Button from '../Button'
+import Button from '../Button/Button'
 import * as S from './Table.styles'
 import { MdDeleteOutline, MdOutlineModeEdit } from 'react-icons/md'
 import { FileUploadModal } from '../Modal/Modal'

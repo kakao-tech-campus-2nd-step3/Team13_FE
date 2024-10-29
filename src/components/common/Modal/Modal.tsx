@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Modal from 'react-modal'
 import * as S from './Modal.styles'
-import Button from '../Button'
+import Button from '../Button/Button'
 import { IoCloudUploadOutline } from 'react-icons/io5'
 
 interface FileUploadModalProps {
