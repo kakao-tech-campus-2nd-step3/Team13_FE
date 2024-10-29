@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import * as S from './index.styles'
-import './index.styles'
+import * as S from './CareLog.styles'
+import './CareLog.styles'
 import { IoCalendarNumberOutline } from 'react-icons/io5'
 
 export const CareLogEntry = () => {

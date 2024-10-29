@@ -1,6 +1,6 @@
-import Button from '@/components/common/Button'
-import { InputField } from '@/components/common/InputField'
-import { colors } from '@/styles/colors'
+import Button from '@/components/common/Button/Button'
+import { InputField } from '@/components/common/InputField/InputField'
+import { colors } from '@/styles/colors/colors'
 import styled from '@emotion/styled'
 import { useState } from 'react'
 

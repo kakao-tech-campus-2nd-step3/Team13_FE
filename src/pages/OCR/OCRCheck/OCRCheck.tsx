@@ -1,11 +1,11 @@
-import Button from '@/components/common/Button'
-import Steps from '@/components/common/Steps'
+import Button from '@/components/common/Button/Button'
+import Steps from '@/components/common/Steps/Steps'
 import { Heading } from '@/components/common/Text/TextFactory'
-import { TextArea } from '@/components/common/TextArea'
-import { colors } from '@/styles/colors'
+import { TextArea } from '@/components/common/TextArea/TextArea'
+import { colors } from '@/styles/colors/colors'
 import styled from 'styled-components'
 
-export const OCRCheck = () => {
+export const OCRCheckPage = () => {
   return (
     <Wrapper>
       <Steps currentStep={2} totalSteps={5} />
@@ -37,14 +37,7 @@ export const OCRCheck = () => {
           입력된 내용이 맞나요 ?
         </Heading.Medium>
       </div>
-      <Button
-        theme="dark"
-        css={{
-          margin: '0 0 26px 0',
-          width: '100%',
-          height: '62px',
-        }}
-      >
+      <Button theme="dark" margin="0 0 26px 0" width="100%" height="62px">
         확인
       </Button>
     </Wrapper>
