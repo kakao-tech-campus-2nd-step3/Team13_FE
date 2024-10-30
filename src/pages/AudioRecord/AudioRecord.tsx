@@ -4,6 +4,7 @@ import { colors } from '@/styles/colors/colors'
 import { BeatLoader } from 'react-spinners'
 import { useRef, useState } from 'react'
 import play from '@/assets/icons/play.svg'
+import stop from '@/assets/icons/stop.svg'
 import styled from 'styled-components'
 
 export const AudioRecordPage = () => {
@@ -84,57 +85,31 @@ export const AudioRecordPage = () => {
           주변 소음이 들리지 않도록 해주세요.
         </Paragraph.Large>
         <div>
-          {isRecording ? (
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'start',
-                alignItems: 'center',
-                height: '210px',
-              }}
-            >
-              <RecordCircle>
-                <BeatLoader
-                  color="#4894FE"
-                  margin={6}
-                  size={8}
-                  speedMultiplier={1.2}
-                  style={{ height: '80px', width: '80px' }}
-                />
-              </RecordCircle>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'start',
+              alignItems: 'center',
+              height: '210px',
+            }}
+          >
+            <RecordCircle>
+              <BeatLoader
+                color="#4894FE"
+                margin={6}
+                size={8}
+                speedMultiplier={isRecording ? 1.2 : 0}
+                style={{ height: '80px', width: '80px' }}
+              />
+            </RecordCircle>
+            {isRecording && (
               <Paragraph.Large style={{ color: colors.text.subtle }}>00:05:36</Paragraph.Large>
-            </div>
-          ) : (
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'start',
-                alignItems: 'center',
-                height: '210px',
-              }}
-            >
-              <RecordCircle>
-                <BeatLoader
-                  color="#4894FE"
-                  margin={6}
-                  size={8}
-                  speedMultiplier={0}
-                  style={{ height: '80px', width: '80px' }}
-                />
-              </RecordCircle>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
       <div>
-        {isRecording ? (
-          <button onClick={stopRecording}>녹음 중지</button>
-        ) : (
-          <button onClick={startRecording}>녹음 시작</button>
-        )}
-
         {audioUrl && (
           <div>
             <h2>녹음된 파일:</h2>
@@ -146,11 +121,17 @@ export const AudioRecordPage = () => {
         <Mountain3 />
         <Mountain2 />
         <Mountain1 />
-        <CenteredImage src={play} alt={play} />
+
+        {isRecording ? (
+          <CenteredImage src={stop} alt={stop} onClick={stopRecording} />
+        ) : (
+          <CenteredImage src={play} alt={play} onClick={startRecording} />
+        )}
       </WaveBackground>
     </Wrapper>
   )
 }
+
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
@@ -206,12 +187,13 @@ const Mountain3 = styled.div`
   background-color: #e4efff;
   clip-path: ellipse(100% 90% at 30% 100%);
 `
+
 const CenteredImage = styled.img`
   position: absolute;
   bottom: 70px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 4;
-  width: 34px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
 `
