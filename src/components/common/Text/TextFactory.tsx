@@ -1,5 +1,5 @@
 import { TextProps } from '@/types/props'
-import Text from '@/components/common/Text'
+import Text from '@/components/common/Text/Text'
 
 export function createTextComponent(props: Partial<TextProps>) {
   return function TextComponent(extraProps: TextProps) {
