@@ -1,27 +1,23 @@
-import Date from '@/components/common/Date/Date'
 import styled from 'styled-components'
-import waterDrop from '@/assets/icons/water_drop.svg'
-import human from '@/assets/icons/human.svg'
-import teeth from '@/assets/icons/teeth.svg'
-import shower from '@/assets/icons/shower.svg'
-import { ChoiceBox } from './ChoiceBox'
-import Button from '@/components/common/Button/Button'
+import cognitive from '@/assets/icons/cognitive.svg'
+import clap from '@/assets/icons/clap.svg'
 
-export const MultipleChoicePage = () => {
+import Button from '@/components/common/Button/Button'
+import { CheckBox } from '../../../components/features/MultipleChoice/CheckBox'
+import { useState } from 'react'
+import { Heading } from '@/components/common/Text/TextFactory'
+import Steps from '@/components/common/Steps/Steps'
+
+export const CognitiveChoicePage = () => {
   return (
     <Wrapper>
-      <DateWrapper>
-        <Date year="2024" month="09" date="19" />
-      </DateWrapper>
+      <Steps currentStep={2} totalSteps={4} />
+      <Heading.Medium style={{ marginTop: '26px', width: '100%' }}>
+        인지관리 및 의사소통
+      </Heading.Medium>
       <ChoiceGrid>
-        <ChoiceBox icon={waterDrop} title="세면 도움" />
-        <ChoiceBox icon={human} title="몸 단장" />
-        <ChoiceBox icon={teeth} title="구강 관리" />
-        <ChoiceBox icon={shower} title="세면 도움" />
-        <ChoiceBox icon={teeth} title="구강 관리" />
-        <ChoiceBox icon={waterDrop} title="세면 도움" />
-        <ChoiceBox icon={human} title="몸 단장" />
-        <ChoiceBox icon={shower} title="세면 도움" />
+        <CheckBox icon={cognitive} title="인지관리 지원" />
+        <CheckBox icon={clap} title="말벗 및 격려" />
       </ChoiceGrid>
       <ButtonWrapper>
         <Button
@@ -44,10 +40,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 0 23px;
-`
-
-const DateWrapper = styled.div`
-  width: 100%;
 `
 
 const ChoiceGrid = styled.div`

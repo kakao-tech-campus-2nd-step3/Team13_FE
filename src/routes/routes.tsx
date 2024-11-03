@@ -17,7 +17,7 @@ import { DetailLogPage } from '@/pages/CareLog/DetailLog/DetailLog'
 import { SharePage } from '@/pages/Share/Share'
 import { ChartPage } from '@/pages/Chart/Chart'
 import { OCRLoadingPage } from '@/pages/OCR/OCRLoading/OCRLoading'
-import { MultipleChoicePage } from '@/pages/MultipleChoice/MultipleChoice'
+import { PhysicalChoicePage } from '@/pages/Choice/Physical/PhysicalChoice'
 import { MultipleLogPage } from '@/pages/CareLog/MultipleLog/MultipleLog'
 
 // ADMIN
@@ -25,6 +25,9 @@ import { CareWorkerPage } from '@/pages/admin/CareWorkerPage'
 import { GuardianPage } from '@/pages/admin/GuardianPage'
 import { InstitutionPage } from '@/pages/admin/InstitutionPage'
 import { RecipientPage } from '@/pages/admin/RecipientPage'
+import { CognitiveChoicePage } from '@/pages/Choice/Cognitive/CognitiveChoice'
+import { HealthChoicePage } from '@/pages/Choice/Health/HealthChoice'
+import { RecoveryChoicePage } from '@/pages/Choice/Recovery/RecoveryChoice'
 
 const router = createBrowserRouter([
   {
@@ -64,8 +67,20 @@ const router = createBrowserRouter([
         element: <AudioRecordPage />,
       },
       {
-        path: RouterPath.MULTIPLE_CHOICE,
-        element: <MultipleChoicePage />,
+        path: RouterPath.PHYSICAL_CHOICE,
+        element: <PhysicalChoicePage />,
+      },
+      {
+        path: RouterPath.COGNITIVE_CHOICE,
+        element: <CognitiveChoicePage />,
+      },
+      {
+        path: RouterPath.HEALTH_CHOICE,
+        element: <HealthChoicePage />,
+      },
+      {
+        path: RouterPath.RECOVERY_CHOICE,
+        element: <RecoveryChoicePage />,
       },
       {
         path: RouterPath.CARE_LOG,
