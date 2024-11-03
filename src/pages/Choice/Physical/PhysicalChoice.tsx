@@ -17,8 +17,10 @@ import Steps from '@/components/common/Steps/Steps'
 import { CheckBox } from '@/components/features/MultipleChoice/CheckBox'
 import { MultipleBox } from '@/components/features/MultipleChoice/MultipleBox'
 import { TimesBox } from '@/components/features/MultipleChoice/TimesBox'
+import { useNavigate } from 'react-router-dom'
 
 export const PhysicalChoicePage = () => {
+  const navigate = useNavigate()
   const [selectedOptions, setSelectedOptions] = useState<{ [key: string]: string | null }>({
     '식사 섭취량': null,
     '청결 관리': null,
@@ -56,6 +58,9 @@ export const PhysicalChoicePage = () => {
       <ButtonWrapper>
         <Button
           theme="dark"
+          onClick={() => {
+            navigate('/chart/choice/cognitive')
+          }}
           css={{
             width: '100%',
             height: '62px',

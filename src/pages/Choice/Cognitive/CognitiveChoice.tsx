@@ -7,8 +7,10 @@ import Button from '@/components/common/Button/Button'
 import { Heading } from '@/components/common/Text/TextFactory'
 import Steps from '@/components/common/Steps/Steps'
 import { CheckBox } from '@/components/features/MultipleChoice/CheckBox'
+import { useNavigate } from 'react-router-dom'
 
 export const CognitiveChoicePage = () => {
+  const navigate = useNavigate()
   return (
     <Wrapper>
       <Steps currentStep={2} totalSteps={4} />
@@ -22,6 +24,9 @@ export const CognitiveChoicePage = () => {
       <ButtonWrapper>
         <Button
           theme="dark"
+          onClick={() => {
+            navigate('/chart/choice/health')
+          }}
           css={{
             width: '100%',
             height: '62px',

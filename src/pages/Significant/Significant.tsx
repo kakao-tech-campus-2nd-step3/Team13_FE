@@ -1,16 +1,28 @@
+import { useNavigate } from 'react-router-dom'
 import Button from '@/components/common/Button/Button'
 import Steps from '@/components/common/Steps/Steps'
 import { Heading } from '@/components/common/Text/TextFactory'
 import { TextArea } from '@/components/common/TextArea/TextArea'
 import styled from 'styled-components'
 
-export const DIYPage = () => {
+interface DIYProps {
+  step: number
+  title: string
+  navigateTo: string
+}
+
+export const SignificantPage = ({ step, title, navigateTo }: DIYProps) => {
+  const navigate = useNavigate()
+  const handleConfirmClick = () => {
+    navigate(navigateTo)
+  }
+
   return (
     <Wrapper>
-      <Steps currentStep={2} totalSteps={5} />
+      <Steps currentStep={step} totalSteps={4} />
       <div style={{ padding: '23px 0', lineHeight: '1.2' }}>
         <Heading.Medium>
-          오늘 김영숙 환자의 인지 관리
+          {title}에 대한
           <br />
           특이 사항을 입력해 주세요.
         </Heading.Medium>
@@ -21,6 +33,7 @@ export const DIYPage = () => {
       ></TextArea>
       <Button
         theme="dark"
+        onClick={handleConfirmClick}
         css={{
           margin: '26px 0',
           width: '100%',
@@ -32,6 +45,7 @@ export const DIYPage = () => {
     </Wrapper>
   )
 }
+
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
@@ -39,4 +53,5 @@ const Wrapper = styled.div`
   align-items: start;
   flex-direction: column;
   padding: 0 23px;
+  box-sizing: border-box;
 `

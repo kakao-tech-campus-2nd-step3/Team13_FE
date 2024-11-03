@@ -9,10 +9,12 @@ import Button from '@/components/common/Button/Button'
 
 import { Heading } from '@/components/common/Text/TextFactory'
 import Steps from '@/components/common/Steps/Steps'
-import { WriteBox } from '@/components/features/MultipleChoice/\bWriteBox'
+import { WriteBox } from '@/components/features/MultipleChoice/WriteBox'
 import { CheckBox } from '@/components/features/MultipleChoice/CheckBox'
+import { useNavigate } from 'react-router-dom'
 
 export const HealthChoicePage = () => {
+  const navigate = useNavigate()
   return (
     <Wrapper>
       <Steps currentStep={3} totalSteps={4} />
@@ -42,6 +44,9 @@ export const HealthChoicePage = () => {
       <ButtonWrapper>
         <Button
           theme="dark"
+          onClick={() => {
+            navigate('/chart/choice/recovery')
+          }}
           css={{
             width: '100%',
             height: '62px',

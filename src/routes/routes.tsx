@@ -11,7 +11,7 @@ import { OCRPage } from '@/pages/OCR/OCR'
 import { LoginPage } from '@/pages/Login/Login'
 import { RecipientsPage } from '@/pages/Recipients/Recipients'
 import { Layout } from '@/components/common/Layout/Layout'
-import { DIYPage } from '@/pages/Chart/DIY/DIY'
+import { SignificantPage } from '@/pages/Significant/Significant'
 import { OCRCheckPage } from '@/pages/OCR/OCRCheck/OCRCheck'
 import { DetailLogPage } from '@/pages/CareLog/DetailLog/DetailLog'
 import { SharePage } from '@/pages/Share/Share'
@@ -50,10 +50,7 @@ const router = createBrowserRouter([
         path: RouterPath.CHART,
         element: <ChartPage />,
       },
-      {
-        path: RouterPath.DIY,
-        element: <DIYPage />,
-      },
+
       {
         path: RouterPath.SHARE,
         element: <SharePage />,
@@ -67,19 +64,55 @@ const router = createBrowserRouter([
         element: <AudioRecordPage />,
       },
       {
-        path: RouterPath.PHYSICAL_CHOICE,
+        path: RouterPath.SIGNIFICANT.PHYSICAL,
+        element: (
+          <SignificantPage
+            step={1}
+            title="신체 활동 지원"
+            navigateTo="/chart/significant/cognitive"
+          />
+        ),
+      },
+      {
+        path: RouterPath.SIGNIFICANT.COGNITIVE,
+        element: (
+          <SignificantPage
+            step={2}
+            title="인지관리 및 의사소통"
+            navigateTo="/chart/significant/health"
+          />
+        ),
+      },
+      {
+        path: RouterPath.SIGNIFICANT.HEALTH,
+        element: (
+          <SignificantPage
+            step={3}
+            title="건강 및 간호 관리"
+            navigateTo="/chart/significant/recovery"
+          />
+        ),
+      },
+      {
+        path: RouterPath.SIGNIFICANT.RECOVERY,
+        element: (
+          <SignificantPage step={4} title="기능 회복 훈련" navigateTo="/chart/choice/physical" />
+        ),
+      },
+      {
+        path: RouterPath.CHOICE.PHYSICAL,
         element: <PhysicalChoicePage />,
       },
       {
-        path: RouterPath.COGNITIVE_CHOICE,
+        path: RouterPath.CHOICE.COGNITIVE,
         element: <CognitiveChoicePage />,
       },
       {
-        path: RouterPath.HEALTH_CHOICE,
+        path: RouterPath.CHOICE.HEALTH,
         element: <HealthChoicePage />,
       },
       {
-        path: RouterPath.RECOVERY_CHOICE,
+        path: RouterPath.CHOICE.RECOVERY,
         element: <RecoveryChoicePage />,
       },
       {

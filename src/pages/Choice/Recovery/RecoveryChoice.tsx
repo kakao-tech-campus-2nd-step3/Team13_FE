@@ -9,9 +9,11 @@ import { CheckBox } from '@/components/features/MultipleChoice/CheckBox'
 
 import { Heading } from '@/components/common/Text/TextFactory'
 import Steps from '@/components/common/Steps/Steps'
-import { WriteBox } from '@/components/features/MultipleChoice/\bWriteBox'
+import { WriteBox } from '@/components/features/MultipleChoice/WriteBox'
+import { useNavigate } from 'react-router-dom'
 
 export const RecoveryChoicePage = () => {
+  const navigate = useNavigate()
   return (
     <Wrapper>
       <Steps currentStep={4} totalSteps={4} />
@@ -25,6 +27,9 @@ export const RecoveryChoicePage = () => {
       <ButtonWrapper>
         <Button
           theme="dark"
+          onClick={() => {
+            navigate('/recipients')
+          }}
           css={{
             width: '100%',
             height: '62px',

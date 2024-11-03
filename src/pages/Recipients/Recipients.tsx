@@ -93,11 +93,13 @@ export const RecipientsPage = () => {
 
   return (
     <Wrapper>
-      <Heading.Medium style={{ width: '100%', margin: '20px 0' }}>피요양자 선택</Heading.Medium>
-      <Search>
+      <Heading.Medium style={{ width: '100%', margin: '20px 0 10px 0' }}>
+        피요양자를 선택해주세요.
+      </Heading.Medium>
+      {/* <Search>
         <img src={searchIcon} alt="searchIcon" style={{ width: '22px' }} />
         <InputField placeholder="이름으로 검색" />
-      </Search>
+      </Search> */}
       <ListWrapper onScroll={handleScroll} isScrolled={isScrolled}>
         {recipients.map((recipient, index) => (
           <RecipientsList
@@ -123,18 +125,18 @@ const Wrapper = styled.div`
   box-sizing: border-box;
 `
 
-const Search = styled.div`
-  border: 1px solid ${colors.border.subtle};
-  width: 100%;
-  height: 57px;
-  background-color: rgba(217, 217, 217, 0.2);
-  border-radius: 30px;
-  box-sizing: border-box;
-  padding: 0 27px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`
+// const Search = styled.div`
+//   border: 1px solid ${colors.border.subtle};
+//   width: 100%;
+//   height: 57px;
+//   background-color: rgba(217, 217, 217, 0.2);
+//   border-radius: 30px;
+//   box-sizing: border-box;
+//   padding: 0 27px;
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+// `
 
 const InputField = styled.input`
   background-color: transparent;
