@@ -3,10 +3,10 @@ import cognitive from '@/assets/icons/cognitive.svg'
 import clap from '@/assets/icons/clap.svg'
 
 import Button from '@/components/common/Button/Button'
-import { CheckBox } from '../../../components/features/MultipleChoice/CheckBox'
-import { useState } from 'react'
+
 import { Heading } from '@/components/common/Text/TextFactory'
 import Steps from '@/components/common/Steps/Steps'
+import { CheckBox } from '@/components/features/MultipleChoice/CheckBox'
 
 export const CognitiveChoicePage = () => {
   return (

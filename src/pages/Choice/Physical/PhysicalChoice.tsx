@@ -8,13 +8,15 @@ import bathroom from '@/assets/icons/toilet.svg'
 import wheelchair from '@/assets/icons/wheelchair.svg'
 import walking from '@/assets/icons/walking.svg'
 
-import { TimesBox } from '../../../components/features/MultipleChoice/TimesBox'
 import Button from '@/components/common/Button/Button'
-import { CheckBox } from '../../../components/features/MultipleChoice/CheckBox'
+
 import { useState } from 'react'
-import { MultipleBox } from '../../../components/features/MultipleChoice/MultipleBox'
+
 import { Heading } from '@/components/common/Text/TextFactory'
 import Steps from '@/components/common/Steps/Steps'
+import { CheckBox } from '@/components/features/MultipleChoice/CheckBox'
+import { MultipleBox } from '@/components/features/MultipleChoice/MultipleBox'
+import { TimesBox } from '@/components/features/MultipleChoice/TimesBox'
 
 export const PhysicalChoicePage = () => {
   const [selectedOptions, setSelectedOptions] = useState<{ [key: string]: string | null }>({

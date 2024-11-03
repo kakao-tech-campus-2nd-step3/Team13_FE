@@ -5,7 +5,7 @@ import cognitiveTreatment from '@/assets/icons/cognitive_treatment.svg'
 import physicalTreatment from '@/assets/icons/physical_treatment.svg'
 
 import Button from '@/components/common/Button/Button'
-import { CheckBox } from '../../../components/features/MultipleChoice/CheckBox'
+import { CheckBox } from '@/components/features/MultipleChoice/CheckBox'
 
 import { Heading } from '@/components/common/Text/TextFactory'
 import Steps from '@/components/common/Steps/Steps'
