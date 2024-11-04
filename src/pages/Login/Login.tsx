@@ -1,13 +1,26 @@
 import Button from '@/components/common/Button/Button'
 import { InputField } from '@/components/common/InputField/InputField'
+import { AuthProvider } from '@/provider/Auth/authApi'
 import { colors } from '@/styles/colors/colors'
 import styled from '@emotion/styled'
 import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 export const LoginPage = () => {
+  const location = useLocation()
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
 
+  const role = location.state?.role || ''
+
+  const handleLogin = async () => {
+    try {
+      const date = await AuthProvider(role, id, password)
+    } catch (error) {
+      console.error('Login failed:', error)
+      // Handle error, e.g., show error message
+    }
+  }
   return (
     <Wrapper>
       <StyledForm>
@@ -50,7 +63,7 @@ export const LoginPage = () => {
           ></InputField>
         </div>
         <div>
-          <Button theme="dark" width="100%" height="62px">
+          <Button theme="dark" width="100%" height="62px" onClick={handleLogin}>
             로그인
           </Button>
         </div>
