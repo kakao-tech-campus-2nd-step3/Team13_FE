@@ -11,18 +11,58 @@ import { Heading } from '@/components/common/Text/TextFactory'
 import Steps from '@/components/common/Steps/Steps'
 import { WriteBox } from '@/components/features/MultipleChoice/WriteBox'
 import { useNavigate } from 'react-router-dom'
+import { ChartData } from '@/types/types'
+import { useEffect, useState } from 'react'
 
 export const RecoveryChoicePage = () => {
   const navigate = useNavigate()
+  const [selectedOptions, setSelectedOptions] = useState<ChartData['recoveryTraining']>({
+    recoveryProgram: '',
+    recoveryTraining: false,
+    recoveryNote: '',
+  })
+
+  useEffect(() => {
+    const savedData = localStorage.getItem('recoveryTraining')
+    if (savedData) {
+      setSelectedOptions(JSON.parse(savedData))
+    }
+  }, [])
+
+  const handleSelectOption = (key: keyof ChartData['recoveryTraining'], value: any) => {
+    setSelectedOptions((prev) => {
+      const updatedOptions = { ...prev, [key]: value }
+      localStorage.setItem('bodyManagement', JSON.stringify(updatedOptions))
+      return updatedOptions
+    })
+  }
+
+  const handleInputChange = (key: keyof ChartData['recoveryTraining'], value: any) => {
+    handleSelectOption(key, value)
+  }
+
   return (
     <Wrapper>
       <Steps currentStep={4} totalSteps={4} />
       <Heading.Medium style={{ marginTop: '26px', width: '100%' }}>기능 회복 훈련</Heading.Medium>
       <ChoiceGrid>
-        <WriteBox icon={program} title="기능향상 프로그램" placeholderFirst="입력해주세요" />
-        <CheckBox icon={moving} title="신체 동작 훈련" />
-        <CheckBox icon={cognitiveTreatment} title="인지기능향상 훈련" />
-        <CheckBox icon={physicalTreatment} title="물리치료" />
+        <WriteBox
+          icon={program}
+          title="기능향상 프로그램"
+          placeholderFirst="입력해주세요"
+          firstInputValue={selectedOptions.recoveryProgram}
+          onFirstInputChange={(value) => handleInputChange('recoveryProgram', value)}
+        />
+        <CheckBox
+          icon={moving}
+          title="신체 동작 훈련"
+          checked={selectedOptions.recoveryTraining}
+          onChange={() => handleSelectOption('recoveryTraining', !selectedOptions.recoveryTraining)}
+        />
+        {/* <CheckBox icon={cognitiveTreatment} title="인지기능 훈련" checked={selectedOptions.??}
+          onChange={() => handleSelectOption('??', !selectedOptions.??)}/>
+        <CheckBox icon={physicalTreatment} title="물리치료" checked={selectedOptions.??}
+          onChange={() => handleSelectOption('??', !selectedOptions.??)}/> */}
       </ChoiceGrid>
       <ButtonWrapper>
         <Button

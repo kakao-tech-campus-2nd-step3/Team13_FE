@@ -12,9 +12,38 @@ import Steps from '@/components/common/Steps/Steps'
 import { WriteBox } from '@/components/features/MultipleChoice/WriteBox'
 import { CheckBox } from '@/components/features/MultipleChoice/CheckBox'
 import { useNavigate } from 'react-router-dom'
+import { ChartData } from '@/types/types'
+import { useEffect, useState } from 'react'
 
-export const HealthChoicePage = () => {
+export const NursingChoicePage = () => {
   const navigate = useNavigate()
+  const [selectedOptions, setSelectedOptions] = useState<ChartData['nursingManagement']>({
+    systolic: 0,
+    diastolic: 0,
+    healthTemperature: '',
+    healthNote: '',
+  })
+
+  // 로컬 스토리지에서 데이터 로드
+  useEffect(() => {
+    const savedData = localStorage.getItem('nursingManagement')
+    if (savedData) {
+      setSelectedOptions(JSON.parse(savedData))
+    }
+  }, [])
+
+  const handleSelectOption = (key: keyof ChartData['nursingManagement'], value: any) => {
+    setSelectedOptions((prev) => {
+      const updatedOptions = { ...prev, [key]: value }
+      localStorage.setItem('nursingManagement', JSON.stringify(updatedOptions))
+      return updatedOptions
+    })
+  }
+
+  const handleInputChange = (key: keyof ChartData['nursingManagement'], value: any) => {
+    handleSelectOption(key, value)
+  }
+
   return (
     <Wrapper>
       <Steps currentStep={3} totalSteps={4} />
@@ -29,6 +58,10 @@ export const HealthChoicePage = () => {
           isDualInput={true}
           placeholderFirst="최고"
           placeholderSecond="최저"
+          firstInputValue={selectedOptions.systolic.toString()}
+          secondInputValue={selectedOptions.diastolic.toString()}
+          onFirstInputChange={(value) => handleInputChange('systolic', Number(value) || 0)}
+          onSecondInputChange={(value) => handleInputChange('diastolic', Number(value) || 0)}
         />
         <WriteBox
           icon={temperature}
@@ -36,10 +69,16 @@ export const HealthChoicePage = () => {
           unit="°C"
           isDualInput={false}
           placeholderFirst="입력해주세요"
+          firstInputValue={selectedOptions.healthTemperature}
+          onFirstInputChange={(value) => handleInputChange('healthTemperature', value)}
         />
-        <CheckBox icon={health} title="건강 관리" />
-        <CheckBox icon={nursing} title="간호 관리" />
-        <CheckBox icon={emergency} title="기타(응급)" />
+        {/* <CheckBox icon={health} title="건강 관리" 
+        checked={selectedOptions.??}
+        onChange={() => handleSelectOption('??', !selectedOptions.??)}/>
+        <CheckBox icon={nursing} title="간호 관리" checked={selectedOptions.??}
+        onChange={() => handleSelectOption('??', !selectedOptions.??)}/>
+        <CheckBox icon={emergency} title="기타(응급)" checked={selectedOptions.??}
+        onChange={() => handleSelectOption('??', !selectedOptions.??)}/> */}
       </ChoiceGrid>
       <ButtonWrapper>
         <Button

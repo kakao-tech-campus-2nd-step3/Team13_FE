@@ -17,7 +17,7 @@ import { DetailLogPage } from '@/pages/CareLog/DetailLog/DetailLog'
 import { SharePage } from '@/pages/Share/Share'
 import { ChartPage } from '@/pages/Chart/Chart'
 import { OCRLoadingPage } from '@/pages/OCR/OCRLoading/OCRLoading'
-import { PhysicalChoicePage } from '@/pages/Choice/Physical/PhysicalChoice'
+import { BodyChoicePage } from '@/pages/Choice/Body/BodyChoice'
 import { MultipleLogPage } from '@/pages/CareLog/MultipleLog/MultipleLog'
 
 // ADMIN
@@ -26,18 +26,18 @@ import { GuardianPage } from '@/pages/admin/GuardianPage'
 import { InstitutionPage } from '@/pages/admin/InstitutionPage'
 import { RecipientPage } from '@/pages/admin/RecipientPage'
 import { CognitiveChoicePage } from '@/pages/Choice/Cognitive/CognitiveChoice'
-import { HealthChoicePage } from '@/pages/Choice/Health/HealthChoice'
 import { RecoveryChoicePage } from '@/pages/Choice/Recovery/RecoveryChoice'
+import { NursingChoicePage } from '@/pages/Choice/Nursing/NursingChoice'
 
 const router = createBrowserRouter([
+  {
+    path: RouterPath.HOME,
+    element: <HomePage />,
+  },
   {
     path: RouterPath.ROOT,
     element: <Layout />,
     children: [
-      {
-        path: RouterPath.HOME,
-        element: <HomePage />,
-      },
       {
         path: RouterPath.LOGIN,
         element: <LoginPage />,
@@ -64,7 +64,7 @@ const router = createBrowserRouter([
         element: <AudioRecordPage />,
       },
       {
-        path: RouterPath.SIGNIFICANT.PHYSICAL,
+        path: RouterPath.SIGNIFICANT.BODY,
         element: (
           <SignificantPage
             step={1}
@@ -79,12 +79,12 @@ const router = createBrowserRouter([
           <SignificantPage
             step={2}
             title="인지관리 및 의사소통"
-            navigateTo="/chart/significant/health"
+            navigateTo="/chart/significant/nursing"
           />
         ),
       },
       {
-        path: RouterPath.SIGNIFICANT.HEALTH,
+        path: RouterPath.SIGNIFICANT.NURSING,
         element: (
           <SignificantPage
             step={3}
@@ -96,20 +96,20 @@ const router = createBrowserRouter([
       {
         path: RouterPath.SIGNIFICANT.RECOVERY,
         element: (
-          <SignificantPage step={4} title="기능 회복 훈련" navigateTo="/chart/choice/physical" />
+          <SignificantPage step={4} title="기능 회복 훈련" navigateTo="/chart/choice/body" />
         ),
       },
       {
-        path: RouterPath.CHOICE.PHYSICAL,
-        element: <PhysicalChoicePage />,
+        path: RouterPath.CHOICE.BODY,
+        element: <BodyChoicePage />,
       },
       {
         path: RouterPath.CHOICE.COGNITIVE,
         element: <CognitiveChoicePage />,
       },
       {
-        path: RouterPath.CHOICE.HEALTH,
-        element: <HealthChoicePage />,
+        path: RouterPath.CHOICE.NURSING,
+        element: <NursingChoicePage />,
       },
       {
         path: RouterPath.CHOICE.RECOVERY,
