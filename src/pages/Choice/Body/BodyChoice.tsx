@@ -35,6 +35,11 @@ export const BodyChoicePage = () => {
     const savedData = localStorage.getItem('bodyManagement')
     if (savedData) {
       setSelectedOptions(JSON.parse(savedData))
+      const parsedData = JSON.parse(savedData)
+      setSelectedOptions((prev) => ({
+        ...prev,
+        physicalRestroom: parsedData.physicalRestroom ?? 0,
+      }))
     }
   }, [])
 
@@ -75,7 +80,7 @@ export const BodyChoicePage = () => {
           title="산책 / 외출"
           checked={selectedOptions.has_walked}
           onChange={() => handleSelectOption('has_walked', !selectedOptions.has_walked)}
-        />{' '}
+        />
         <TimesBox
           icon={bathroom}
           title="화장실 이용 횟수"
