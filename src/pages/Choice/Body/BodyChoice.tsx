@@ -106,7 +106,7 @@ export const BodyChoicePage = () => {
         <Button
           theme="dark"
           onClick={() => {
-            navigate('/chart/choice/cognitive')
+            navigate('/chart/significant/body')
           }}
           css={{
             width: '100%',
@@ -124,9 +124,11 @@ export const BodyChoicePage = () => {
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
+  justify-content: start;
+  align-items: start;
   flex-direction: column;
-  align-items: center;
   padding: 0 23px;
+  box-sizing: border-box;
 `
 
 const ChoiceGrid = styled.div`

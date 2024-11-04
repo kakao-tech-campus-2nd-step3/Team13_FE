@@ -57,7 +57,7 @@ export const CognitiveChoicePage = () => {
         <Button
           theme="dark"
           onClick={() => {
-            navigate('/chart/choice/nursing')
+            navigate('/chart/significant/cognitive')
           }}
           css={{
             width: '100%',
@@ -74,9 +74,11 @@ export const CognitiveChoicePage = () => {
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
+  justify-content: start;
+  align-items: start;
   flex-direction: column;
-  align-items: center;
   padding: 0 23px;
+  box-sizing: border-box;
 `
 
 const ChoiceGrid = styled.div`

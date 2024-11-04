@@ -32,7 +32,7 @@ export const RecoveryChoicePage = () => {
   const handleSelectOption = (key: keyof ChartData['recoveryTraining'], value: any) => {
     setSelectedOptions((prev) => {
       const updatedOptions = { ...prev, [key]: value }
-      localStorage.setItem('bodyManagement', JSON.stringify(updatedOptions))
+      localStorage.setItem('recoveryTraining', JSON.stringify(updatedOptions))
       return updatedOptions
     })
   }
@@ -68,7 +68,7 @@ export const RecoveryChoicePage = () => {
         <Button
           theme="dark"
           onClick={() => {
-            navigate('/recipients')
+            navigate('/chart/significant/recovery')
           }}
           css={{
             width: '100%',
@@ -85,9 +85,11 @@ export const RecoveryChoicePage = () => {
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
+  justify-content: start;
+  align-items: start;
   flex-direction: column;
-  align-items: center;
   padding: 0 23px;
+  box-sizing: border-box;
 `
 
 const ChoiceGrid = styled.div`

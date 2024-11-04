@@ -35,7 +35,7 @@ export const ChartPage = () => {
   }
 
   const handleDIY = () => {
-    navigate('/chart/significant/body')
+    navigate('/chart/choice/body')
   }
 
   return (

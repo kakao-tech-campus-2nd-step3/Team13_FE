@@ -84,7 +84,7 @@ export const NursingChoicePage = () => {
         <Button
           theme="dark"
           onClick={() => {
-            navigate('/chart/choice/recovery')
+            navigate('/chart/significant/nursing')
           }}
           css={{
             width: '100%',
@@ -101,9 +101,11 @@ export const NursingChoicePage = () => {
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
+  justify-content: start;
+  align-items: start;
   flex-direction: column;
-  align-items: center;
   padding: 0 23px;
+  box-sizing: border-box;
 `
 
 const ChoiceGrid = styled.div`

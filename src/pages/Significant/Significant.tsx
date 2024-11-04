@@ -4,6 +4,7 @@ import Steps from '@/components/common/Steps/Steps'
 import { Heading } from '@/components/common/Text/TextFactory'
 import { TextArea } from '@/components/common/TextArea/TextArea'
 import styled from 'styled-components'
+import { useState, useEffect } from 'react'
 
 interface DIYProps {
   step: number
@@ -11,9 +12,28 @@ interface DIYProps {
   navigateTo: string
 }
 
+const noteFieldMap: { [key: string]: string } = {
+  '신체 활동 지원': 'physicalNote',
+  '인지관리 및 의사소통': 'cognitiveNote',
+  '건강 및 간호 관리': 'healthNote',
+  '기능 회복 훈련': 'recoveryNote',
+}
+
 export const SignificantPage = ({ step, title, navigateTo }: DIYProps) => {
   const navigate = useNavigate()
+  const [note, setNote] = useState<string>('')
+
+  // Load saved note on component mount
+  useEffect(() => {
+    const savedNote = localStorage.getItem(noteFieldMap[title])
+    if (savedNote) {
+      setNote(savedNote)
+    }
+  }, [title])
+
+  // Save note to localStorage and navigate to next page
   const handleConfirmClick = () => {
+    localStorage.setItem(noteFieldMap[title], note)
     navigate(navigateTo)
   }
 
@@ -30,7 +50,9 @@ export const SignificantPage = ({ step, title, navigateTo }: DIYProps) => {
       <TextArea
         customSize="large"
         style={{ flexGrow: 1, width: '100%', boxShadow: 'border-box' }}
-      ></TextArea>
+        value={note}
+        onChange={(e) => setNote(e.target.value)}
+      />
       <Button
         theme="dark"
         onClick={handleConfirmClick}

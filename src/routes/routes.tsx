@@ -66,11 +66,7 @@ const router = createBrowserRouter([
       {
         path: RouterPath.SIGNIFICANT.BODY,
         element: (
-          <SignificantPage
-            step={1}
-            title="신체 활동 지원"
-            navigateTo="/chart/significant/cognitive"
-          />
+          <SignificantPage step={1} title="신체 활동 지원" navigateTo="/chart/choice/cognitive" />
         ),
       },
       {
@@ -79,25 +75,19 @@ const router = createBrowserRouter([
           <SignificantPage
             step={2}
             title="인지관리 및 의사소통"
-            navigateTo="/chart/significant/nursing"
+            navigateTo="/chart/choice/nursing"
           />
         ),
       },
       {
         path: RouterPath.SIGNIFICANT.NURSING,
         element: (
-          <SignificantPage
-            step={3}
-            title="건강 및 간호 관리"
-            navigateTo="/chart/significant/recovery"
-          />
+          <SignificantPage step={3} title="건강 및 간호 관리" navigateTo="/chart/choice/recovery" />
         ),
       },
       {
         path: RouterPath.SIGNIFICANT.RECOVERY,
-        element: (
-          <SignificantPage step={4} title="기능 회복 훈련" navigateTo="/chart/choice/body" />
-        ),
+        element: <SignificantPage step={4} title="기능 회복 훈련" navigateTo="/recipients" />,
       },
       {
         path: RouterPath.CHOICE.BODY,
