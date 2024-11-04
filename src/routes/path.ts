@@ -8,15 +8,15 @@ export const RouterPath = {
   CAMERA: '/camera',
   AUDIO_RECORD: '/chart/audioRecord',
   SIGNIFICANT: {
-    PHYSICAL: '/chart/significant/physical',
+    BODY: '/chart/significant/body',
     COGNITIVE: '/chart/significant/cognitive',
-    HEALTH: '/chart/significant/health',
+    NURSING: '/chart/significant/nursing',
     RECOVERY: '/chart/significant/recovery',
   },
   CHOICE: {
-    PHYSICAL: '/chart/choice/physical',
+    BODY: '/chart/choice/body',
     COGNITIVE: '/chart/choice/cognitive',
-    HEALTH: '/chart/choice/health',
+    NURSING: '/chart/choice/nursing',
     RECOVERY: '/chart/choice/recovery',
   },
 
