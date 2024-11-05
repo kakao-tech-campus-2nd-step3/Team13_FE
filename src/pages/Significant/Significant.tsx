@@ -5,6 +5,7 @@ import { Heading } from '@/components/common/Text/TextFactory'
 import { TextArea } from '@/components/common/TextArea/TextArea'
 import styled from 'styled-components'
 import { useState, useEffect } from 'react'
+import { submitChartData } from '@/api/hooks/usePostChart'
 
 interface DIYProps {
   step: number
@@ -23,7 +24,6 @@ export const SignificantPage = ({ step, title, navigateTo }: DIYProps) => {
   const navigate = useNavigate()
   const [note, setNote] = useState<string>('')
 
-  // Load saved note on component mount
   useEffect(() => {
     const savedNote = localStorage.getItem(noteFieldMap[title])
     if (savedNote) {
@@ -31,10 +31,20 @@ export const SignificantPage = ({ step, title, navigateTo }: DIYProps) => {
     }
   }, [title])
 
-  // Save note to localStorage and navigate to next page
-  const handleConfirmClick = () => {
+  // Save note to localStorage and handle final step confirmation
+  const handleConfirmClick = async () => {
+    // Ensure the note is saved
     localStorage.setItem(noteFieldMap[title], note)
-    navigate(navigateTo)
+    if (step === 4) {
+      const confirmSave = window.confirm('차트를 저장하시겠습니까?')
+      if (confirmSave) {
+        await submitChartData()
+        localStorage.clear()
+        navigate('/recipients') // Navigate to desired page after submission
+      }
+    } else {
+      navigate(navigateTo)
+    }
   }
 
   return (
@@ -77,3 +87,5 @@ const Wrapper = styled.div`
   padding: 0 23px;
   box-sizing: border-box;
 `
+
+export default SignificantPage
