@@ -36,8 +36,12 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: RouterPath.LOGIN,
-        element: <LoginPage />,
+        path: RouterPath.LOGIN.CAREWORKER,
+        element: <LoginPage role={'CAREWORKER'} />,
+      },
+      {
+        path: RouterPath.LOGIN.GUARDIAN,
+        element: <LoginPage role={'GUARDIAN'} />,
       },
       {
         path: RouterPath.RECIPIENTS,

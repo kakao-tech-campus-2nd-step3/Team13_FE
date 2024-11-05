@@ -6,10 +6,14 @@ import { colors } from '@/styles/colors/colors'
 import styled from '@emotion/styled'
 import { AuthProvider } from '@/provider/Auth/authApi'
 
-export const LoginPage = () => {
+interface Props {
+  role: string
+}
+
+export const LoginPage = ({ role }: Props) => {
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
-  const [role, setRole] = useState('') // Add role if needed
+
   const navigate = useNavigate()
 
   const handleLogin = async () => {
