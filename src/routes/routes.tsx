@@ -11,13 +11,13 @@ import { OCRPage } from '@/pages/OCR/OCR'
 import { LoginPage } from '@/pages/Login/Login'
 import { RecipientsPage } from '@/pages/Recipients/Recipients'
 import { Layout } from '@/components/common/Layout/Layout'
-import { DIYPage } from '@/pages/Chart/DIY/DIY'
+import { SignificantPage } from '@/pages/Significant/Significant'
 import { OCRCheckPage } from '@/pages/OCR/OCRCheck/OCRCheck'
 import { DetailLogPage } from '@/pages/CareLog/DetailLog/DetailLog'
 import { SharePage } from '@/pages/Share/Share'
 import { ChartPage } from '@/pages/Chart/Chart'
 import { OCRLoadingPage } from '@/pages/OCR/OCRLoading/OCRLoading'
-import { MultipleChoicePage } from '@/pages/MultipleChoice/MultipleChoice'
+import { BodyChoicePage } from '@/pages/Choice/Body/BodyChoice'
 import { MultipleLogPage } from '@/pages/CareLog/MultipleLog/MultipleLog'
 
 // ADMIN
@@ -25,8 +25,15 @@ import { CareWorkerPage } from '@/pages/admin/CareWorkerPage'
 import { GuardianPage } from '@/pages/admin/GuardianPage'
 import { InstitutionPage } from '@/pages/admin/InstitutionPage'
 import { RecipientPage } from '@/pages/admin/RecipientPage'
+import { CognitiveChoicePage } from '@/pages/Choice/Cognitive/CognitiveChoice'
+import { RecoveryChoicePage } from '@/pages/Choice/Recovery/RecoveryChoice'
+import { NursingChoicePage } from '@/pages/Choice/Nursing/NursingChoice'
 
 const router = createBrowserRouter([
+  {
+    path: RouterPath.HOME,
+    element: <HomePage />,
+  },
   {
     path: RouterPath.ROOT,
     element: <Layout />,
@@ -51,10 +58,7 @@ const router = createBrowserRouter([
         path: RouterPath.CHART,
         element: <ChartPage />,
       },
-      {
-        path: RouterPath.DIY,
-        element: <DIYPage />,
-      },
+
       {
         path: RouterPath.SHARE,
         element: <SharePage />,
@@ -68,8 +72,46 @@ const router = createBrowserRouter([
         element: <AudioRecordPage />,
       },
       {
-        path: RouterPath.MULTIPLE_CHOICE,
-        element: <MultipleChoicePage />,
+        path: RouterPath.SIGNIFICANT.BODY,
+        element: (
+          <SignificantPage step={1} title="신체 활동 지원" navigateTo="/chart/choice/cognitive" />
+        ),
+      },
+      {
+        path: RouterPath.SIGNIFICANT.COGNITIVE,
+        element: (
+          <SignificantPage
+            step={2}
+            title="인지관리 및 의사소통"
+            navigateTo="/chart/choice/nursing"
+          />
+        ),
+      },
+      {
+        path: RouterPath.SIGNIFICANT.NURSING,
+        element: (
+          <SignificantPage step={3} title="건강 및 간호 관리" navigateTo="/chart/choice/recovery" />
+        ),
+      },
+      {
+        path: RouterPath.SIGNIFICANT.RECOVERY,
+        element: <SignificantPage step={4} title="기능 회복 훈련" navigateTo="/recipients" />,
+      },
+      {
+        path: RouterPath.CHOICE.BODY,
+        element: <BodyChoicePage />,
+      },
+      {
+        path: RouterPath.CHOICE.COGNITIVE,
+        element: <CognitiveChoicePage />,
+      },
+      {
+        path: RouterPath.CHOICE.NURSING,
+        element: <NursingChoicePage />,
+      },
+      {
+        path: RouterPath.CHOICE.RECOVERY,
+        element: <RecoveryChoicePage />,
       },
       {
         path: RouterPath.CARE_LOG,

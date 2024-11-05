@@ -1,19 +1,16 @@
-import minus from '@/assets/icons/minus.svg'
-import plus from '@/assets/icons/plus.svg'
+import whiteCheck from '@/assets/icons/check_white.svg'
+import grayCheck from '@/assets/icons/check_gray.svg'
 import { colors } from '@/styles/colors/colors'
-import { useState } from 'react'
 import styled from 'styled-components'
 
 interface Props {
   icon: string
   title: string
+  checked: boolean // 부모 컴포넌트에서 상태 전달받음
+  onChange: () => void // 부모 컴포넌트에서 함수 전달받음
 }
 
-export const ChoiceBox = ({ icon, title }: Props) => {
-  const [times, setTimes] = useState(0)
-  const increaseTimes = () => setTimes((prev) => prev + 1)
-  const decreaseTimes = () => setTimes((prev) => (prev > 0 ? prev - 1 : 0))
-
+export const CheckBox = ({ icon, title, checked, onChange }: Props) => {
   return (
     <Box>
       <TitleBox>
@@ -23,32 +20,34 @@ export const ChoiceBox = ({ icon, title }: Props) => {
           <BackgroundBar />
         </TitleContainer>
       </TitleBox>
-      <PlusBox>
-        <Background>
-          <img src={minus} alt="minus" onClick={decreaseTimes} />
-          <div
-            style={{
-              width: '45px',
-              height: '32px',
-              backgroundColor: 'white',
-              borderRadius: '8px',
-              boxShadow: '0px 1px 5px rgba(0, 0, 0, 0.25)',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              fontSize: '17px',
-              fontWeight: '700',
-            }}
-          >
-            {times}
-          </div>
-          <img src={plus} alt="plus" onClick={increaseTimes} />
-        </Background>
-      </PlusBox>
+      <Check>
+        <div
+          onClick={onChange} // 기존 onClickCheck 대신 onChange로 대체
+          style={{
+            width: '25px',
+            height: '25px',
+            backgroundColor: checked ? colors.background.main : 'white',
+            borderRadius: '4px',
+            boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.25)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: '17px',
+            fontWeight: '700',
+          }}
+        >
+          {checked ? (
+            <img src={whiteCheck} alt="white_check" />
+          ) : (
+            <img src={grayCheck} alt="gray_check" />
+          )}
+        </div>
+      </Check>
     </Box>
   )
 }
 
+// 스타일 정의 그대로 유지
 const Box = styled.div`
   width: 154px;
   height: 118px;
@@ -92,21 +91,10 @@ const BackgroundBar = styled.div`
   z-index: 0;
 `
 
-const PlusBox = styled.div`
+const Check = styled.div`
   width: 154px;
   height: 59px;
   justify-content: center;
   align-items: center;
   display: flex;
-`
-
-const Background = styled.div`
-  width: 119px;
-  height: 41px;
-  border-radius: 8px;
-  background-color: #ececec;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  justify-content: space-evenly;
 `

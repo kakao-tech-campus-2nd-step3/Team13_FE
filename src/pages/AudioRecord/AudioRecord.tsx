@@ -62,7 +62,6 @@ export const AudioRecordPage = () => {
 
   return (
     <Wrapper>
-      <Steps currentStep={2} totalSteps={6} />
       <div
         style={{
           flexGrow: '1',
