@@ -6,7 +6,6 @@ export const RouterPath = {
   CALENDAR: '/calendar',
   RECIPIENTS: '/recipients',
   CHART: '/chart',
-  DIY: '/chart/DIY',
   SHARE: '/share',
   CAMERA: '/camera',
   AUDIO_RECORD: '/chart/audioRecord',

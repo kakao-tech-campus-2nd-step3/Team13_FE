@@ -11,7 +11,7 @@ import { OCRPage } from '@/pages/OCR/OCR'
 import { LoginPage } from '@/pages/Login/Login'
 import { RecipientsPage } from '@/pages/Recipients/Recipients'
 import { Layout } from '@/components/common/Layout/Layout'
-import { DIYPage } from '@/pages/Chart/DIY/DIY'
+import { SignificantPage } from '@/pages/Significant/Significant'
 import { OCRCheckPage } from '@/pages/OCR/OCRCheck/OCRCheck'
 import { SharePage } from '@/pages/Share/Share'
 import { ChartPage } from '@/pages/Chart/Chart'
@@ -35,6 +35,10 @@ import { RecoveryChoiceLogPage } from '@/pages/CareLog/ChoiceLog/Recovery/Recove
 import { SelectPage } from '@/pages/Login/Select/Select'
 
 const router = createBrowserRouter([
+  {
+    path: RouterPath.HOME,
+    element: <HomePage />,
+  },
   {
     path: RouterPath.ROOT,
     element: <Layout />,

@@ -1,10 +1,16 @@
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Button from '@/components/common/Button/Button'
 import { InputField } from '@/components/common/InputField/InputField'
 import { colors } from '@/styles/colors/colors'
 import styled from '@emotion/styled'
-import { useState } from 'react'
+import { AuthProvider } from '@/provider/Auth/authApi'
 
-export const LoginPage = () => {
+interface Props {
+  role: string
+}
+
+export const LoginPage = ({ role }: Props) => {
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
 
@@ -24,49 +30,32 @@ export const LoginPage = () => {
   return (
     <Wrapper>
       <StyledForm>
-        <div
-          style={{
-            justifyContent: 'start',
-          }}
-        >
-          <div
-            style={{
-              fontSize: '24px',
-              fontWeight: '700',
-              lineHeight: '2rem',
-              marginBottom: '10px',
-            }}
-          >
-            안녕하세요 :)
-            <br />
-            돌봄다리입니다.
+        <div>
+          <div style={{ fontSize: '24px', fontWeight: '700', marginBottom: '10px' }}>
+            안녕하세요 :) 돌봄다리입니다.
           </div>
           <div style={{ color: colors.primary.main, fontSize: '15px' }}>
             전화번호와 비밀번호를 입력해주세요.
           </div>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div>
           <InputField
-            customSize="small"
             placeholder="전화번호 ( '-' 제외)"
             value={id}
             onChange={(e) => setId(e.target.value)}
             style={{ fontSize: '20px', marginBottom: '20px' }}
-          ></InputField>
+          />
           <InputField
-            customSize="small"
             placeholder="비밀번호"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             style={{ fontSize: '20px' }}
-          ></InputField>
+          />
         </div>
-        <div>
-          <Button theme="dark" width="100%" height="62px">
-            로그인
-          </Button>
-        </div>
+        <Button theme="dark" width="100%" height="62px" onClick={handleLogin}>
+          로그인
+        </Button>
       </StyledForm>
     </Wrapper>
   )
@@ -87,7 +76,6 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-content: center;
   padding: 0 26px;
   box-sizing: border-box;
 `

@@ -23,20 +23,24 @@ export const MultipleBox = ({ icon, title, options, selectedOption, onSelectOpti
       </TitleBox>
       <OptionsContainer>
         {options.map((option) => (
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}
-          >
-            <Check
-              key={option}
+          <div key={option} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+            <div
               onClick={() => onSelectOption(option)}
-              isSelected={selectedOption === option}
+              style={{
+                width: '25px',
+                height: '25px',
+                backgroundColor: selectedOption === option ? colors.background.main : 'white',
+                borderRadius: '4px',
+                boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.25)',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                fontSize: '17px',
+                fontWeight: '700',
+              }}
             >
               {selectedOption === option ? <img src={whiteCheck} alt="selected" /> : null}
-            </Check>
+            </div>
             <OptionText>{option}</OptionText>
           </div>
         ))}
@@ -92,19 +96,6 @@ const OptionsContainer = styled.div`
   flex-direction: column;
   gap: 18px;
   padding: 15px 15px;
-`
-
-const Check = styled.div<{ isSelected: boolean }>`
-  width: 25px;
-  height: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  background-color: ${({ isSelected }) => (isSelected ? colors.background.main : 'white')};
-  border-radius: 4px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
-  cursor: pointer;
 `
 
 const OptionText = styled.span`

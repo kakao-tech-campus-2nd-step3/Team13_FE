@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
-import { FontWeight, ScreenSize } from '@/types/styles'
-import { TextProps } from '@/types/props'
+import { FontWeight, ScreenSize } from '@/styles/styles'
+import { TextProps } from '@/styles/props'
 import { breakpoints } from '@/styles/breakpoints/breakpoints'
 
 function Text({ children, weight, responsiveSize, as = 'p', color, ...rest }: TextProps) {

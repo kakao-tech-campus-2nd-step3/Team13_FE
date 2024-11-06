@@ -1,4 +1,5 @@
 import { colors } from '@/styles/colors/colors'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 interface Props {
@@ -18,8 +19,14 @@ export const RecipientsList = ({
   height = '48px',
   borderRadius = '50%',
 }: Props) => {
+  const navigate = useNavigate()
+
   return (
-    <Wrapper>
+    <Wrapper
+      onClick={() => {
+        navigate('/share')
+      }}
+    >
       <img
         src={picture}
         style={{

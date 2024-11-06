@@ -1,18 +1,16 @@
 import whiteCheck from '@/assets/icons/check_white.svg'
 import grayCheck from '@/assets/icons/check_gray.svg'
 import { colors } from '@/styles/colors/colors'
-import { useState } from 'react'
 import styled from 'styled-components'
 
 interface Props {
   icon: string
   title: string
+  checked: boolean // 부모 컴포넌트에서 상태 전달받음
+  onChange: () => void // 부모 컴포넌트에서 함수 전달받음
 }
 
-export const CheckBox = ({ icon, title }: Props) => {
-  const [checked, isChecked] = useState(false)
-  const onClickCheck = () => isChecked(!checked)
-
+export const CheckBox = ({ icon, title, checked, onChange }: Props) => {
   return (
     <Box>
       <TitleBox>
@@ -24,7 +22,7 @@ export const CheckBox = ({ icon, title }: Props) => {
       </TitleBox>
       <Check>
         <div
-          onClick={onClickCheck}
+          onClick={onChange} // 기존 onClickCheck 대신 onChange로 대체
           style={{
             width: '25px',
             height: '25px',
@@ -49,6 +47,7 @@ export const CheckBox = ({ icon, title }: Props) => {
   )
 }
 
+// 스타일 정의 그대로 유지
 const Box = styled.div`
   width: 154px;
   height: 118px;
