@@ -1,5 +1,4 @@
 export interface CareWorker {
-  id: number
   institutionId: number
   name: string
   email: string
@@ -9,5 +8,3 @@ export interface CareWorker {
 export type CareWorkerResponseData = {
   recipients: CareWorker[]
 }
-
-// export type UpdateRecipientData = Omit<Recipient, 'id'>
