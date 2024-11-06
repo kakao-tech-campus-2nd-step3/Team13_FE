@@ -61,7 +61,7 @@ const router = createBrowserRouter([
           <SignificantPage
             step={1}
             title="신체 활동 지원"
-            navigateTo={RouterPath.SIGNIFICANT.COGNITIVE}
+            navigateTo={RouterPath.CHOICE.COGNITIVE}
           />
         ),
       },
@@ -71,7 +71,7 @@ const router = createBrowserRouter([
           <SignificantPage
             step={2}
             title="인지관리 및 의사소통"
-            navigateTo={RouterPath.SIGNIFICANT.NURSING}
+            navigateTo={RouterPath.CHOICE.NURSING}
           />
         ),
       },
@@ -81,7 +81,7 @@ const router = createBrowserRouter([
           <SignificantPage
             step={3}
             title="건강 및 간호 관리"
-            navigateTo={RouterPath.SIGNIFICANT.RECOVERY}
+            navigateTo={RouterPath.CHOICE.RECOVERY}
           />
         ),
       },

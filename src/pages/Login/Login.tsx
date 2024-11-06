@@ -10,7 +10,7 @@ interface Props {
   role: string
 }
 
-export const LoginPage = ({ role }: Props) => {
+export const LoginPage = () => {
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
 
