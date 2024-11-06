@@ -4,8 +4,8 @@ import * as S from './Table.styles'
 import { MdDeleteOutline, MdOutlineModeEdit } from 'react-icons/md'
 import { FileUploadModal } from '../Modal/Modal'
 
-interface TableRow extends Record<string, unknown> {
-  id?: number
+export interface TableRow extends Record<string, unknown> {
+  id: number
   isNew?: boolean
   institutionNumber?: number
 }

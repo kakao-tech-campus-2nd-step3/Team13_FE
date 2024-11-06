@@ -1,13 +1,16 @@
-export interface Guardian {
+import { TableRow } from '@/components/common/Table/Table'
+
+export interface Guardian extends TableRow {
   phone: string
   name: string
   isActive: boolean
+  loginPassword?: string
 }
 
 export type GuardianResponseData = {
-  recipients: Guardian[]
+  guardians: Guardian[]
 }
 
 export type UpdateGuardianData = Omit<Guardian, 'isActive'> & {
-  loginPassword: string
+  loginPassword?: string
 }
