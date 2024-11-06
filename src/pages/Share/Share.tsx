@@ -41,7 +41,7 @@ export const SharePage = () => {
         }}
       >
         <TextBody.Large style={{ color: colors.text.subtle }}>
-          오늘 피요양자는 어떤 일상을 보냈나요?
+          오늘 김쿠키님은 어떤 일상을 보냈나요?
         </TextBody.Large>
         <Heading.Medium>보호자와 일상을 공유해 보세요!</Heading.Medium>
       </div>
@@ -49,13 +49,13 @@ export const SharePage = () => {
         <ShareSquare
           icon={cameraIcon}
           title="사진 찍기"
-          sub="피요양자의 일상을 촬영해 주세요."
+          sub="김쿠키님의 일상을 촬영해 주세요."
           onClick={() => {}}
         />
         <ShareSquare
           icon={galleryIcon}
           title="갤러리에서 선택"
-          sub="미리 찍은 피요양자의 사진을 업로드 해주세요."
+          sub="미리 찍은 김쿠키님의 사진을 업로드 해주세요."
           onClick={handleFileSelect}
         >
           <input type="file" ref={fileInputRef} style={{ display: 'none' }} />

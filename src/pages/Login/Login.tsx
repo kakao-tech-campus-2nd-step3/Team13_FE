@@ -8,6 +8,19 @@ export const LoginPage = () => {
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
 
+  const navigate = useNavigate()
+
+  const handleLogin = async () => {
+    console.log(localStorage.getItem('role'))
+    try {
+      await AuthProvider(localStorage.getItem('role')!, id, password)
+      navigate('/dashboard') // Redirect to the main page upon successful login
+    } catch (error) {
+      console.error('Login failed:', error)
+      alert('Login failed. Please try again.')
+    }
+  }
+
   return (
     <Wrapper>
       <StyledForm>

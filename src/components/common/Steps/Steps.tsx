@@ -5,9 +5,32 @@ import checkIcon from '@/assets/icons/check_icon.svg'
 interface StepsProps {
   currentStep: number
   totalSteps: number
+  isLog?: boolean
 }
 
-function Steps({ currentStep, totalSteps }: StepsProps) {
+const stepPaths_post = [
+  '/chart/choice/body',
+  '/chart/choice/cognitive',
+  '/chart/choice/nursing',
+  '/chart/choice/recovery',
+]
+
+const stepPaths_get = [
+  '/careLog/choice/body',
+  '/careLog/choice/cognitive',
+  '/careLog/choice/nursing',
+  '/careLog/choice/recovery',
+]
+
+function Steps({ currentStep, totalSteps, isLog = false }: StepsProps) {
+  const navigate = useNavigate()
+  const stepPaths = isLog ? stepPaths_get : stepPaths_post
+  const handleStepClick = (index: number, isCompleted: boolean) => {
+    if (isCompleted || isLog) {
+      navigate(stepPaths[index])
+    }
+  }
+
   return (
     <StepWrapper>
       {[...Array(totalSteps)].map((_, index) => {

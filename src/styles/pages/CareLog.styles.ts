@@ -2,11 +2,17 @@ import styled from '@emotion/styled'
 import { colors } from '@/styles/colors/colors'
 
 const Container = styled.div`
-  padding: 2.5rem;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  padding: 0 23px;
+  box-sizing: border-box;
 `
 
 const Header = styled.div`
-  margin-bottom: 16px;
+  margin: 23px 0 16px 0;
 `
 
 const Birth = styled.div`
@@ -26,14 +32,18 @@ const Name = styled.div`
 `
 
 const SubTitle = styled.p`
-  font-size: 20px;
+  font-size: 18px;
   color: ${colors.text.subtle};
 `
 
 const TagContainer = styled.div`
   display: flex;
   gap: 8px;
-  margin-bottom: 66px;
+  width: 100%;
+  padding: 0 0 35px 0;
+  box-sizing: border-box;
+  border-bottom: 1px solid ${colors.border.subtle};
+  margin-bottom: 27px;
 `
 
 const Tag = styled.span`
@@ -46,7 +56,10 @@ const Tag = styled.span`
 `
 
 const Content = styled.div`
-  margin-bottom: 160px;
+  flex-grow: 1;xc
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 `
 
 const LogoContainer = styled.div`
@@ -75,31 +88,16 @@ const Activity = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   color: ${colors.text.subtle};
   margin-bottom: 24px;
   line-height: 24px;
-  font-size: 20px;
+  font-size: 18px;
 
   b {
     width: 180px;
     font-weight: bold;
     color: #000;
-  }
-`
-
-const Button = styled.button`
-  width: 100%;
-  padding: 16px;
-  background-color: ${colors.primary.main};
-  color: #fff;
-  border: none;
-  border-radius: 16px;
-  font-size: 20px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${colors.primary.mainOpacity15};
-    color: ${colors.primary.main};
   }
 `
 
@@ -115,5 +113,4 @@ export {
   LogoContainer,
   Date,
   Activity,
-  Button,
 }
