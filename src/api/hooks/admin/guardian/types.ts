@@ -8,4 +8,6 @@ export type GuardianResponseData = {
   recipients: Guardian[]
 }
 
-// export type UpdateRecipientData = Omit<Recipient, 'id'>
+export type UpdateGuardianData = Omit<Guardian, 'isActive'> & {
+  loginPassword: string
+}
