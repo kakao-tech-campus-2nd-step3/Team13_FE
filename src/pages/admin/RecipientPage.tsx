@@ -16,6 +16,7 @@ import { Table } from '@/components/common/Table/Table'
 //     startDate: '2024.01.01.',
 //     institution: '000 요양원',
 //     institutionNumber: 101,
+//     institutionId: 123,
 //     careworkerId: 1,
 //   },
 // ]
@@ -29,9 +30,9 @@ const columns: { key: keyof Recipient; label: string }[] = [
   { key: 'careNumber', label: 'Care Number' }, // 한국어로 뭐라고 표기?
   { key: 'startDate', label: '시작일' },
   { key: 'institution', label: '요양원' },
-  // { key: 'institutionNumber', label: '요양원 ID' }, // 사용자에게 안 보여줘도 될 것 같음
-  //{ key: 'institutionId', label: '요양원 ID' },
-  // { key: 'careworkerId', label: '요양관리사 ID' },
+  { key: 'institutionNumber', label: '요양원 ID' }, // 한국어로 뭐라고 표기?
+  { key: 'institutionId', label: '요양원 ID' },
+  { key: 'careworkerId', label: '요양관리사 ID' },
 ]
 
 export const RecipientPage = () => {
