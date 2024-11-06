@@ -5,8 +5,9 @@ const CAREWORKER_BASE_URL = '/v1/careworker'
 
 export const addCareWorker = async (newCareWorker: Partial<CareWorker>) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  console.log(newCareWorker)
-  return await fetchInstance.post(CAREWORKER_BASE_URL, newCareWorker)
+  const { id, isNew, ...careWorkerData } = newCareWorker
+
+  return await fetchInstance.post(CAREWORKER_BASE_URL, careWorkerData)
 }
 
 export const getCareWorkers = async (): Promise<CareWorker[]> => {
