@@ -45,35 +45,79 @@ export const Table = <T extends TableRow>({
     setTableData(updatedData)
   }
 
-  const handlePost = (rowIndex: number) => {
-    const rowToAdd = tableData[rowIndex]
-    if (onAddRow) {
-      onAddRow(rowToAdd)
-      const updatedData = [...tableData]
-      updatedData[rowIndex].isNew = false
-      setTableData(updatedData)
+  const handleAction = (action: 'add' | 'update', rowIndex: number) => {
+    const row = tableData[rowIndex]
+    if (action === 'add' && onAddRow) {
+      onAddRow(row)
+    } else if (action === 'update' && onUpdateRow) {
+      onUpdateRow(row)
     }
+    const updatedData = [...tableData]
+    updatedData[rowIndex].isNew = false
+    setTableData(updatedData)
+    setEditingRowIndex(null)
   }
 
   const handleDelete = (institutionNumber?: number) => {
     if (institutionNumber !== undefined && onDeleteRow) {
       onDeleteRow(institutionNumber)
-      const updatedData = tableData.filter((row) => row.institutionNumber !== institutionNumber)
-      setTableData(updatedData)
+      setTableData(tableData.filter((row) => row.institutionNumber !== institutionNumber))
     }
   }
 
-  const handleEdit = (rowIndex: number) => {
-    setEditingRowIndex(rowIndex)
-  }
+  const renderActionButton = (action: 'add' | 'update', rowIndex: number) => (
+    <td colSpan={2}>
+      <S.TableButtonWrapper>
+        <Button
+          theme="gray"
+          width="100%"
+          height="10px"
+          onClick={() => handleAction(action, rowIndex)}
+        >
+          {action === 'add' ? '추가' : '수정'}
+        </Button>
+      </S.TableButtonWrapper>
+    </td>
+  )
 
-  const handleUpdate = (rowIndex: number) => {
-    const updatedRow = tableData[rowIndex]
-    if (onUpdateRow) {
-      onUpdateRow(updatedRow)
-    }
-    setEditingRowIndex(null)
-  }
+  const renderTableRow = (row: T, rowIndex: number) => (
+    <tr key={row.id || rowIndex}>
+      {columns.map((col, colIndex) => (
+        <td key={colIndex}>
+          {row.isNew || (editingRowIndex === rowIndex && col.key !== 'id') ? (
+            <S.Input
+              placeholder={col.label}
+              type="text"
+              value={String(row[col.key] || '')}
+              onChange={(e) => handleCellChange(rowIndex, col.key, e.target.value)}
+            />
+          ) : (
+            <>{String(row[col.key])}</>
+          )}
+        </td>
+      ))}
+      {row.isNew ? (
+        renderActionButton('add', rowIndex)
+      ) : editingRowIndex === rowIndex ? (
+        renderActionButton('update', rowIndex)
+      ) : (
+        <>
+          <td>
+            <MdOutlineModeEdit
+              style={{ cursor: 'pointer' }}
+              onClick={() => setEditingRowIndex(rowIndex)}
+            />
+          </td>
+          <td>
+            <MdDeleteOutline
+              style={{ cursor: 'pointer' }}
+              onClick={() => handleDelete(row.institutionNumber)}
+            />
+          </td>
+        </>
+      )}
+    </tr>
+  )
 
   return (
     <>
@@ -88,68 +132,7 @@ export const Table = <T extends TableRow>({
             <th>삭제</th>
           </tr>
         </S.Thead>
-        <S.Tbody>
-          {tableData.map((row, rowIndex) => (
-            <tr key={row.id || rowIndex}>
-              {columns.map((col, colIndex) => (
-                <td key={colIndex}>
-                  {row.isNew || (editingRowIndex === rowIndex && col.key !== 'id') ? (
-                    <S.Input
-                      placeholder={col.label}
-                      type="text"
-                      value={String(row[col.key] || '')}
-                      onChange={(e) => handleCellChange(rowIndex, col.key, e.target.value)}
-                    />
-                  ) : (
-                    <>{String(row[col.key])}</>
-                  )}
-                </td>
-              ))}
-              {row.isNew ? (
-                <td colSpan={2}>
-                  <S.TableButtonWrapper>
-                    <Button
-                      theme="gray"
-                      width="100%"
-                      height="10px"
-                      onClick={() => handlePost(rowIndex)}
-                    >
-                      확인
-                    </Button>
-                  </S.TableButtonWrapper>
-                </td>
-              ) : editingRowIndex === rowIndex ? (
-                <td colSpan={2}>
-                  <S.TableButtonWrapper>
-                    <Button
-                      theme="gray"
-                      width="100%"
-                      height="10px"
-                      onClick={() => handleUpdate(rowIndex)}
-                    >
-                      수정
-                    </Button>
-                  </S.TableButtonWrapper>
-                </td>
-              ) : (
-                <>
-                  <td>
-                    <MdOutlineModeEdit
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => handleEdit(rowIndex)}
-                    />
-                  </td>
-                  <td>
-                    <MdDeleteOutline
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => handleDelete(row.institutionNumber)}
-                    />
-                  </td>
-                </>
-              )}
-            </tr>
-          ))}
-        </S.Tbody>
+        <S.Tbody>{tableData.map((row, rowIndex) => renderTableRow(row, rowIndex))}</S.Tbody>
       </S.Table>
 
       <S.ButtonWrapper>
