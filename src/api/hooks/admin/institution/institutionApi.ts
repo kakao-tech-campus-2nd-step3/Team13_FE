@@ -15,6 +15,8 @@ export const getInstitutions = async (): Promise<Institution[]> => {
 }
 
 export const updateInstitution = async (id: number, updatedData: Partial<Institution>) => {
+  // const updatedInstitution = { institutionNumber: id, ...updatedData }
+  // console.log(updatedInstitution)
   return await fetchInstance.put(`${INSTITUTION_BASE_URL}/${id}`, updatedData)
 }
 
