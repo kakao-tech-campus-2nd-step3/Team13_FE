@@ -30,18 +30,24 @@ export const CareLogPage = () => {
           </S.LogoContainer>{' '}
           2024.09.20.
         </S.Date>
-        <S.Activity>
-          <b>신체 활동 지원</b> 음악 치료와 퍼즐 놀이가 도움이 되었음.
-        </S.Activity>
-        <S.Activity>
-          <b>인지관리 및 의사소통</b> 음악 치료와 퍼즐 놀이가 도움이 되었음.
-        </S.Activity>
-        <S.Activity>
-          <b>식사 관리</b> 음악 치료와 퍼즐 놀이가 도움이 되었음.
-        </S.Activity>
-        <S.Activity>
-          <b>화장실 이용</b> 음악 치료와 퍼즐 놀이가 도움이 되었음.
-        </S.Activity>
+        <S.LogWrapper>
+          <S.Activity>
+            <b>신체 활동 지원</b>
+          </S.Activity>
+          <S.Activity>음악 치료와 퍼즐 놀이가 도움이 되었음.</S.Activity>
+          <S.Activity>
+            <b>인지관리 및 의사소통</b>
+          </S.Activity>
+          <S.Activity>음악 치료와 퍼즐 놀이가 도움이 되었음.</S.Activity>
+          <S.Activity>
+            <b>건강 및 간호 관리</b>
+          </S.Activity>
+          <S.Activity>음악 치료와 퍼즐 놀이가 도움이 되었음.</S.Activity>
+          <S.Activity>
+            <b>기능 회복 훈련</b>
+          </S.Activity>
+          <S.Activity>음악 치료와 퍼즐 놀이가 도움이 되었음.</S.Activity>
+        </S.LogWrapper>
       </S.Content>
 
       <Button

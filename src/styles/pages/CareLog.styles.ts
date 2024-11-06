@@ -12,7 +12,7 @@ const Container = styled.div`
 `
 
 const Header = styled.div`
-  margin: 23px 0 16px 0;
+  margin: 0 0 16px 0;
 `
 
 const Birth = styled.div`
@@ -56,10 +56,11 @@ const Tag = styled.span`
 `
 
 const Content = styled.div`
-  flex-grow: 1;xc
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
 `
 
 const LogoContainer = styled.div`
@@ -83,21 +84,25 @@ const Date = styled.div`
   align-items: center;
   margin-bottom: 24px;
 `
-
+const LogWrapper = styled.div`
+  flex-grow: 1;
+  width: 100%;
+`
 const Activity = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   color: ${colors.text.subtle};
-  margin-bottom: 24px;
+  margin-bottom: 5px;
   line-height: 24px;
   font-size: 18px;
 
   b {
-    width: 180px;
+    width: 230px;
     font-weight: bold;
     color: #000;
+    margin-top: 10px;
   }
 `
 
@@ -112,5 +117,6 @@ export {
   Content,
   LogoContainer,
   Date,
+  LogWrapper,
   Activity,
 }
