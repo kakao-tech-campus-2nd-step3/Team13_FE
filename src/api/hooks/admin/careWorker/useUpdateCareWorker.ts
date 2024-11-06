@@ -1,13 +1,13 @@
 import { useMutation } from '@tanstack/react-query'
 import { updateCareWorker } from './careWorkerApi'
-import { CareWorker } from './types'
+import { CareWorker, UpdateCareWorkerData } from './types'
 import { AxiosError, AxiosResponse } from 'axios'
 
 export const useUpdateCareWorker = () => {
   const { mutate } = useMutation<
     AxiosResponse<CareWorker>,
     AxiosError,
-    { careworkerId: number; updatedData: CareWorker }
+    { careworkerId: number; updatedData: UpdateCareWorkerData }
   >({
     mutationFn: ({ careworkerId, updatedData }) => updateCareWorker(careworkerId, updatedData),
     onSuccess: () => {
