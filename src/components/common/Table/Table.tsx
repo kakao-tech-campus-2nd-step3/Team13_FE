@@ -58,10 +58,10 @@ export const Table = <T extends TableRow>({
     setEditingRowIndex(null)
   }
 
-  const handleDelete = (institutionNumber?: number) => {
-    if (institutionNumber !== undefined && onDeleteRow) {
-      onDeleteRow(institutionNumber)
-      setTableData(tableData.filter((row) => row.institutionNumber !== institutionNumber))
+  const handleDelete = (id?: number) => {
+    if (id !== undefined && onDeleteRow) {
+      onDeleteRow(id)
+      setTableData(tableData.filter((row) => row.id !== id))
     }
   }
 
@@ -109,10 +109,7 @@ export const Table = <T extends TableRow>({
             />
           </td>
           <td>
-            <MdDeleteOutline
-              style={{ cursor: 'pointer' }}
-              onClick={() => handleDelete(row.institutionNumber)}
-            />
+            <MdDeleteOutline style={{ cursor: 'pointer' }} onClick={() => handleDelete(row.id)} />
           </td>
         </>
       )}
