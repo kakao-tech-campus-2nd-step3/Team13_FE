@@ -3,13 +3,7 @@ import { useGetInstitutions } from '@/api/hooks/admin/institution/useGetInstitut
 import { useAddInstitution } from '@/api/hooks/admin/institution/useAddInstitution'
 import { useDeleteInstitution } from '@/api/hooks/admin/institution/useDeleteInstitution'
 import { useUpdateInstitution } from '@/api/hooks/admin/institution/useUpdateInstitution'
-
-// 요양원
-interface Institution {
-  institutionNumber: number
-  institutionName: string
-  [key: string]: unknown
-}
+import { Institution } from '@/api/hooks/admin/institution/types'
 
 // const institutions: Institution[] = [{ institutionNumber: 101, institutionName: '000 요양원' }]
 
