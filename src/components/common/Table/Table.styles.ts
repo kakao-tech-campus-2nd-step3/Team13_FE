@@ -53,6 +53,10 @@ const Input = styled.input`
   text-align: center;
   box-sizing: border-box;
 `
+const TableButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`
 
 const ButtonWrapper = styled.div`
   margin-top: 10px;
@@ -60,4 +64,4 @@ const ButtonWrapper = styled.div`
   justify-content: end;
 `
 
-export { Title, Table, Thead, Tbody, Input, ButtonWrapper }
+export { Title, Table, Thead, Tbody, Input, TableButtonWrapper, ButtonWrapper }
