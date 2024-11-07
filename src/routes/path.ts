@@ -1,7 +1,10 @@
 export const RouterPath = {
   ROOT: '/',
   HOME: '/',
-  LOGIN: '/login',
+  LOGIN: {
+    CAREWORKER: '/login/careworker',
+    GUARDIAN: '/login/guardian',
+  },
   RECIPIENTS: '/recipients',
   CHART: '/chart',
   DIY: '/chart/DIY',
