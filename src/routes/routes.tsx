@@ -41,6 +41,7 @@ const router = createBrowserRouter([
       {
         path: RouterPath.LOGIN,
         element: <LoginPage />,
+
       },
       {
         path: RouterPath.RECIPIENTS,
