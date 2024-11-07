@@ -6,10 +6,6 @@ import { colors } from '@/styles/colors/colors'
 import styled from '@emotion/styled'
 import { AuthProvider } from '@/provider/Auth/authApi'
 
-interface Props {
-  role: string
-}
-
 export const LoginPage = () => {
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
