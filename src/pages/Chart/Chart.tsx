@@ -50,7 +50,7 @@ export const ChartPage = () => {
         }}
       >
         <TextBody.Large style={{ color: colors.text.subtle }}>
-          오늘 피요양자는 상태는 어땠나요?
+          오늘 김쿠키님의 상태는 어땠나요?
         </TextBody.Large>
         <Heading.Medium>간편하게 차트를 작성해 보아요!</Heading.Medium>
       </div>

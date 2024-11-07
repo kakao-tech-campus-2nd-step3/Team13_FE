@@ -90,11 +90,11 @@ export const RecipientsPage = () => {
     const scrollTop = event.target.scrollTop
     setIsScrolled(scrollTop > 0)
   }
-
+  console.log(localStorage.getItem('role'))
   return (
     <Wrapper>
       <Heading.Medium style={{ width: '100%', margin: '20px 0 10px 0' }}>
-        피요양자를 선택해주세요.
+        돌봄대상자를 선택해주세요.
       </Heading.Medium>
       {/* <Search>
         <img src={searchIcon} alt="searchIcon" style={{ width: '22px' }} />

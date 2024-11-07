@@ -1,10 +1,9 @@
 export const RouterPath = {
   ROOT: '/',
   HOME: '/',
-  LOGIN: {
-    CAREWORKER: '/login/careworker',
-    GUARDIAN: '/login/guardian',
-  },
+  LOGIN: '/login',
+  SELECT: '/select',
+  CALENDAR: '/calendar',
   RECIPIENTS: '/recipients',
   CHART: '/chart',
   SHARE: '/share',
@@ -22,10 +21,19 @@ export const RouterPath = {
     NURSING: '/chart/choice/nursing',
     RECOVERY: '/chart/choice/recovery',
   },
-
   CARE_LOG: '/careLog',
-  DETAIL_LOG: '/detailLog',
-  MULTIPLE_LOG: '/multipleLog',
+  CHOICE_LOG: {
+    BODY: '/careLog/choice/body',
+    COGNITIVE: '/careLog/choice/cognitive',
+    NURSING: '/careLog/choice/nursing',
+    RECOVERY: '/careLog/choice/recovery',
+  },
+  SIGNIFICANT_LOG: {
+    BODY: '/careLog/significant/body',
+    COGNITIVE: '/careLog/significant/cognitive',
+    NURSING: '/careLog/significant/nursing',
+    RECOVERY: '/careLog/significant/recovery',
+  },
   SPEECH_TO_TEXT: '/speechToText',
   OCR: '/ocr',
   OCR_LOADING: '/ocr/loading',

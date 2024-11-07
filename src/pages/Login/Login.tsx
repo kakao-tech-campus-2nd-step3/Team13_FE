@@ -6,19 +6,16 @@ import { colors } from '@/styles/colors/colors'
 import styled from '@emotion/styled'
 import { AuthProvider } from '@/provider/Auth/authApi'
 
-interface Props {
-  role: string
-}
-
-export const LoginPage = ({ role }: Props) => {
+export const LoginPage = () => {
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
 
   const navigate = useNavigate()
 
   const handleLogin = async () => {
+    console.log(localStorage.getItem('role'))
     try {
-      await AuthProvider(role, id, password)
+      await AuthProvider(localStorage.getItem('role')!, id, password)
       navigate('/dashboard') // Redirect to the main page upon successful login
     } catch (error) {
       console.error('Login failed:', error)

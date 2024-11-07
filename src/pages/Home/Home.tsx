@@ -7,6 +7,7 @@ import styled from '@emotion/styled'
 import { useNavigate } from 'react-router-dom'
 
 interface RoleProps {
+  title: string
   role: string
   isBlue: boolean
 }
@@ -18,18 +19,24 @@ export const HomePage = () => {
         <img src={logo} alt="logo" />
         <Heading.Large style={{ color: `${colors.text.subtle}` }}>돌봄 다리</Heading.Large>
       </LogoWrapper>
-      <RoleButton role="요양보호사" isBlue={false} />
-      <RoleButton role="보호자" isBlue={true} />
+      <RoleButton title="요양보호사" role="CAREWORKER" isBlue={false} />
+      <RoleButton title="보호자" role="GUARDIAN" isBlue={true} />
     </Wrapper>
   )
 }
 
-const RoleButton = ({ role, isBlue }: RoleProps) => {
+const RoleButton = ({ title, role, isBlue }: RoleProps) => {
   const navigate = useNavigate()
 
   return (
-    <RoleWrapper isBlue={isBlue} onClick={() => navigate('/login', { state: { role } })}>
-      <Heading.Medium style={{ fontWeight: '600' }}>{role} 로그인</Heading.Medium>
+    <RoleWrapper
+      isBlue={isBlue}
+      onClick={() => {
+        localStorage.setItem('role', role)
+        navigate(`/login`)
+      }}
+    >
+      <Heading.Medium style={{ fontWeight: '600' }}>{title} 로그인</Heading.Medium>
       {isBlue ? <img src={arrowWhite} alt="" /> : <img src={arrowBlue} alt="" />}
     </RoleWrapper>
   )
