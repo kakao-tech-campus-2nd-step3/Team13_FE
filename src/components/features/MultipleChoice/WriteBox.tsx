@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import styled from 'styled-components'
 import { colors } from '@/styles/colors/colors'
 
@@ -9,6 +8,10 @@ interface Props {
   isDualInput?: boolean
   placeholderFirst?: string
   placeholderSecond?: string
+  firstInputValue?: string
+  secondInputValue?: string
+  onFirstInputChange?: (value: any) => void
+  onSecondInputChange?: (value: any) => void
 }
 
 export const WriteBox = ({
@@ -18,16 +21,17 @@ export const WriteBox = ({
   isDualInput = false,
   placeholderFirst = '',
   placeholderSecond = '',
+  firstInputValue = '',
+  secondInputValue = '',
+  onFirstInputChange = () => {},
+  onSecondInputChange = () => {},
 }: Props) => {
-  const [firstInput, setFirstInput] = useState('')
-  const [secondInput, setSecondInput] = useState('')
-
   const handleFirstInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFirstInput(event.target.value)
+    onFirstInputChange(event.target.value)
   }
 
   const handleSecondInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSecondInput(event.target.value)
+    onSecondInputChange(event.target.value)
   }
 
   return (
@@ -44,7 +48,7 @@ export const WriteBox = ({
           <>
             <StyledInput
               type="number"
-              value={firstInput}
+              value={firstInputValue}
               onChange={handleFirstInputChange}
               placeholder={placeholderFirst}
               onFocus={(e) => (e.target.placeholder = '')}
@@ -54,7 +58,7 @@ export const WriteBox = ({
             <Separator>/</Separator>
             <StyledInput
               type="number"
-              value={secondInput}
+              value={secondInputValue}
               onChange={handleSecondInputChange}
               placeholder={placeholderSecond}
               onFocus={(e) => (e.target.placeholder = '')}
@@ -67,7 +71,7 @@ export const WriteBox = ({
           <>
             <StyledInput
               type="text"
-              value={firstInput}
+              value={firstInputValue}
               onChange={handleFirstInputChange}
               placeholder={placeholderFirst}
               onFocus={(e) => (e.target.placeholder = '')}

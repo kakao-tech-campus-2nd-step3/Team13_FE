@@ -1,23 +1,23 @@
 import minus from '@/assets/icons/minus.svg'
 import plus from '@/assets/icons/plus.svg'
 import { colors } from '@/styles/colors/colors'
-import { useState } from 'react'
 import styled from 'styled-components'
 
 interface Props {
   icon: string
   title: string
+  count: number
+  onCountChange: (newCount: number) => void
 }
 
-export const TimesBox = ({ icon, title }: Props) => {
-  const [times, setTimes] = useState(0)
-  const increaseTimes = () => setTimes((prev) => prev + 1)
-  const decreaseTimes = () => setTimes((prev) => (prev > 0 ? prev - 1 : 0))
+export const TimesBox = ({ icon, title, count, onCountChange }: Props) => {
+  const increaseTimes = () => onCountChange(count + 1)
+  const decreaseTimes = () => onCountChange(count > 0 ? count - 1 : 0)
 
   return (
     <Box>
       <TitleBox>
-        <img src={icon} alt={icon} style={{ height: '20px', marginRight: '3px' }} />
+        <img src={icon} alt={title} style={{ height: '20px', marginRight: '3px' }} />
         <TitleContainer>
           <TitleText>{title}</TitleText>
           <BackgroundBar />
@@ -25,30 +25,20 @@ export const TimesBox = ({ icon, title }: Props) => {
       </TitleBox>
       <PlusBox>
         <Background>
-          <img src={minus} alt="minus" onClick={decreaseTimes} />
-          <div
-            style={{
-              width: '45px',
-              height: '32px',
-              backgroundColor: 'white',
-              borderRadius: '8px',
-              boxShadow: '0px 1px 5px rgba(0, 0, 0, 0.25)',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              fontSize: '17px',
-              fontWeight: '700',
-            }}
-          >
-            {times}
-          </div>
-          <img src={plus} alt="plus" onClick={increaseTimes} />
+          <ButtonWrapper onClick={decreaseTimes}>
+            <img src={minus} alt="minus" />
+          </ButtonWrapper>
+          <CountDisplay>{count}</CountDisplay>
+          <ButtonWrapper onClick={increaseTimes}>
+            <img src={plus} alt="plus" />
+          </ButtonWrapper>
         </Background>
       </PlusBox>
     </Box>
   )
 }
 
+// 스타일 정의
 const Box = styled.div`
   width: 154px;
   height: 118px;
@@ -109,4 +99,22 @@ const Background = styled.div`
   align-items: center;
   display: flex;
   justify-content: space-evenly;
+`
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  cursor: pointer;
+`
+
+const CountDisplay = styled.div`
+  width: 45px;
+  height: 32px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
+  font-weight: 700;
 `
