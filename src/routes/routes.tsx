@@ -20,6 +20,7 @@ import { BodyChoicePage } from '@/pages/Choice/Body/BodyChoice'
 import { CognitiveChoicePage } from '@/pages/Choice/Cognitive/CognitiveChoice'
 import { RecoveryChoicePage } from '@/pages/Choice/Recovery/RecoveryChoice'
 import { NursingChoicePage } from '@/pages/Choice/Nursing/NursingChoice'
+import { MyPageWithMock } from '@/pages/MyPage/MyPage'
 
 // Admin Pages
 import { CareWorkerPage } from '@/pages/admin/CareWorkerPage'
@@ -137,6 +138,7 @@ const router = createBrowserRouter([
       { path: RouterPath.OCR, element: <OCRPage /> },
       { path: RouterPath.OCR_LOADING, element: <OCRLoadingPage /> },
       { path: RouterPath.OCR_CHECKING, element: <OCRCheckPage /> },
+      { path: RouterPath.MYPAGE, element: <MyPageWithMock /> },
 
       // Admin Routes
       { path: RouterPath.ADMIN.CAREWORKER, element: <CareWorkerPage /> },
