@@ -26,8 +26,8 @@ const stepPaths_get = [
 function Steps({ currentStep, totalSteps, isLog = false }: StepsProps) {
   const navigate = useNavigate()
   const stepPaths = isLog ? stepPaths_get : stepPaths_post
-  const handleStepClick = (index: number, isCompleted: boolean) => {
-    if (isCompleted || isLog) {
+  const handleStepClick = (index: number, isCompleted: boolean, isCurrent: boolean) => {
+    if (isCompleted || isLog || isCurrent) {
       navigate(stepPaths[index])
     }
   }
@@ -39,7 +39,7 @@ function Steps({ currentStep, totalSteps, isLog = false }: StepsProps) {
         const isCompleted = index < currentStep - 1
 
         return (
-          <Step key={index} onClick={() => handleStepClick(index, isCompleted)}>
+          <Step key={index} onClick={() => handleStepClick(index, isCompleted, isCurrent)}>
             {isCompleted ? (
               <Done>
                 <img src={checkIcon} alt="done" style={{ width: '13px' }} />

@@ -36,3 +36,26 @@ export type ChartData = {
     recoveryNote: string
   }
 }
+
+export type CalendarData = {
+  chartId: number
+  recipientName: string
+  chartDate: string
+}
+
+export type CareLogData = {
+  summaryResponse: {
+    condition_disease: string
+    body_management: string
+    nursing_management: string
+    cognitive_management: string
+    recovery_training: string
+  }
+  tagResponse: {
+    tag1: string
+    tag2: string
+    tag3: string
+  }
+  updatedAt: string
+  institutionName: string
+}

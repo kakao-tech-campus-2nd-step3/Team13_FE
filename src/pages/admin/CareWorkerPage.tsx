@@ -1,8 +1,8 @@
-import { CareWorker } from '@/api/hooks/admin/\bcareWorker/types'
-import { useAddCareWorker } from '@/api/hooks/admin/\bcareWorker/useAddCareWorker'
-import { useDeleteCareWorker } from '@/api/hooks/admin/\bcareWorker/useDeleteCareWorker'
-import { useGetCareWorkers } from '@/api/hooks/admin/\bcareWorker/useGetCareWorker'
-import { useUpdateCareWorker } from '@/api/hooks/admin/\bcareWorker/useUpdateCareWorker'
+import { CareWorker } from '@/api/hooks/admin/careWorker/types'
+import { useAddCareWorker } from '@/api/hooks/admin/careWorker/useAddCareWorker'
+import { useDeleteCareWorker } from '@/api/hooks/admin/careWorker/useDeleteCareWorker'
+import { useGetCareWorkers } from '@/api/hooks/admin/careWorker/useGetCareWorker'
+import { useUpdateCareWorker } from '@/api/hooks/admin/careWorker/useUpdateCareWorker'
 import { Table } from '@/components/common/Table/Table'
 
 // const careWorkers: CareWorker[] = [

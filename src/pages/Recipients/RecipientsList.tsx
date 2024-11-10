@@ -28,7 +28,7 @@ export const RecipientsList = ({
       onClick={
         currentRole == 'GUARDIAN'
           ? () => {
-              navigate('/calendar')
+              navigate('/calendar', { state: { name, birthday } })
             }
           : () => {}
       }
@@ -63,7 +63,7 @@ export const RecipientsList = ({
             src={chartList}
             alt="chart list"
             onClick={() => {
-              navigate('/calendar')
+              navigate('/calendar', { state: { name, birthday } })
             }}
           />
         </SelectWrapper>

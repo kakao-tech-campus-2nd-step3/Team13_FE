@@ -21,7 +21,7 @@ export const RouterPath = {
     NURSING: '/chart/choice/nursing',
     RECOVERY: '/chart/choice/recovery',
   },
-  CARE_LOG: '/careLog',
+  CARE_LOG: '/careLog/:chartId',
   CHOICE_LOG: {
     BODY: '/careLog/choice/body',
     COGNITIVE: '/careLog/choice/cognitive',

@@ -16,6 +16,7 @@ export const LoginPage = () => {
     console.log(localStorage.getItem('role'))
     try {
       await AuthProvider(localStorage.getItem('role')!, id, password)
+      localStorage.setItem('userId', id)
       navigate('/dashboard') // Redirect to the main page upon successful login
     } catch (error) {
       console.error('Login failed:', error)
