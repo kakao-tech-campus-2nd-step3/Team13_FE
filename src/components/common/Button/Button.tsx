@@ -9,6 +9,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   width?: string
   height?: string
   margin?: string
+  onClick?: () => void
 }
 
 const themeStyles = {
@@ -22,9 +23,14 @@ const themeStyles = {
     color: colors.primary.main,
     border: `2px solid ${colors.primary.main}`,
   },
+  gray: {
+    background: colors.background.disable,
+    color: '#000',
+    border: 'none',
+  },
 }
 
-function Button({ icon, children, theme, width, height, margin, ...rest }: ButtonProps) {
+function Button({ icon, children, theme, width, height, margin, onClick, ...rest }: ButtonProps) {
   const { background, color, border } = themeStyles[theme] || themeStyles.dark // default색은 자유롭게 변경해 주세요!
 
   const buttonStyle = css`
@@ -55,13 +61,13 @@ function Button({ icon, children, theme, width, height, margin, ...rest }: Butto
   `
 
   return (
-    <button css={buttonStyle} {...rest}>
+    <button css={buttonStyle} onClick={onClick} {...rest}>
       {icon && <span css={iconStyle}>{icon}</span>}
       {children}
     </button>
   )
 }
 
-type ButtonTheme = 'dark' | 'light-outlined'
+type ButtonTheme = 'dark' | 'light-outlined' | 'gray'
 
 export default Button
