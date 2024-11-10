@@ -9,6 +9,7 @@ import { CalendarData } from '@/types/types' // CalendarData 타입을 가져옵
 export const CalendarPage = () => {
   const location = useLocation()
   const { name, birthday } = location.state || {}
+  const [selectedDate, setSelectedDate] = useState('')
   const [availableDates, setAvailableDates] = useState<CalendarData[]>([])
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear())
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1)
@@ -57,7 +58,10 @@ export const CalendarPage = () => {
       if (clickedDate) {
         console.log(`Selected chartId: ${clickedDate.chartId}`)
         console.log(`Selected name: ${clickedDate.recipientName}`)
-        navigate(`/careLog/${clickedDate.chartId}`, { state: { name, birthday } })
+        setSelectedDate(
+          `${selectedYear}.${String(selectedMonth).padStart(2, '0')}.${String(day).padStart(2, '0')}.`,
+        )
+        navigate(`/careLog/${clickedDate.chartId}`, { state: { name, birthday, selectedDate } })
       }
     }
   }

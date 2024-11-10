@@ -1,10 +1,12 @@
+import { getDetailLogData } from '@/api/hooks/chart/useGetChart'
 import Button from '@/components/common/Button/Button'
-import Date from '@/components/common/Date/Date'
 import Steps from '@/components/common/Steps/Steps'
 import { Heading } from '@/components/common/Text/TextFactory'
 import { colors } from '@/styles/colors/colors'
+import { ChartData } from '@/types/types'
+import { useEffect, useState } from 'react'
 import { IoCalendarNumberOutline } from 'react-icons/io5'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 interface DIYProps {
@@ -13,15 +15,44 @@ interface DIYProps {
   navigateTo: string
 }
 
-const noteFieldMap: { [key: string]: string } = {
-  '신체 활동 지원': 'physicalNote',
-  '인지관리 및 의사소통': 'cognitiveNote',
-  '건강 및 간호 관리': 'healthNote',
-  '기능 회복 훈련': 'recoveryNote',
+// Update the map to use a tuple of keys for two-level deep access
+const noteFieldMap: { [key: string]: [keyof ChartData, string] } = {
+  '신체 활동 지원': ['bodyManagement', 'physicalNote'],
+  '인지관리 및 의사소통': ['cognitiveManagement', 'cognitiveNote'],
+  '건강 및 간호 관리': ['nursingManagement', 'healthNote'],
+  '기능 회복 훈련': ['recoveryTraining', 'recoveryNote'],
+}
+
+// Utility function to get nested values based on a two-level path
+function getNestedValue(obj: any, path: [string, string]): any {
+  return obj?.[path[0]]?.[path[1]] ?? ''
 }
 
 export const SignificantLogPage = ({ step, title, navigateTo }: DIYProps) => {
   const navigate = useNavigate()
+  const { chartId, selectedDate } = useParams<{ chartId: string; selectedDate: string }>()
+  const [detailLog, setDetailLog] = useState<ChartData | null>(null)
+
+  useEffect(() => {
+    if (chartId) {
+      const fetchCareLogData = async () => {
+        try {
+          const response = await getDetailLogData({ chartId: Number(chartId) })
+          if (response.success) {
+            setDetailLog(response.response)
+          }
+        } catch (error) {
+          console.error('Chart API 호출 중 오류 발생:', error)
+        }
+      }
+      fetchCareLogData()
+    }
+  }, [chartId])
+
+  const getNote = () => {
+    if (!detailLog || !noteFieldMap[title]) return ''
+    return getNestedValue(detailLog, noteFieldMap[title])
+  }
 
   return (
     <Wrapper>
@@ -40,36 +71,27 @@ export const SignificantLogPage = ({ step, title, navigateTo }: DIYProps) => {
           style={{ color: `${colors.border.prominent}`, width: '23px', height: '23px' }}
         />
         <div style={{ fontSize: '20px', color: `${colors.text.subtle}`, fontWeight: '700' }}>
-          2024.09.19.
+          {selectedDate}
         </div>
       </div>
       <Steps currentStep={step} totalSteps={4} isLog={true} />
       <div style={{ padding: '26px 0 15px 0', lineHeight: '1.2' }}>
         <Heading.Medium>{title} 특이사항</Heading.Medium>
       </div>
-      <TextBox>
-        김영숙 환자는 오늘 아침부터 기분이 매우 양호하며, 웃음을 자주 보였습니다. 아침 식사 후에는
-        간호사와 함께 짧은 산책을 하였고, 이후에도 활발하게 활동했습니다. 점심에는 미역국을 특히
-        맛있게 드셨으며, 식사 후에는 잠깐의 낮잠을 취했습니다. 오후에는 간단한 스트레칭을 통해 몸을
-        풀었고, 체온 측정 결과 정상 범위 내에 있었습니다. 가족 방문이 있었던 오늘, 환자는 가족과의
-        대화에서 더욱 즐거워 보였으며, 전반적으로 긍정적인 반응을 보였습니다. 환자의 상태가 잘
-        유지되고 있으므로, 계속 뭐시기 저시기 어쩌구 저쩌구 울랄라 낮잠을 취했습니다. 오후에는
-        간단한 스트레칭을 통해 몸을 풀었고, 체온 측정 결과 정상 범위 내에 있었습니다. 가족 방문이
-        있었던 오늘, 환자는 가족과의 대화에서 더욱 즐거워 보였으며, 전반적으로 긍정적인 반응을
-        보였습니다. 환자의 상태가 잘 유지되고 있으므로, 계속 뭐시기 저시기 어쩌구 저쩌구 울랄라
-      </TextBox>
+      <TextBox>{getNote()}</TextBox>
       <Button
         theme="dark"
         margin="26px 0"
         width="100%"
         height="62px"
-        onClick={() => navigate(navigateTo)}
+        onClick={() => navigate(navigateTo, { state: { selectedDate } })}
       >
         확인
       </Button>
     </Wrapper>
   )
 }
+
 const Wrapper = styled.div`
   height: 100%;
   display: flex;

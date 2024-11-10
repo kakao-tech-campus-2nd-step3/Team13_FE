@@ -11,10 +11,32 @@ import { IoCalendarNumberOutline } from 'react-icons/io5'
 import { colors } from '@/styles/colors/colors'
 import Steps from '@/components/common/Steps/Steps'
 import { Heading } from '@/components/common/Text/TextFactory'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { ChartData } from '@/types/types'
+import { getDetailLogData } from '@/api/hooks/chart/useGetChart'
 
 export const RecoveryChoiceLogPage = () => {
   const navigate = useNavigate()
+  const { chartId, selectedDate } = useParams<{ chartId: string; selectedDate: string }>()
+  const [detailLog, setDetailLog] = useState<ChartData | null>(null)
+
+  useEffect(() => {
+    if (chartId) {
+      // Convert chartId to a number and fetch data
+      const fetchCareLogData = async () => {
+        try {
+          const response = await getDetailLogData({ chartId: Number(chartId) })
+          if (response.success) {
+            setDetailLog(response.response)
+          }
+        } catch (error) {
+          console.error('Chart API 호출 중 오류 발생:', error)
+        }
+      }
+      fetchCareLogData()
+    }
+  }, [chartId])
   return (
     <Wrapper>
       <div
@@ -32,7 +54,7 @@ export const RecoveryChoiceLogPage = () => {
           style={{ color: `${colors.border.prominent}`, width: '23px', height: '23px' }}
         />
         <div style={{ fontSize: '20px', color: `${colors.text.subtle}`, fontWeight: '700' }}>
-          2024.09.19.
+          {selectedDate}
         </div>
       </div>
       <Steps currentStep={4} totalSteps={4} isLog={true} />
@@ -40,10 +62,30 @@ export const RecoveryChoiceLogPage = () => {
         <Heading.Medium>기능 회복 훈련</Heading.Medium>
       </div>
       <ChoiceGrid>
-        <ChoiceBox icon={program} title="기능향상 프로그램" content={'재활 댄스'} />
-        <ChoiceBox icon={moving} title="신체 동작 훈련" content={'O'} />
-        <ChoiceBox icon={cognitiveTreatment} title="인지기능 훈련" content={'X'} />
-        <ChoiceBox icon={physicalTreatment} title="물리치료" content={'O'} />
+        <ChoiceBox
+          icon={program}
+          title="기능향상 프로그램"
+          content={
+            detailLog?.recoveryTraining.recoveryProgram === ''
+              ? '해당 없음'
+              : `${detailLog?.recoveryTraining.recoveryProgram}`
+          }
+        />
+        <ChoiceBox
+          icon={moving}
+          title="신체 동작 훈련"
+          content={detailLog?.recoveryTraining.recoveryTraining ? 'O' : 'X'}
+        />
+        <ChoiceBox
+          icon={cognitiveTreatment}
+          title="인지기능 훈련"
+          content={detailLog?.recoveryTraining.isCognitiveTrainingProvided ? 'O' : 'X'}
+        />
+        <ChoiceBox
+          icon={physicalTreatment}
+          title="물리치료"
+          content={detailLog?.recoveryTraining.isPhysicalTherapyProvided ? 'O' : 'X'}
+        />
       </ChoiceGrid>
       <ButtonWrapper>
         <Button
@@ -53,7 +95,7 @@ export const RecoveryChoiceLogPage = () => {
             height: '62px',
           }}
           onClick={() => {
-            navigate('/careLog/significant/recovery')
+            navigate(`/careLog/significant/recovery/${chartId}`, { state: { selectedDate } })
           }}
         >
           확인

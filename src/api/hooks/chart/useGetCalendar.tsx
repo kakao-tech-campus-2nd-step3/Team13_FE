@@ -1,4 +1,4 @@
-import axios from 'axios'
+import { fetchInstance } from '@/api/instance/instance'
 
 const role = localStorage.getItem('role')?.toLowerCase()
 
@@ -9,7 +9,7 @@ const getCalendarPath = () => `/v1/${role}/chart/recipient`
 export const getCalendarData = async () => {
   const path = getCalendarPath()
   try {
-    const response = await axios.get(path)
+    const response = await fetchInstance.get(path)
     return response.data
   } catch (error) {
     console.error('Calendar data 요청 중 오류:', error)

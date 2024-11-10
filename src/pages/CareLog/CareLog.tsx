@@ -6,11 +6,11 @@ import { IoCalendarNumberOutline } from 'react-icons/io5'
 import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getCareLogData } from '@/api/hooks/chart/useGetChart'
-import { CareLogData, ChartData } from '@/types/types'
+import { CareLogData } from '@/types/types'
 
 export const CareLogPage = () => {
   const location = useLocation()
-  const { name, birthday } = location.state || {}
+  const { name, birthday, selectedDate } = location.state || {}
   const { chartId } = useParams<{ chartId: string }>()
   const navigate = useNavigate()
   const [careLog, setCareLog] = useState<CareLogData | null>(null)
@@ -25,7 +25,7 @@ export const CareLogPage = () => {
             setCareLog(response.response)
           }
         } catch (error) {
-          console.error('Calendar API 호출 중 오류 발생:', error)
+          console.error('요약일지 API 호출 중 오류 발생:', error)
         }
       }
       fetchCareLogData()
@@ -55,7 +55,7 @@ export const CareLogPage = () => {
           <S.LogoContainer>
             <IoCalendarNumberOutline />
           </S.LogoContainer>
-          2024.09.20.
+          {selectedDate}
         </S.Date>
         <S.LogWrapper>
           <S.Activity>
@@ -82,7 +82,7 @@ export const CareLogPage = () => {
         margin="26px 0"
         width="100%"
         height="62px"
-        onClick={() => navigate('/careLog/choice/body')}
+        onClick={() => navigate(`/careLog/choice/body/${chartId}`, { state: { selectedDate } })}
       >
         상세 일지 보기
       </Button>

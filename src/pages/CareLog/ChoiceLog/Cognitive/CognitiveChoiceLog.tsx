@@ -8,10 +8,32 @@ import { IoCalendarNumberOutline } from 'react-icons/io5'
 import { colors } from '@/styles/colors/colors'
 import Steps from '@/components/common/Steps/Steps'
 import { Heading } from '@/components/common/Text/TextFactory'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { ChartData } from '@/types/types'
+import { getDetailLogData } from '@/api/hooks/chart/useGetChart'
 
 export const CognitiveChoiceLogPage = () => {
   const navigate = useNavigate()
+  const { chartId, selectedDate } = useParams<{ chartId: string; selectedDate: string }>()
+  const [detailLog, setDetailLog] = useState<ChartData | null>(null)
+
+  useEffect(() => {
+    if (chartId) {
+      // Convert chartId to a number and fetch data
+      const fetchCareLogData = async () => {
+        try {
+          const response = await getDetailLogData({ chartId: Number(chartId) })
+          if (response.success) {
+            setDetailLog(response.response)
+          }
+        } catch (error) {
+          console.error('Chart API 호출 중 오류 발생:', error)
+        }
+      }
+      fetchCareLogData()
+    }
+  }, [chartId])
   return (
     <Wrapper>
       <div
@@ -29,7 +51,7 @@ export const CognitiveChoiceLogPage = () => {
           style={{ color: `${colors.border.prominent}`, width: '23px', height: '23px' }}
         />
         <div style={{ fontSize: '20px', color: `${colors.text.subtle}`, fontWeight: '700' }}>
-          2024.09.19.
+          {selectedDate}
         </div>
       </div>
       <Steps currentStep={2} totalSteps={4} isLog={true} />
@@ -37,8 +59,16 @@ export const CognitiveChoiceLogPage = () => {
         <Heading.Medium>인지관리 및 의사소통</Heading.Medium>
       </div>
       <ChoiceGrid>
-        <ChoiceBox icon={cognitive} title="인지관리 지원" content={'O'} />
-        <ChoiceBox icon={clap} title="말벗 및 격려" content={'O'} />
+        <ChoiceBox
+          icon={cognitive}
+          title="인지관리 지원"
+          content={detailLog?.cognitiveManagement.cognitiveHelp ? 'O' : 'X'}
+        />
+        <ChoiceBox
+          icon={clap}
+          title="말벗 및 격려"
+          content={detailLog?.cognitiveManagement.isCompanionshipProvided ? 'O' : 'X'}
+        />
       </ChoiceGrid>
       <ButtonWrapper>
         <Button
@@ -48,7 +78,7 @@ export const CognitiveChoiceLogPage = () => {
             height: '62px',
           }}
           onClick={() => {
-            navigate('/careLog/significant/cognitive')
+            navigate(`/careLog/significant/cognitive/${chartId}`, { state: { selectedDate } })
           }}
         >
           확인

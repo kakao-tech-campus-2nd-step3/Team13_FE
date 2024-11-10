@@ -14,8 +14,10 @@ import { IoCalendarNumberOutline } from 'react-icons/io5'
 import { colors } from '@/styles/colors/colors'
 import Steps from '@/components/common/Steps/Steps'
 import { Heading } from '@/components/common/Text/TextFactory'
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { ChartData } from '@/types/types'
+import { getDetailLogData } from '@/api/hooks/chart/useGetChart'
 
 interface ListWrapperProps {
   isScrolled: boolean
@@ -23,11 +25,30 @@ interface ListWrapperProps {
 
 export const BodyChoiceLogPage = () => {
   const navigate = useNavigate()
+  const { chartId, selectedDate } = useParams<{ chartId: string; selectedDate: string }>()
+  const [detailLog, setDetailLog] = useState<ChartData | null>(null)
   const [isScrolled, setIsScrolled] = useState(false)
   const handleScroll = (event: any) => {
     const scrollTop = event.target.scrollTop
     setIsScrolled(scrollTop > 0)
   }
+
+  useEffect(() => {
+    if (chartId) {
+      // Convert chartId to a number and fetch data
+      const fetchCareLogData = async () => {
+        try {
+          const response = await getDetailLogData({ chartId: Number(chartId) })
+          if (response.success) {
+            setDetailLog(response.response)
+          }
+        } catch (error) {
+          console.error('Chart API 호출 중 오류 발생:', error)
+        }
+      }
+      fetchCareLogData()
+    }
+  }, [chartId])
   return (
     <Wrapper>
       <TitleWrapper>
@@ -46,7 +67,7 @@ export const BodyChoiceLogPage = () => {
             style={{ color: `${colors.border.prominent}`, width: '23px', height: '23px' }}
           />
           <div style={{ fontSize: '20px', color: `${colors.text.subtle}`, fontWeight: '700' }}>
-            2024.09.19.
+            {selectedDate}
           </div>
         </div>
         <Steps currentStep={1} totalSteps={4} isLog={true} />
@@ -63,14 +84,46 @@ export const BodyChoiceLogPage = () => {
 
       <ListWrapper onScroll={handleScroll} isScrolled={isScrolled}>
         <ChoiceGrid>
-          <ChoiceBox icon={waterDrop} title="청결 관리" content={'O'} />
-          <ChoiceBox icon={shower} title="목욕" content={'O'} />
-          <ChoiceBox icon={movement} title="체위 변경" content={'X'} />
-          <ChoiceBox icon={wheelchair} title="이동 도움" content={'O'} />
-          <ChoiceBox icon={walking} title="산책 / 외출 동행" content={'X'} />
-          <ChoiceBox icon={bathroom} title="화장실 이용 횟수" content={'5회'} />
-          <ChoiceBox icon={meal} title="식사 종류" content={'일반식'} />
-          <ChoiceBox icon={mealAmount} title="섭취량" content={'1/2 이상'} />
+          <ChoiceBox
+            icon={waterDrop}
+            title="청결 관리"
+            content={detailLog?.bodyManagement.wash ? 'O' : 'X'}
+          />
+          <ChoiceBox
+            icon={shower}
+            title="목욕"
+            content={detailLog?.bodyManagement.bath ? 'O' : 'X'}
+          />
+          <ChoiceBox
+            icon={movement}
+            title="체위 변경"
+            content={detailLog?.bodyManagement.isPositionChangeRequired ? 'O' : 'X'}
+          />
+          <ChoiceBox
+            icon={wheelchair}
+            title="이동 도움"
+            content={detailLog?.bodyManagement.isMobilityAssistance ? 'O' : 'X'}
+          />
+          <ChoiceBox
+            icon={walking}
+            title="산책 / 외출 동행"
+            content={detailLog?.bodyManagement.has_walked ? 'O' : 'X'}
+          />
+          <ChoiceBox
+            icon={bathroom}
+            title="화장실 이용 횟수"
+            content={`${detailLog?.bodyManagement.physicalRestroom}회`}
+          />
+          <ChoiceBox
+            icon={meal}
+            title="식사 종류"
+            content={`${detailLog?.bodyManagement.mealType}`}
+          />
+          <ChoiceBox
+            icon={mealAmount}
+            title="섭취량"
+            content={`${detailLog?.bodyManagement.intakeAmount}`}
+          />
         </ChoiceGrid>
 
         <ButtonWrapper>
@@ -81,7 +134,7 @@ export const BodyChoiceLogPage = () => {
               height: '62px',
             }}
             onClick={() => {
-              navigate('/careLog/significant/body')
+              navigate(`/careLog/significant/body/${chartId}`, { state: { selectedDate } })
             }}
           >
             확인

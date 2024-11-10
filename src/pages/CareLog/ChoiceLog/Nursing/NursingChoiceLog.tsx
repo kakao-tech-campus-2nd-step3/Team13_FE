@@ -12,10 +12,32 @@ import { IoCalendarNumberOutline } from 'react-icons/io5'
 import { colors } from '@/styles/colors/colors'
 import Steps from '@/components/common/Steps/Steps'
 import { Heading } from '@/components/common/Text/TextFactory'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { getDetailLogData } from '@/api/hooks/chart/useGetChart'
+import { ChartData } from '@/types/types'
 
 export const NursingChoiceLogPage = () => {
   const navigate = useNavigate()
+  const { chartId, selectedDate } = useParams<{ chartId: string; selectedDate: string }>()
+  const [detailLog, setDetailLog] = useState<ChartData | null>(null)
+
+  useEffect(() => {
+    if (chartId) {
+      // Convert chartId to a number and fetch data
+      const fetchCareLogData = async () => {
+        try {
+          const response = await getDetailLogData({ chartId: Number(chartId) })
+          if (response.success) {
+            setDetailLog(response.response)
+          }
+        } catch (error) {
+          console.error('Chart API 호출 중 오류 발생:', error)
+        }
+      }
+      fetchCareLogData()
+    }
+  }, [chartId])
   return (
     <Wrapper>
       <div
@@ -33,7 +55,7 @@ export const NursingChoiceLogPage = () => {
           style={{ color: `${colors.border.prominent}`, width: '23px', height: '23px' }}
         />
         <div style={{ fontSize: '20px', color: `${colors.text.subtle}`, fontWeight: '700' }}>
-          2024.09.19.
+          {selectedDate}
         </div>
       </div>
       <Steps currentStep={3} totalSteps={4} isLog={true} />
@@ -41,11 +63,31 @@ export const NursingChoiceLogPage = () => {
         <Heading.Medium>건강 및 간호 관리</Heading.Medium>
       </div>
       <ChoiceGrid>
-        <ChoiceBox icon={waterDrop} title="혈압" content={'100 / 80 mmHg'} />
-        <ChoiceBox icon={temperature} title="체온" content={'36.7°C'} />
-        <ChoiceBox icon={health} title="건강 관리" content={'X'} />
-        <ChoiceBox icon={nursing} title="간호 관리" content={'O'} />
-        <ChoiceBox icon={emergency} title="기타(응급)" content={'X'} />
+        <ChoiceBox
+          icon={waterDrop}
+          title="혈압"
+          content={`${detailLog?.nursingManagement.systolic} / ${detailLog?.nursingManagement.diastolic} mmHg`}
+        />
+        <ChoiceBox
+          icon={temperature}
+          title="체온"
+          content={`${detailLog?.nursingManagement.healthTemperature}°C`}
+        />
+        <ChoiceBox
+          icon={health}
+          title="건강 관리"
+          content={detailLog?.nursingManagement.isHealthCareProvided ? 'O' : 'X'}
+        />
+        <ChoiceBox
+          icon={nursing}
+          title="간호 관리"
+          content={detailLog?.nursingManagement.isNursingCareProvided ? 'O' : 'X'}
+        />
+        <ChoiceBox
+          icon={emergency}
+          title="기타(응급)"
+          content={detailLog?.nursingManagement.isEmergencyCareProvided ? 'O' : 'X'}
+        />
       </ChoiceGrid>
       <ButtonWrapper>
         <Button
@@ -55,7 +97,7 @@ export const NursingChoiceLogPage = () => {
             height: '62px',
           }}
           onClick={() => {
-            navigate('/careLog/significant/nursing')
+            navigate(`/careLog/significant/nursing/${chartId}`, { state: { selectedDate } })
           }}
         >
           확인
