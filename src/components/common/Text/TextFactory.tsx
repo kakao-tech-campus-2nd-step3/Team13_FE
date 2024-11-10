@@ -32,6 +32,14 @@ export const TextBody = {
 }
 
 export const Heading = {
+  XXLarge: createTextComponent({
+    defaultSize: '36px',
+    responsiveSize: {
+      sm: '50px',
+    },
+    as: 'h1',
+    weight: 600,
+  }),
   XLarge: createTextComponent({
     defaultSize: '32px',
     responsiveSize: {

@@ -28,6 +28,11 @@ const themeStyles = {
     color: '#000',
     border: 'none',
   },
+  white: {
+    background: 'white',
+    color: colors.text.prominent,
+    border: 'none',
+  },
 }
 
 function Button({ icon, children, theme, width, height, margin, onClick, ...rest }: ButtonProps) {
@@ -68,6 +73,6 @@ function Button({ icon, children, theme, width, height, margin, onClick, ...rest
   )
 }
 
-type ButtonTheme = 'dark' | 'light-outlined' | 'gray'
+type ButtonTheme = 'dark' | 'light-outlined' | 'gray' | 'white'
 
 export default Button
