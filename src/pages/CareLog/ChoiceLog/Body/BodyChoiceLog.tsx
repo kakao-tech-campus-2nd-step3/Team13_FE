@@ -67,7 +67,7 @@ export const BodyChoiceLogPage = () => {
           <ChoiceBox icon={shower} title="목욕" content={'O'} />
           <ChoiceBox icon={movement} title="체위 변경" content={'X'} />
           <ChoiceBox icon={wheelchair} title="이동 도움" content={'O'} />
-          <ChoiceBox icon={walking} title="산책 / 외출" content={'X'} />
+          <ChoiceBox icon={walking} title="산책 / 외출 동행" content={'X'} />
           <ChoiceBox icon={bathroom} title="화장실 이용 횟수" content={'5회'} />
           <ChoiceBox icon={meal} title="식사 종류" content={'일반식'} />
           <ChoiceBox icon={mealAmount} title="섭취량" content={'1/2 이상'} />
