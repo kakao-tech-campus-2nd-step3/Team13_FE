@@ -19,6 +19,8 @@ export const RecoveryChoicePage = () => {
   const [selectedOptions, setSelectedOptions] = useState<ChartData['recoveryTraining']>({
     recoveryProgram: '',
     recoveryTraining: false,
+    isCognitiveTrainingProvided: false,
+    isPhysicalTherapyProvided: false,
     recoveryNote: '',
   })
 
@@ -59,10 +61,28 @@ export const RecoveryChoicePage = () => {
           checked={selectedOptions.recoveryTraining}
           onChange={() => handleSelectOption('recoveryTraining', !selectedOptions.recoveryTraining)}
         />
-        {/* <CheckBox icon={cognitiveTreatment} title="인지기능 훈련" checked={selectedOptions.??}
-          onChange={() => handleSelectOption('??', !selectedOptions.??)}/>
-        <CheckBox icon={physicalTreatment} title="물리치료" checked={selectedOptions.??}
-          onChange={() => handleSelectOption('??', !selectedOptions.??)}/> */}
+        <CheckBox
+          icon={cognitiveTreatment}
+          title="인지기능 훈련"
+          checked={selectedOptions.isCognitiveTrainingProvided}
+          onChange={() =>
+            handleSelectOption(
+              'isCognitiveTrainingProvided',
+              !selectedOptions.isCognitiveTrainingProvided,
+            )
+          }
+        />
+        <CheckBox
+          icon={physicalTreatment}
+          title="물리치료"
+          checked={selectedOptions.isPhysicalTherapyProvided}
+          onChange={() =>
+            handleSelectOption(
+              'isPhysicalTherapyProvided',
+              !selectedOptions.isPhysicalTherapyProvided,
+            )
+          }
+        />
       </ChoiceGrid>
       <ButtonWrapper>
         <Button
