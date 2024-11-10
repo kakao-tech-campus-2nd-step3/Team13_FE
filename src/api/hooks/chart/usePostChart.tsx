@@ -60,6 +60,16 @@ export const submitChartData = async () => {
   try {
     await fetchInstance.post(postChartPath(), chartData)
     console.log('Chart data submitted successfully!')
+    localStorage.removeItem('bodyManagement')
+    localStorage.removeItem('cognitiveManagement')
+    localStorage.removeItem('nursingManagement')
+    localStorage.removeItem('recoveryTraining')
+    localStorage.removeItem('conditionDisease')
+    localStorage.removeItem('recipientId')
+    localStorage.removeItem('physicalNote')
+    localStorage.removeItem('cognitiveNote')
+    localStorage.removeItem('healthNote')
+    localStorage.removeItem('recoveryNote')
   } catch (error) {
     console.error('Error submitting chart data:', error)
   }
