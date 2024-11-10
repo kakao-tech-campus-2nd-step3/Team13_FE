@@ -9,7 +9,7 @@ import Steps from '@/components/common/Steps/Steps'
 import { CheckBox } from '@/components/features/MultipleChoice/CheckBox'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { ChartData } from '@/types/types'
+import { ChartData } from '@/api/hooks/user/careWorker/types'
 
 export const CognitiveChoicePage = () => {
   const navigate = useNavigate()

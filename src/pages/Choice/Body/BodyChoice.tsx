@@ -9,7 +9,7 @@ import wheelchair from '@/assets/icons/wheelchair.svg'
 import walking from '@/assets/icons/walking.svg'
 
 import Button from '@/components/common/Button/Button'
-import { ChartData } from '@/types/types'
+import { ChartData } from '@/api/hooks/user/careWorker/types'
 import { useEffect, useState } from 'react'
 
 import { Heading } from '@/components/common/Text/TextFactory'

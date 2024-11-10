@@ -1,5 +1,5 @@
 import { fetchInstance } from '@/api/instance/instance'
-import { ChartData } from '@/types/types'
+import { ChartData } from './types'
 
 const postChartPath = () => `/v1/careworker/chart`
 
