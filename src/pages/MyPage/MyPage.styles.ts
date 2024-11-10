@@ -30,7 +30,7 @@ export const ProfileName = styled.h2`
   font-weight: bold;
 `
 
-export const Role = styled.p`
+export const LogOut = styled.p`
   margin-top: 8px;
   color: #666;
   padding: 8px;

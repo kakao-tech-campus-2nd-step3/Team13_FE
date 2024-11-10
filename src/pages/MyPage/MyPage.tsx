@@ -44,9 +44,13 @@ export const MyPage: React.FC<MyPageProps> = ({
           <IoPersonCircle size="100" color={colors.border.subtle} />
         </div>
         <S.ProfileName>{name}</S.ProfileName>
-        <S.Role>요양보호사</S.Role>
+        <S.LogOut>로그아웃</S.LogOut>
       </S.ProfileSection>
       <S.InfoSection>
+        <S.InfoItem>
+          <S.Label>역할</S.Label>
+          <S.Value>요양보호사</S.Value>
+        </S.InfoItem>
         <S.InfoItem>
           <S.Label>소속</S.Label>
           <S.Value>{nursingHome}</S.Value>
