@@ -10,21 +10,29 @@ export type ChartData = {
     intakeAmount: string
     physicalRestroom: number
     has_walked: boolean
+    isPositionChangeRequired: boolean
+    isMobilityAssistance: boolean
     physicalNote: string
   }
   cognitiveManagement: {
     cognitiveHelp: boolean
+    isCompanionshipProvided: boolean
     cognitiveNote: string
   }
   nursingManagement: {
-    systolic: number
-    diastolic: number
+    systolic: string
+    diastolic: string
     healthTemperature: string
+    isHealthCareProvided: boolean
+    isNursingCareProvided: boolean
+    isEmergencyCareProvided: boolean
     healthNote: string
   }
   recoveryTraining: {
     recoveryProgram: string
     recoveryTraining: boolean
+    isCognitiveTrainingProvided: boolean
+    isPhysicalTherapyProvided: boolean
     recoveryNote: string
   }
 }

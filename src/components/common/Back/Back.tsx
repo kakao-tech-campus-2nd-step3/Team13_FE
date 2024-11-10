@@ -14,6 +14,7 @@ function Back() {
       style={{
         width: '100vw',
         paddingLeft: '15px',
+        position: 'relative',
         boxSizing: 'border-box',
         display: 'flex',
         zIndex: '5000',

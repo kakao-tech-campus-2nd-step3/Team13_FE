@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { RecipientsList } from './RecipientsList'
-import image from '@/assets/images/sample.png'
+import image from '@/assets/images/profile.svg'
 import { Heading, TextBody } from '@/components/common/Text/TextFactory'
 import { colors } from '@/styles/colors/colors'
 import searchIcon from '@/assets/icons/search_icon.svg'

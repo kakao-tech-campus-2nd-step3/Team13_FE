@@ -30,6 +30,8 @@ export const BodyChoicePage = () => {
     intakeAmount: '',
     physicalRestroom: 0,
     has_walked: false,
+    isPositionChangeRequired: false,
+    isMobilityAssistance: false,
     physicalNote: '',
   })
   const [isScrolled, setIsScrolled] = useState(false)
@@ -49,12 +51,40 @@ export const BodyChoicePage = () => {
     }
   }, [])
 
+  const [errors, setErrors] = useState({
+    mealType: '',
+    intakeAmount: '',
+    physicalRestroom: '',
+  })
+
   const handleSelectOption = (key: keyof ChartData['bodyManagement'], value: any) => {
     setSelectedOptions((prev) => {
       const updatedOptions = { ...prev, [key]: value }
       localStorage.setItem('bodyManagement', JSON.stringify(updatedOptions))
       return updatedOptions
     })
+  }
+
+  const validateInputs = () => {
+    const { mealType, intakeAmount, physicalRestroom } = selectedOptions
+    const newErrors: typeof errors = {
+      mealType: '',
+      intakeAmount: '',
+      physicalRestroom: '',
+    }
+
+    if (!mealType) newErrors.mealType = '식사 종류를 선택해주세요'
+    if (!intakeAmount) newErrors.intakeAmount = '섭취량을 선택해주세요'
+    if (!physicalRestroom) newErrors.physicalRestroom = '화장실 이용 횟수를 입력해주세요'
+
+    setErrors(newErrors)
+    return !Object.values(newErrors).some((error) => error)
+  }
+
+  const handleConfirm = () => {
+    if (validateInputs()) {
+      navigate('/chart/significant/body')
+    }
   }
 
   return (
@@ -77,46 +107,65 @@ export const BodyChoicePage = () => {
             checked={selectedOptions.bath}
             onChange={() => handleSelectOption('bath', !selectedOptions.bath)}
           />
-          {/* <CheckBox icon={movement} title='체위 변경' checked={selectedOptions.??} onChange={() => handleSelectOption('', !selectedOptions.??)} */}
-          {/* <CheckBox
-          icon={wheelchair}
-          title="이동 도움"
-          checked={selectedOptions.??}
-          onChange={() => handleSelectOption('??', !selectedOptions.??)}
-        /> */}
+          <CheckBox
+            icon={movement}
+            title="체위 변경"
+            checked={selectedOptions.isPositionChangeRequired}
+            onChange={() =>
+              handleSelectOption(
+                'isPositionChangeRequired',
+                !selectedOptions.isPositionChangeRequired,
+              )
+            }
+          />
+          <CheckBox
+            icon={wheelchair}
+            title="이동 도움"
+            checked={selectedOptions.isMobilityAssistance}
+            onChange={() =>
+              handleSelectOption('isMobilityAssistance', !selectedOptions.isMobilityAssistance)
+            }
+          />
           <CheckBox
             icon={walking}
-            title="산책 / 외출"
+            title="산책 / 외출 동행"
             checked={selectedOptions.has_walked}
             onChange={() => handleSelectOption('has_walked', !selectedOptions.has_walked)}
           />
-          <TimesBox
-            icon={bathroom}
-            title="화장실 이용 횟수"
-            count={selectedOptions.physicalRestroom}
-            onCountChange={(count) => handleSelectOption('physicalRestroom', count)}
-          />
-          <MultipleBox
-            icon={meal}
-            title="식사 종류"
-            options={['일반식', '죽', '유동식']}
-            selectedOption={selectedOptions.mealType}
-            onSelectOption={(option) => handleSelectOption('mealType', option)}
-          />
-          <MultipleBox
-            icon={mealAmount}
-            title="섭취량"
-            options={['1 (전부)', '1/2 이상', '1/2 미만']}
-            selectedOption={selectedOptions.intakeAmount}
-            onSelectOption={(option) => handleSelectOption('intakeAmount', option)}
-          />
+          <div>
+            <TimesBox
+              icon={bathroom}
+              title="화장실 이용 횟수"
+              count={selectedOptions.physicalRestroom}
+              onCountChange={(count) => handleSelectOption('physicalRestroom', count)}
+            />
+            {errors.physicalRestroom && <ErrorMessage>{errors.physicalRestroom}</ErrorMessage>}
+          </div>
+          <div>
+            <MultipleBox
+              icon={meal}
+              title="식사 종류"
+              options={['일반식', '죽', '유동식']}
+              selectedOption={selectedOptions.mealType}
+              onSelectOption={(option) => handleSelectOption('mealType', option)}
+            />
+            {errors.mealType && <ErrorMessage>{errors.mealType}</ErrorMessage>}
+          </div>
+          <div>
+            <MultipleBox
+              icon={mealAmount}
+              title="섭취량"
+              options={['1 (전부)', '1/2 이상', '1/2 미만']}
+              selectedOption={selectedOptions.intakeAmount}
+              onSelectOption={(option) => handleSelectOption('intakeAmount', option)}
+            />{' '}
+            {errors.intakeAmount && <ErrorMessage>{errors.intakeAmount}</ErrorMessage>}
+          </div>
         </ChoiceGrid>
         <ButtonWrapper>
           <Button
             theme="dark"
-            onClick={() => {
-              navigate('/chart/significant/body')
-            }}
+            onClick={handleConfirm}
             css={{
               width: '100%',
               height: '62px',
@@ -185,4 +234,14 @@ const ListWrapper = styled.div.withConfig({
   box-shadow: ${({ isScrolled }) =>
     isScrolled ? 'inset 0 10px 10px -10px rgba(0, 0, 0, 0.2)' : 'none'};
   transition: box-shadow 0.3s ease;
+`
+
+const ErrorMessage = styled.div`
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `

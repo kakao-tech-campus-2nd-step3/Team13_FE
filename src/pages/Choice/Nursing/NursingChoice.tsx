@@ -18,19 +18,19 @@ import { useEffect, useState } from 'react'
 export const NursingChoicePage = () => {
   const navigate = useNavigate()
   const [selectedOptions, setSelectedOptions] = useState<ChartData['nursingManagement']>({
-    systolic: 0,
-    diastolic: 0,
+    systolic: '',
+    diastolic: '',
     healthTemperature: '',
+    isHealthCareProvided: false,
+    isNursingCareProvided: false,
+    isEmergencyCareProvided: false,
     healthNote: '',
   })
-
-  // 로컬 스토리지에서 데이터 로드
-  useEffect(() => {
-    const savedData = localStorage.getItem('nursingManagement')
-    if (savedData) {
-      setSelectedOptions(JSON.parse(savedData))
-    }
-  }, [])
+  const [errors, setErrors] = useState({
+    systolic: '',
+    diastolic: '',
+    healthTemperature: '',
+  })
 
   const handleSelectOption = (key: keyof ChartData['nursingManagement'], value: any) => {
     setSelectedOptions((prev) => {
@@ -40,8 +40,34 @@ export const NursingChoicePage = () => {
     })
   }
 
-  const handleInputChange = (key: keyof ChartData['nursingManagement'], value: any) => {
-    handleSelectOption(key, value)
+  const handleInputChange = (key: keyof ChartData['nursingManagement'], value: string) => {
+    handleSelectOption(key, value.replace(/\D/g, ''))
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [key]: '', // Clear error when user types something valid
+    }))
+  }
+
+  const validateInputs = () => {
+    const { systolic, diastolic, healthTemperature } = selectedOptions
+    const newErrors: typeof errors = {
+      systolic: '',
+      diastolic: '',
+      healthTemperature: '',
+    }
+
+    if (!systolic) newErrors.systolic = '최고 혈압을 입력해주세요'
+    if (!diastolic) newErrors.diastolic = '최저 혈압을 입력해주세요'
+    if (!healthTemperature) newErrors.healthTemperature = '체온을 입력해주세요'
+
+    setErrors(newErrors)
+    return !Object.values(newErrors).some((error) => error)
+  }
+
+  const handleConfirm = () => {
+    if (validateInputs()) {
+      navigate('/chart/significant/nursing')
+    }
   }
 
   return (
@@ -51,41 +77,63 @@ export const NursingChoicePage = () => {
         건강 및 간호 관리
       </Heading.Medium>
       <ChoiceGrid>
-        <WriteBox
-          icon={waterDrop}
-          title="혈압"
-          unit="mmHg"
-          isDualInput={true}
-          placeholderFirst="최고"
-          placeholderSecond="최저"
-          firstInputValue={selectedOptions.systolic.toString()}
-          secondInputValue={selectedOptions.diastolic.toString()}
-          onFirstInputChange={(value) => handleInputChange('systolic', Number(value) || 0)}
-          onSecondInputChange={(value) => handleInputChange('diastolic', Number(value) || 0)}
+        <div>
+          <WriteBox
+            icon={waterDrop}
+            title="혈압"
+            unit="mmHg"
+            isDualInput={true}
+            placeholderFirst="최고"
+            placeholderSecond="최저"
+            firstInputValue={selectedOptions.systolic.toString()}
+            secondInputValue={selectedOptions.diastolic.toString()}
+            onFirstInputChange={(value) => handleInputChange('systolic', value)}
+            onSecondInputChange={(value) => handleInputChange('diastolic', value)}
+          />
+          {errors.systolic && <ErrorMessage>{errors.systolic}</ErrorMessage>}
+          {errors.diastolic && <ErrorMessage>{errors.diastolic}</ErrorMessage>}
+        </div>
+        <div>
+          <WriteBox
+            icon={temperature}
+            title="체온"
+            unit="°C"
+            isDualInput={false}
+            placeholderFirst="입력해주세요"
+            firstInputValue={selectedOptions.healthTemperature}
+            onFirstInputChange={(value) => handleInputChange('healthTemperature', value)}
+          />
+          {errors.healthTemperature && <ErrorMessage>{errors.healthTemperature}</ErrorMessage>}
+        </div>
+        <CheckBox
+          icon={health}
+          title="건강 관리"
+          checked={selectedOptions.isHealthCareProvided}
+          onChange={() =>
+            handleSelectOption('isHealthCareProvided', !selectedOptions.isHealthCareProvided)
+          }
         />
-        <WriteBox
-          icon={temperature}
-          title="체온"
-          unit="°C"
-          isDualInput={false}
-          placeholderFirst="입력해주세요"
-          firstInputValue={selectedOptions.healthTemperature}
-          onFirstInputChange={(value) => handleInputChange('healthTemperature', value)}
+        <CheckBox
+          icon={nursing}
+          title="간호 관리"
+          checked={selectedOptions.isNursingCareProvided}
+          onChange={() =>
+            handleSelectOption('isNursingCareProvided', !selectedOptions.isNursingCareProvided)
+          }
         />
-        {/* <CheckBox icon={health} title="건강 관리" 
-        checked={selectedOptions.??}
-        onChange={() => handleSelectOption('??', !selectedOptions.??)}/>
-        <CheckBox icon={nursing} title="간호 관리" checked={selectedOptions.??}
-        onChange={() => handleSelectOption('??', !selectedOptions.??)}/>
-        <CheckBox icon={emergency} title="기타(응급)" checked={selectedOptions.??}
-        onChange={() => handleSelectOption('??', !selectedOptions.??)}/> */}
+        <CheckBox
+          icon={emergency}
+          title="기타(응급)"
+          checked={selectedOptions.isEmergencyCareProvided}
+          onChange={() =>
+            handleSelectOption('isEmergencyCareProvided', !selectedOptions.isEmergencyCareProvided)
+          }
+        />
       </ChoiceGrid>
       <ButtonWrapper>
         <Button
           theme="dark"
-          onClick={() => {
-            navigate('/chart/significant/nursing')
-          }}
+          onClick={handleConfirm}
           css={{
             width: '100%',
             height: '62px',
@@ -130,5 +178,15 @@ const ButtonWrapper = styled.div`
   width: 100%;
   padding: 0 0 26px 0;
   box-sizing: border-box;
-  margin-top: auto; /* 항상 하단에 위치 */
+  margin-top: auto; /* Always positioned at the bottom */
+`
+
+const ErrorMessage = styled.div`
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `

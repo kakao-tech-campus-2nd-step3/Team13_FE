@@ -15,6 +15,7 @@ export const CognitiveChoicePage = () => {
   const navigate = useNavigate()
   const [selectedOptions, setSelectedOptions] = useState<ChartData['cognitiveManagement']>({
     cognitiveHelp: false,
+    isCompanionshipProvided: false,
     cognitiveNote: '',
   })
 
@@ -46,12 +47,14 @@ export const CognitiveChoicePage = () => {
           checked={selectedOptions.cognitiveHelp}
           onChange={() => handleSelectOption('cognitiveHelp', !selectedOptions.cognitiveHelp)}
         />
-        {/* <CheckBox
+        <CheckBox
           icon={clap}
           title="말벗 및 격려"
-          checked={selectedOptions.??}
-          onChange={() => handleSelectOption('??', !selectedOptions.??)}
-        /> */}
+          checked={selectedOptions.isCompanionshipProvided}
+          onChange={() =>
+            handleSelectOption('isCompanionshipProvided', !selectedOptions.isCompanionshipProvided)
+          }
+        />
       </ChoiceGrid>
       <ButtonWrapper>
         <Button
