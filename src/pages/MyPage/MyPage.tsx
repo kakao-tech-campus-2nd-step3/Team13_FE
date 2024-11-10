@@ -4,6 +4,7 @@ import { IoPersonCircle } from 'react-icons/io5'
 import Button from '@/components/common/Button/Button'
 import { Input } from '@chakra-ui/react'
 import { useState } from 'react'
+import { useLogout } from '@/api/hooks/common/useLogout'
 
 // 추후 삭제 예정
 const mockData = {
@@ -36,6 +37,8 @@ export const MyPage: React.FC<MyPageProps> = ({
     setAlarmTime(e.target.value)
   }
 
+  const logout = useLogout()
+
   return (
     <S.Container>
       <S.Header>마이페이지</S.Header>
@@ -44,7 +47,7 @@ export const MyPage: React.FC<MyPageProps> = ({
           <IoPersonCircle size="100" color={colors.border.subtle} />
         </div>
         <S.ProfileName>{name}</S.ProfileName>
-        <S.LogOut>로그아웃</S.LogOut>
+        <S.LogOut onClick={logout}>로그아웃</S.LogOut>
       </S.ProfileSection>
       <S.InfoSection>
         <S.InfoItem>
