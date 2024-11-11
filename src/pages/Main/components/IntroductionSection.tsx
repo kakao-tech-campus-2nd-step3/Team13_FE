@@ -1,12 +1,10 @@
 import styled from '@emotion/styled'
 import phoneImage1 from '@/assets/images/phone_1.svg'
 import phoneImage2 from '@/assets/images/phone_2.svg'
-import { ReactNode, useRef } from 'react'
+import { useRef } from 'react'
 import Container from '@/components/common/Container/Container'
 import { Heading, TextBody } from '@/components/common/Text/TextFactory'
-import IntroText from '@/components/molecules/IntroText'
 import { breakpoints } from '@/styles/breakpoints/breakpoints'
-import { MAX_CONTENT_WIDTH } from '@/styles/sizes/sizes'
 import useIntersectionSlideEffect from '@/hooks/useIntersectionSlideEffect'
 import { colors } from '@/styles/colors/colors'
 

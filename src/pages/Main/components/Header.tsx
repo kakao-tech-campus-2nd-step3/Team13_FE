@@ -1,5 +1,4 @@
 import headerLogo from '@/assets/images/logo.svg'
-import headerSmallLogo from '@/assets/images/small_logo.svg'
 import { css } from '@emotion/react'
 import useHeaderScrollEffect from '@/hooks/useHeaderScrollEffect'
 import useSmoothScroll from '@/hooks/useSmoothScroll'

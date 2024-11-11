@@ -5,12 +5,13 @@ import arrowBlue from '@/assets/icons/arrow-blue.svg'
 import Container from '@/components/common/Container/Container'
 import { Heading, TextBody } from '@/components/common/Text/TextFactory'
 import { colors } from '@/styles/colors/colors'
-import { getLandingKeyframes } from '@/utils'
 import styled from 'styled-components'
 import { breakpoints } from '@/styles/breakpoints/breakpoints'
 import useIntersectionSlideEffect from '@/hooks/useIntersectionSlideEffect'
+import { useNavigate } from 'react-router-dom'
 
 function HeroSection({ id }: { id?: string }) {
+  const navigate = useNavigate()
   const spyRef = useRef<HTMLDivElement>(null)
   const title = useRef<HTMLDivElement>(null)
   const button = useRef<HTMLDivElement>(null)
@@ -21,7 +22,13 @@ function HeroSection({ id }: { id?: string }) {
   return (
     <section id={id}>
       <HeroContainer>
-        <Container size="full-width" maxWidth="100%" direction="column" align="flex-start">
+        <Container
+          size="full-width"
+          maxWidth="100%"
+          direction="column"
+          justify="space-around"
+          align="flex-start"
+        >
           <div ref={spyRef} />
           <TitleContainer ref={title}>
             <Heading.XXLarge
@@ -38,12 +45,17 @@ function HeroSection({ id }: { id?: string }) {
           <div ref={spyRef} />
           <ButtonContainer ref={button}>
             <HeroImage />
-            <Container direction="column" align="flex-start" style={{ marginTop: '20px' }}>
+            <Container
+              direction="column"
+              align="flex-start"
+              style={{ marginTop: '30px', gap: '10px' }}
+            >
               <TextBody.MLarge css={{ color: 'white' }}>
                 이미 돌봄다리 서비스를 이용 중이시라면,
               </TextBody.MLarge>
               <Button
                 theme="white"
+                onClick={() => navigate('/')}
                 css={{
                   marginTop: '15px',
                   borderRadius: '40px',

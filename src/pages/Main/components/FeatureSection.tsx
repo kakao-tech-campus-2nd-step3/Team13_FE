@@ -3,7 +3,6 @@ import AI from '@/assets/images/ai_clipboard.svg'
 import LineLogo from '@/assets/images/line_logo.svg'
 import Container from '@/components/common/Container/Container'
 import { Heading, TextBody } from '@/components/common/Text/TextFactory'
-import IntroText from '@/components/molecules/IntroText'
 import { breakpoints } from '@/styles/breakpoints/breakpoints'
 import { MAX_CONTENT_WIDTH } from '@/styles/sizes/sizes'
 import useIntersectionSlideEffect from '@/hooks/useIntersectionSlideEffect'
@@ -72,7 +71,7 @@ const FeatureSection = ({ id }: FeatureSectionProps) => {
               <TextBody.Large style={{ lineHeight: '1.8', fontWeight: '600' }}>
                 요양보호사가 차트를 입력하면,
                 <br />
-                보호자를 지정한 시간에 라인 알림을 받을 수 있어요.
+                지정한 시간에 라인 알림을 받을 수 있어요.
               </TextBody.Large>
             </TextWrapper>
           </ContainerWrapperReverse>
