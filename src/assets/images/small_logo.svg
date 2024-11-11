@@ -1,0 +1,18 @@
+<svg width="200" height="99" viewBox="0 0 200 99" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="80" y="71" width="40" height="28" fill="#DBE6F6"/>
+<rect y="71" width="40" height="28" fill="white"/>
+<rect x="160" y="71" width="40" height="28" fill="white"/>
+<rect x="82" y="33" width="16" height="36" rx="8" stroke="#DBE6F6" stroke-width="4"/>
+<rect x="-2" y="2" width="16" height="36" rx="8" transform="matrix(-1 0 0 1 116 31)" stroke="#DBE6F6" stroke-width="4"/>
+<rect y="60" width="200" height="11" fill="white"/>
+<rect x="2" y="24" width="16" height="45" rx="8" stroke="white" stroke-width="4"/>
+<rect x="-2" y="2" width="16" height="45" rx="8" transform="matrix(-1 0 0 1 196 22)" stroke="white" stroke-width="4"/>
+<rect x="22" y="9" width="16" height="60" rx="8" stroke="white" stroke-width="4"/>
+<rect x="-2" y="2" width="16" height="60" rx="8" transform="matrix(-1 0 0 1 176 7)" stroke="white" stroke-width="4"/>
+<rect x="42" y="2" width="16" height="67" rx="8" stroke="white" stroke-width="4"/>
+<rect x="-2" y="2" width="16" height="67" rx="8" transform="matrix(-1 0 0 1 156 0)" stroke="white" stroke-width="4"/>
+<rect x="62" y="6" width="16" height="63" rx="8" stroke="white" stroke-width="4"/>
+<rect x="-2" y="2" width="16" height="63" rx="8" transform="matrix(-1 0 0 1 136 4)" stroke="white" stroke-width="4"/>
+<rect x="84" y="71" width="32" height="24" fill="white"/>
+<rect x="80" y="60" width="40" height="4" fill="#DBE6F6"/>
+</svg>

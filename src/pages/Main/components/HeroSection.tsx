@@ -89,6 +89,7 @@ function HeroContainer({ children }: { children: ReactNode }) {
       style={{
         backgroundSize: 'cover',
         backgroundColor: `${colors.background.main}`,
+        padding: '50px 0 0 0',
       }}
       responsiveStyle={{
         sm: {

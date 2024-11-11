@@ -24,22 +24,24 @@ const IntroductionSection = ({ id }: IntroductionSectionProps) => {
   useIntersectionSlideEffect({ spyRef, targetRef: girlIntroRef, delay: 400 })
   useIntersectionSlideEffect({ spyRef, targetRef: boyIntroRef2, delay: 800 })
   return (
-    <PageWrapper>
-      <Container direction="row">
-        <TextWrapper>
-          <Heading.Small>
-            보호자와 요양보호자를 이어주는
-            <br />
-            소통창구,
-          </Heading.Small>
-          <Heading.Medium style={{ color: colors.text.prominent, marginTop: '10px' }}>
-            돌봄다리
-          </Heading.Medium>
-          <PhoneImage src={phoneImage2} alt="Phone 2" style={{ height: '810px' }} />
-        </TextWrapper>
-        <PhoneImage src={phoneImage1} alt="Phone 1" style={{ height: '810px' }} />
-      </Container>
-    </PageWrapper>
+    <section id={id}>
+      <PageWrapper>
+        <Container direction="row">
+          <TextWrapper>
+            <Heading.Medium>
+              보호자와 요양보호자를 이어주는
+              <br />
+              소통창구,
+            </Heading.Medium>
+            <Heading.XLarge style={{ color: colors.text.prominent, marginTop: '10px' }}>
+              돌봄다리
+            </Heading.XLarge>
+            <PhoneImage src={phoneImage2} alt="Phone 2" style={{ height: '810px' }} />
+          </TextWrapper>
+          <PhoneImage src={phoneImage1} alt="Phone 1" style={{ height: '810px' }} />
+        </Container>
+      </PageWrapper>
+    </section>
   )
 }
 

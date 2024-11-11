@@ -1,4 +1,6 @@
 import { ReactNode } from 'react'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
 interface PageProps {
   children?: ReactNode
   hideHeader?: boolean
@@ -7,13 +9,9 @@ interface PageProps {
 function Page({ children, hideHeader }: PageProps) {
   return (
     <>
-      {/* {hideHeader
-        ? null
-        : <Header />
-      } */}
-
+      {hideHeader ? null : <Header />}
       {children}
-      {/* <Footer /> */}
+      <Footer />
     </>
   )
 }

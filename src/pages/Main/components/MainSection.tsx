@@ -19,8 +19,6 @@ interface MainSectionProps {
 }
 
 const MainSection = ({ id }: MainSectionProps) => {
-  const colorScheme = colors
-
   const spyRef = useRef<HTMLDivElement>(null)
   const boyIntroRef = useRef<HTMLDivElement>(null)
   const girlIntroRef = useRef<HTMLDivElement>(null)
