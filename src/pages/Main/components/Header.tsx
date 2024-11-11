@@ -6,6 +6,7 @@ import useSmoothScroll from '@/hooks/useSmoothScroll'
 import Container from '@/components/common/Container/Container'
 import { TextBody } from '@/components/common/Text/TextFactory'
 import { breakpoints } from '@/styles/breakpoints/breakpoints'
+import styled from 'styled-components'
 
 function Header() {
   const { headerStyle: scrollHeaderStyle } = useHeaderScrollEffect()
@@ -24,13 +25,7 @@ function Header() {
 
   return (
     <Container size="full-width" justify="center" style={css(baseStyle, scrollHeaderStyle)}>
-      <Container
-        size={{ width: '100%', height: '90px' }}
-        justify="space-between"
-        align="center"
-        maxWidth="1210px"
-        padding="0 20px"
-      >
+      <HeaderContainer>
         <ResponsiveLogo />
         <Container
           gap="20px"
@@ -56,22 +51,39 @@ function Header() {
             Feature
           </TextBody.Medium>
         </Container>
-      </Container>
+      </HeaderContainer>
     </Container>
   )
 }
 
+const HeaderContainer = styled.div`
+width:100%;
+height:70px;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+max-width:100%;
+padding: 0 5%;
+box-sizing: border-box;
+@media (min-width: ${breakpoints.xs}) {
+  height:90px;
+`
+
 const ResponsiveLogo = () => (
   <div
     css={css`
-      width: 70px;
-      height: 70px;
+      width: 55px;
+      height: 55px;
       background-repeat: no-repeat;
       background-size: cover;
       cursor: pointer;
-      background-image: url(${headerSmallLogo});
-      @media (min-width: ${breakpoints.sm}) {
+      padding: 0 10px;
+      box-sizing: border-box;
+      background-image: url(${headerLogo});
+      @media (min-width: ${breakpoints.xs}) {
         width: 70px;
+        height: 70px;
         background-image: url(${headerLogo});
       }
     `}

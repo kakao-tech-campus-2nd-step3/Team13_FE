@@ -1,15 +1,14 @@
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 interface PageProps {
   children?: ReactNode
-  hideHeader?: boolean
 }
 
-function Page({ children, hideHeader }: PageProps) {
+function Page({ children }: PageProps) {
   return (
     <>
-      {hideHeader ? null : <Header />}
+      <Header />
       {children}
       <Footer />
     </>

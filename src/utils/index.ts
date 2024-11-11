@@ -3,17 +3,25 @@ import { ResponsiveCSSObjects, ResponsiveColumns, ScreenSize } from '@/styles/st
 import { css, keyframes, SerializedStyles } from '@emotion/react'
 
 // Creates keyframe animations for landing transitions
-export function getLandingKeyframesArray(reverse: boolean = false, fromY: string = '20px') {
-  return [
-    {
-      transform: `translateY(${reverse ? `-${fromY}` : fromY})`,
-      opacity: 0,
-    },
-    {
-      transform: 'translateY(0)',
-      opacity: 1,
-    },
-  ]
+export function getLandingKeyframesArray(direction: 'left' | 'right' | 'bottom' = 'bottom') {
+  switch (direction) {
+    case 'left':
+      return [
+        { transform: 'translateX(-100px)', opacity: 0 },
+        { transform: 'translateX(0)', opacity: 1 },
+      ]
+    case 'right':
+      return [
+        { transform: 'translateX(100px)', opacity: 0 },
+        { transform: 'translateX(0)', opacity: 1 },
+      ]
+    case 'bottom':
+    default:
+      return [
+        { transform: 'translateY(100px)', opacity: 0 },
+        { transform: 'translateY(0)', opacity: 1 },
+      ]
+  }
 }
 
 export function getLandingKeyframes(reverse: boolean = false, fromY: string = '20px') {

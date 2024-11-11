@@ -16,33 +16,37 @@ interface IntroductionSectionProps {
 
 const IntroductionSection = ({ id }: IntroductionSectionProps) => {
   const spyRef = useRef<HTMLDivElement>(null)
-  const boyIntroRef = useRef<HTMLDivElement>(null)
-  const girlIntroRef = useRef<HTMLDivElement>(null)
-  const boyIntroRef2 = useRef<HTMLDivElement>(null)
+  const spyRef2 = useRef<HTMLDivElement>(null)
+  const phone1 = useRef<HTMLDivElement>(null)
+  const phone2 = useRef<HTMLDivElement>(null)
 
-  useIntersectionSlideEffect({ spyRef, targetRef: boyIntroRef })
-  useIntersectionSlideEffect({ spyRef, targetRef: girlIntroRef, delay: 400 })
-  useIntersectionSlideEffect({ spyRef, targetRef: boyIntroRef2, delay: 800 })
+  useIntersectionSlideEffect({ spyRef: spyRef, targetRef: phone1, direction: 'left' })
+  useIntersectionSlideEffect({ spyRef: spyRef2, targetRef: phone2, direction: 'right' })
+
   return (
     <section id={id}>
       <PageWrapper>
-        <Container direction="row" style={{ gap: '170px' }}>
+        <PhoneContainer>
           <Container direction="column" justify="center" align="center">
-            <TextWrapper>
-              <Heading.Medium>
-                보호자와 요양보호자를 이어주는
-                <br />
-                소통창구,
-              </Heading.Medium>
-              <Heading.XLarge style={{ color: colors.text.prominent, margin: '10px 0 30px 0' }}>
-                돌봄다리
-              </Heading.XLarge>
-            </TextWrapper>
-            <PhoneImage src={phoneImage2} alt="Phone 2" />
-          </Container>
+            <div ref={phone1} style={{ opacity: '0' }}>
+              <TextWrapper>
+                <Heading.Medium>
+                  보호자와 요양보호자를 이어주는
+                  <br />
+                  소통창구,
+                </Heading.Medium>
+                <div ref={spyRef} />
+                <Heading.XLarge style={{ color: colors.text.prominent }}>돌봄다리</Heading.XLarge>
+              </TextWrapper>
 
-          <PhoneImage src={phoneImage1} alt="Phone 1" />
-        </Container>
+              <PhoneImage src={phoneImage1} alt="Phone 1" />
+            </div>
+          </Container>
+          <div ref={spyRef2} />
+          <div ref={phone2} style={{ opacity: '0' }}>
+            <PhoneImage src={phoneImage2} alt="Phone 2" />
+          </div>
+        </PhoneContainer>
       </PageWrapper>
     </section>
   )
@@ -57,6 +61,17 @@ const PageWrapper = styled.div`
   background: linear-gradient(to bottom, white 50%, #f2f2f2 50%);
 `
 
+const PhoneContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  @media (min-width: ${breakpoints.md}) {
+    display: flex;
+    flex-direction: row;
+  }
+`
+
 const PhoneImage = styled.img`
   width: 300px;
   height: auto;
@@ -67,17 +82,14 @@ const TextWrapper = styled.div`
   text-align: start;
   color: #333;
   line-height: 1.4;
+  height: 120px;
+  gap: 5px;
+  display: flex;
+  flex-direction: column;
 
-  h2 {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-
-  a {
-    font-size: 1.5rem;
-    color: #4a90e2; // Blue link color
-    font-weight: bold;
-    text-decoration: none;
+  @media (min-width: ${breakpoints.sm}) {
+    height: 170px;
+    gap: 10px;
   }
 `
 

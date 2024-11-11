@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, useRef } from 'react'
 import Button from '@/components/common/Button/Button'
 import heroImg from '@/assets/images/hero_img.svg'
 import arrowBlue from '@/assets/icons/arrow-blue.svg'
@@ -6,40 +6,42 @@ import Container from '@/components/common/Container/Container'
 import { Heading, TextBody } from '@/components/common/Text/TextFactory'
 import { colors } from '@/styles/colors/colors'
 import { getLandingKeyframes } from '@/utils'
+import styled from 'styled-components'
+import { breakpoints } from '@/styles/breakpoints/breakpoints'
+import useIntersectionSlideEffect from '@/hooks/useIntersectionSlideEffect'
 
 function HeroSection({ id }: { id?: string }) {
+  const spyRef = useRef<HTMLDivElement>(null)
+  const title = useRef<HTMLDivElement>(null)
+  const button = useRef<HTMLDivElement>(null)
+
+  useIntersectionSlideEffect({ spyRef: spyRef, targetRef: title, direction: 'left' })
+  useIntersectionSlideEffect({ spyRef: spyRef, targetRef: button, direction: 'right' })
+
   return (
     <section id={id}>
       <HeroContainer>
-        <Container size="full-width" maxWidth="1210px" direction="column" align="flex-start">
-          <Container direction="column" align="flex-start" style={{ marginBottom: '50px' }}>
+        <Container size="full-width" maxWidth="100%" direction="column" align="flex-start">
+          <div ref={spyRef} />
+          <TitleContainer ref={title}>
             <Heading.XXLarge
               css={{
-                opacity: 0,
                 color: 'white',
                 lineHeight: '1.2',
-                marginLeft: '100px',
-                animation: `${getLandingKeyframes(true)} 0.8s ease-in-out forwards 1s`,
               }}
             >
               안녕하세요,
               <br />
               돌봄다리입니다 :)
             </Heading.XXLarge>
-          </Container>
-          <Container
-            direction="row"
-            align="flex-start"
-            size="full-width"
-            maxWidth="1210px"
-            justify="space-evenly"
-            style={{ animation: `${getLandingKeyframes()} 0.8s ease-in-out forwards 1s` }}
-          >
+          </TitleContainer>
+          <div ref={spyRef} />
+          <ButtonContainer ref={button}>
             <HeroImage />
-            <Container direction="column" align="flex-start">
-              <TextBody.Large css={{ color: 'white' }}>
+            <Container direction="column" align="flex-start" style={{ marginTop: '20px' }}>
+              <TextBody.MLarge css={{ color: 'white' }}>
                 이미 돌봄다리 서비스를 이용 중이시라면,
-              </TextBody.Large>
+              </TextBody.MLarge>
               <Button
                 theme="white"
                 css={{
@@ -55,9 +57,9 @@ function HeroSection({ id }: { id?: string }) {
                 <TextBody.Large weight="bold">서비스 이용하기</TextBody.Large>
                 <img src={arrowBlue} alt="" />
               </Button>
-              <TextBody.Large css={{ marginTop: '64px', color: 'white' }}>
+              <TextBody.MLarge css={{ marginTop: '20px', color: 'white' }}>
                 돌봄다리 서비스 신규 신청을 원하신다면,
-              </TextBody.Large>
+              </TextBody.MLarge>
               <Button
                 theme="white"
                 css={{
@@ -68,32 +70,66 @@ function HeroSection({ id }: { id?: string }) {
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  animation: `${getLandingKeyframes()} 0.5s ease-in-out forwards 1s`,
                 }}
               >
                 <TextBody.Large weight="bold">서비스 이용 신청</TextBody.Large>
                 <img src={arrowBlue} alt="" />
               </Button>
             </Container>
-          </Container>
+          </ButtonContainer>
         </Container>
       </HeroContainer>
     </section>
   )
 }
 
+const TitleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: start;
+  margin-bottom: 10px;
+  padding: 0 15%;
+  box-sizing: border-box;
+  opacity: 0;
+
+  @media (min-width: ${breakpoints.sm}) {
+    padding-left: 100px;
+    box-sizing: border-box;
+    justify-content: start;
+    align-items: start;
+    margin-bottom: 50px;
+  }
+`
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+  opacity: 0;
+
+  @media (min-width: ${breakpoints.sm}) {
+    flex-direction: row;
+    align-items: start;
+    width: 100%;
+    height: 500px;
+  }
+`
+
 function HeroContainer({ children }: { children: ReactNode }) {
   return (
     <Container
-      size={{ width: '100%', height: '600px' }}
+      size={{ width: '100%', height: '100vh' }}
       style={{
         backgroundSize: 'cover',
         backgroundColor: `${colors.background.main}`,
-        padding: '50px 0 0 0',
       }}
       responsiveStyle={{
         sm: {
-          height: '900px',
+          height: '100vh',
         },
       }}
       justify="center"
@@ -105,7 +141,18 @@ function HeroContainer({ children }: { children: ReactNode }) {
 }
 
 function HeroImage() {
-  return <img src={heroImg} alt="HeroImg" />
+  return (
+    <Container
+      size={{ width: 'auto', height: '300px' }}
+      responsiveStyle={{
+        sm: {
+          height: '500px',
+        },
+      }}
+    >
+      <img src={heroImg} alt="HeroImg" style={{ height: '100%' }} />
+    </Container>
+  )
 }
 
 export default HeroSection

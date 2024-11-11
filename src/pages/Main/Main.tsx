@@ -3,8 +3,16 @@ import FeatureSection from './components/FeatureSection'
 import HeroSection from './components/HeroSection'
 import MainSection from './components/MainSection'
 import Page from './templates/Page'
+import { useEffect } from 'react'
 
 export const MainPage = () => {
+  useEffect(() => {
+    const heroSection = document.getElementById('hero-section')
+    if (heroSection) {
+      heroSection.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [])
+
   return (
     <Page>
       <HeroSection id="hero-section" />
