@@ -33,10 +33,10 @@ const IntroductionSection = ({ id }: IntroductionSectionProps) => {
                   <br />
                   소통창구,
                 </Heading.Medium>
-                <div ref={spyRef} />
+
                 <Heading.XLarge style={{ color: colors.text.prominent }}>돌봄다리</Heading.XLarge>
               </TextWrapper>
-
+              <div ref={spyRef} />
               <PhoneImage src={phoneImage1} alt="Phone 1" />
             </div>
           </Container>

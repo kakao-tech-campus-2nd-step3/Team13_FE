@@ -31,13 +31,12 @@ import { SignificantLogPage } from '@/pages/CareLog/SignificantLog/SignificantLo
 import { CognitiveChoiceLogPage } from '@/pages/CareLog/ChoiceLog/Cognitive/CognitiveChoiceLog'
 import { NursingChoiceLogPage } from '@/pages/CareLog/ChoiceLog/Nursing/NursingChoiceLog'
 import { RecoveryChoiceLogPage } from '@/pages/CareLog/ChoiceLog/Recovery/RecoveryChoiceLog'
-import { MainPage } from '@/pages/Main/Main'
 import CalendarPage from '@/pages/Calendar/Calendar'
-import { SelectPage } from '@/pages/Login/Select/Select'
+import { LandingPage } from '@/pages/Landing/Landing'
 const router = createBrowserRouter([
   {
-    path: RouterPath.MAIN,
-    element: <MainPage />,
+    path: RouterPath.LANDING,
+    element: <LandingPage />,
   },
   {
     path: RouterPath.HOME,
