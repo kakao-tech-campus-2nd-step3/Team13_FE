@@ -31,8 +31,9 @@ import { SignificantLogPage } from '@/pages/CareLog/SignificantLog/SignificantLo
 import { CognitiveChoiceLogPage } from '@/pages/CareLog/ChoiceLog/Cognitive/CognitiveChoiceLog'
 import { NursingChoiceLogPage } from '@/pages/CareLog/ChoiceLog/Nursing/NursingChoiceLog'
 import { RecoveryChoiceLogPage } from '@/pages/CareLog/ChoiceLog/Recovery/RecoveryChoiceLog'
-import CalendarPage from '@/pages/Calendar/Calendar'
+
 import { LandingPage } from '@/pages/Landing/Landing'
+import { CalendarPage } from '@/pages/Calendar/Calendar'
 const router = createBrowserRouter([
   {
     path: RouterPath.LANDING,
