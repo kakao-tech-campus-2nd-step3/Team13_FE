@@ -26,15 +26,19 @@ import { CareWorkerPage } from '@/pages/admin/CareWorkerPage'
 import { GuardianPage } from '@/pages/admin/GuardianPage'
 import { InstitutionPage } from '@/pages/admin/InstitutionPage'
 import { RecipientPage } from '@/pages/admin/RecipientPage'
-import CalendarPage from '@/pages/Calendar/Calendar'
 import { BodyChoiceLogPage } from '@/pages/CareLog/ChoiceLog/Body/BodyChoiceLog'
 import { SignificantLogPage } from '@/pages/CareLog/SignificantLog/SignificantLog'
 import { CognitiveChoiceLogPage } from '@/pages/CareLog/ChoiceLog/Cognitive/CognitiveChoiceLog'
 import { NursingChoiceLogPage } from '@/pages/CareLog/ChoiceLog/Nursing/NursingChoiceLog'
 import { RecoveryChoiceLogPage } from '@/pages/CareLog/ChoiceLog/Recovery/RecoveryChoiceLog'
+import { MainPage } from '@/pages/Main/Main'
+import CalendarPage from '@/pages/Calendar/Calendar'
 import { SelectPage } from '@/pages/Login/Select/Select'
-
 const router = createBrowserRouter([
+  {
+    path: RouterPath.MAIN,
+    element: <MainPage />,
+  },
   {
     path: RouterPath.HOME,
     element: <HomePage />,
@@ -45,7 +49,6 @@ const router = createBrowserRouter([
     children: [
       { path: RouterPath.CALENDAR, element: <CalendarPage /> },
       { path: RouterPath.LOGIN, element: <LoginPage /> },
-      { path: RouterPath.SELECT, element: <SelectPage /> },
       { path: RouterPath.RECIPIENTS, element: <RecipientsPage /> },
       { path: RouterPath.CHART, element: <ChartPage /> },
       { path: RouterPath.SHARE, element: <SharePage /> },
