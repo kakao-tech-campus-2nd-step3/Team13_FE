@@ -102,12 +102,12 @@ const TitleContainer = styled.div`
   justify-content: center;
   align-items: start;
   margin-bottom: 10px;
-  padding: 0 15%;
+  padding: 0 20%;
   box-sizing: border-box;
   opacity: 0;
-
   @media (min-width: ${breakpoints.sm}) {
-    padding-left: 100px;
+    padding-top: 80px;
+    padding-left: 200px;
     box-sizing: border-box;
     justify-content: start;
     align-items: start;
