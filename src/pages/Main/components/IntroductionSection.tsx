@@ -26,19 +26,22 @@ const IntroductionSection = ({ id }: IntroductionSectionProps) => {
   return (
     <section id={id}>
       <PageWrapper>
-        <Container direction="row">
-          <TextWrapper>
-            <Heading.Medium>
-              보호자와 요양보호자를 이어주는
-              <br />
-              소통창구,
-            </Heading.Medium>
-            <Heading.XLarge style={{ color: colors.text.prominent, marginTop: '10px' }}>
-              돌봄다리
-            </Heading.XLarge>
-            <PhoneImage src={phoneImage2} alt="Phone 2" style={{ height: '810px' }} />
-          </TextWrapper>
-          <PhoneImage src={phoneImage1} alt="Phone 1" style={{ height: '810px' }} />
+        <Container direction="row" style={{ gap: '170px' }}>
+          <Container direction="column" justify="center" align="center">
+            <TextWrapper>
+              <Heading.Medium>
+                보호자와 요양보호자를 이어주는
+                <br />
+                소통창구,
+              </Heading.Medium>
+              <Heading.XLarge style={{ color: colors.text.prominent, margin: '10px 0 30px 0' }}>
+                돌봄다리
+              </Heading.XLarge>
+            </TextWrapper>
+            <PhoneImage src={phoneImage2} alt="Phone 2" />
+          </Container>
+
+          <PhoneImage src={phoneImage1} alt="Phone 1" />
         </Container>
       </PageWrapper>
     </section>
@@ -47,14 +50,15 @@ const IntroductionSection = ({ id }: IntroductionSectionProps) => {
 
 const PageWrapper = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background: linear-gradient(to bottom, white 50%, #f2f2f2 50%);
 `
 
 const PhoneImage = styled.img`
-  width: 200px; // Adjust as needed
+  width: 300px;
   height: auto;
 `
 
