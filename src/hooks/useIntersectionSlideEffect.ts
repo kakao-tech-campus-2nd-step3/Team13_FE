@@ -5,15 +5,13 @@ import useIntersectionEffect from './useIntersectionEffect'
 interface UseIntersectionSlideEffectProps {
   spyRef: RefObject<HTMLElement>
   targetRef: RefObject<HTMLElement>
-  reverse?: boolean
   delay?: number
-  direction?: 'left' | 'right' | 'bottom'
+  direction?: 'left' | 'right' | 'top' | 'bottom'
 }
 
 function useIntersectionSlideEffect({
   spyRef,
   targetRef,
-  reverse,
   delay,
   direction = 'bottom', // default to bottom if not specified
 }: UseIntersectionSlideEffectProps) {

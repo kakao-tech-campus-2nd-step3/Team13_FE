@@ -18,8 +18,8 @@ const IntroductionSection = ({ id }: IntroductionSectionProps) => {
   const phone1 = useRef<HTMLDivElement>(null)
   const phone2 = useRef<HTMLDivElement>(null)
 
-  useIntersectionSlideEffect({ spyRef: spyRef, targetRef: phone1, direction: 'left' })
-  useIntersectionSlideEffect({ spyRef: spyRef2, targetRef: phone2, direction: 'right' })
+  useIntersectionSlideEffect({ spyRef: spyRef, targetRef: phone1, direction: 'top' })
+  useIntersectionSlideEffect({ spyRef: spyRef2, targetRef: phone2, direction: 'bottom' })
 
   return (
     <section id={id}>

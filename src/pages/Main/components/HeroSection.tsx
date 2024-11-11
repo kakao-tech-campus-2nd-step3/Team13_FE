@@ -16,8 +16,8 @@ function HeroSection({ id }: { id?: string }) {
   const title = useRef<HTMLDivElement>(null)
   const button = useRef<HTMLDivElement>(null)
 
-  useIntersectionSlideEffect({ spyRef: spyRef, targetRef: title, direction: 'left' })
-  useIntersectionSlideEffect({ spyRef: spyRef, targetRef: button, direction: 'right' })
+  useIntersectionSlideEffect({ spyRef: spyRef, targetRef: title, direction: 'top' })
+  useIntersectionSlideEffect({ spyRef: spyRef, targetRef: button, direction: 'bottom' })
 
   return (
     <section id={id}>
@@ -106,7 +106,7 @@ const TitleContainer = styled.div`
   box-sizing: border-box;
   opacity: 0;
   @media (min-width: ${breakpoints.sm}) {
-    padding-top: 80px;
+    padding-top: 70px;
     padding-left: 200px;
     box-sizing: border-box;
     justify-content: start;
