@@ -5,7 +5,7 @@ import MainSection from './components/MainSection'
 import Page from './templates/Page'
 import { useEffect } from 'react'
 
-export const MainPage = () => {
+export const LandingPage = () => {
   useEffect(() => {
     const heroSection = document.getElementById('hero-section')
     if (heroSection) {
