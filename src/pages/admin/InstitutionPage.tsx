@@ -28,7 +28,7 @@ export const InstitutionPage = () => {
       onDeleteRow={(institutionNumber: number) => deleteInstitution(institutionNumber)}
       onUpdateRow={(updatedRow) =>
         updateInstitution({
-          institutionNumber: updatedRow.institutionNumber,
+          institutionNumber: updatedRow.institutionNumber!,
           updatedData: {
             institutionName: updatedRow.institutionName,
           },
