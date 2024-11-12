@@ -1,6 +1,6 @@
 import arrowBlue from '@/assets/icons/arrow-blue.svg'
 import arrowWhite from '@/assets/icons/arrow-white.svg'
-import logo from '@/assets/images/logo_sample.svg'
+import logo from '@/assets/images/logo_transparent.svg'
 import { Heading } from '@/components/common/Text/TextFactory'
 import { colors } from '@/styles/colors/colors'
 import styled from '@emotion/styled'
@@ -16,11 +16,11 @@ export const HomePage = () => {
   return (
     <Wrapper>
       <LogoWrapper>
-        <img src={logo} alt="logo" />
-        <Heading.Large style={{ color: `${colors.text.subtle}` }}>돌봄 다리</Heading.Large>
+        <img src={logo} alt="logo" style={{ width: '140px' }} />
+        {/* <Heading.Large style={{ color: `${colors.text.subtle}` }}>돌봄 다리</Heading.Large> */}
       </LogoWrapper>
-      <RoleButton title="요양보호사" role="CAREWORKER" isBlue={false} />
-      <RoleButton title="보호자" role="GUARDIAN" isBlue={true} />
+      <RoleButton title="요양보호사" role="careworker" isBlue={false} />
+      <RoleButton title="보호자" role="guardian" isBlue={true} />
     </Wrapper>
   )
 }
@@ -51,7 +51,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   padding: 0 25px;
   box-sizing: border-box;
-  gap: 42px;
+  gap: 33px;
 `
 
 const LogoWrapper = styled.div`

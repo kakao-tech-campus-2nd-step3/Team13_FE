@@ -5,7 +5,7 @@ import { Heading } from '@/components/common/Text/TextFactory'
 import { TextArea } from '@/components/common/TextArea/TextArea'
 import styled from 'styled-components'
 import { useState, useEffect } from 'react'
-import { submitChartData } from '@/api/hooks/user/careWorker/usePostChart'
+import { submitChartData } from '@/api/hooks/user/chart/usePostChart'
 
 interface DIYProps {
   step: number

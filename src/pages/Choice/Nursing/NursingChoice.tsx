@@ -12,7 +12,7 @@ import Steps from '@/components/common/Steps/Steps'
 import { WriteBox } from '@/components/features/MultipleChoice/WriteBox'
 import { CheckBox } from '@/components/features/MultipleChoice/CheckBox'
 import { useNavigate } from 'react-router-dom'
-import { ChartData } from '@/api/hooks/user/careWorker/types'
+import { ChartData } from '@/types/types'
 import { useState } from 'react'
 
 export const NursingChoicePage = () => {

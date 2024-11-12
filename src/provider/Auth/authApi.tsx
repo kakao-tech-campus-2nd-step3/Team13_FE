@@ -1,12 +1,17 @@
 import { fetchInstance } from '@/api/instance/instance'
-import { QueryClient } from '@tanstack/react-query'
+import type { UserResponseData } from './types'
 
 // Function to handle login and store tokens
-export const AuthProvider = async (role: string, userId: string, password: string) => {
+export const AuthProvider = async (
+  role: string,
+  userInfo: { userId: string; password: string },
+) => {
   const endpoint = `/v1/auth/login/${role}`
+  console.log(role, userInfo)
+  console.log(import.meta.env.VITE_API_BASE_URL, '/v1/login/', role)
 
   try {
-    const response = await fetchInstance.post(endpoint, { userId, password })
+    const response = await fetchInstance.post<UserResponseData>(endpoint, userInfo)
     const { accessToken, refreshToken } = response.data
 
     // Store tokens in localStorage
@@ -20,40 +25,15 @@ export const AuthProvider = async (role: string, userId: string, password: strin
   }
 }
 
-// Set up Axios interceptor for automatic token renewal
-fetchInstance.interceptors.request.use(
-  async (config) => {
-    let accessToken = localStorage.getItem('accessToken')
-
-    // Check if the token is expired and renew if necessary
-    if (!accessToken || tokenIsExpired(accessToken)) {
-      accessToken = await renewTokens()
-    }
-
-    if (accessToken) {
-      config.headers['Authorization'] = `Bearer ${accessToken}`
-    }
-
-    return config
-  },
-  (error) => Promise.reject(error),
-)
-
-// Utility function to check token expiration
-function tokenIsExpired(token: string): boolean {
-  const payload = JSON.parse(atob(token.split('.')[1]))
-  return payload.exp * 1000 < Date.now()
-}
-
-// Function for renewing tokens if accessToken is expired
+// Function to renew tokens if the access token is expired
 export const renewTokens = async (): Promise<string> => {
   const refreshToken = localStorage.getItem('refreshToken')
-  if (!refreshToken) {
-    throw new Error('No refresh token available')
-  }
+  if (!refreshToken) throw new Error('No refresh token available')
 
   try {
-    const response = await fetchInstance.post('/v1/auth/renew', { request: refreshToken })
+    const response = await fetchInstance.post<UserResponseData>('/v1/auth/renew', {
+      request: refreshToken,
+    })
     const { accessToken, refreshToken: newRefreshToken } = response.data
 
     // Update tokens in localStorage
@@ -67,14 +47,13 @@ export const renewTokens = async (): Promise<string> => {
   }
 }
 
-// Export the QueryClient with default options
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 3,
-      refetchOnMount: true,
-      refetchOnReconnect: true,
-      refetchOnWindowFocus: true,
-    },
-  },
-})
+// Utility function to check token expiration
+export function tokenIsExpired(token: string): boolean {
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]))
+    return payload.exp * 1000 < Date.now()
+  } catch (error) {
+    console.error('Token parsing failed', error)
+    return true // Treat as expired if there's an error
+  }
+}

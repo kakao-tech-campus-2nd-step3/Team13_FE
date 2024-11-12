@@ -1,8 +1,8 @@
 export const RouterPath = {
   ROOT: '/',
+  LANDING: '/landing',
   HOME: '/',
   LOGIN: '/login',
-  SELECT: '/select',
   CALENDAR: '/calendar',
   RECIPIENTS: '/recipients',
   CHART: '/chart',

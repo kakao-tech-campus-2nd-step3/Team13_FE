@@ -11,7 +11,7 @@ import { Heading } from '@/components/common/Text/TextFactory'
 import Steps from '@/components/common/Steps/Steps'
 import { WriteBox } from '@/components/features/MultipleChoice/WriteBox'
 import { useNavigate } from 'react-router-dom'
-import { ChartData } from '@/api/hooks/user/careWorker/types'
+import { ChartData } from '@/types/types'
 import { useEffect, useState } from 'react'
 
 export const RecoveryChoicePage = () => {

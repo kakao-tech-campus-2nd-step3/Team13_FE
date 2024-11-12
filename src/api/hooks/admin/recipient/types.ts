@@ -14,7 +14,7 @@ export interface Recipient {
 }
 
 export type RecipientResponseData = {
-  recipients: Recipient[]
+  response: Recipient[]
 }
 
 export type UpdateRecipientData = Omit<Recipient, 'id'>
