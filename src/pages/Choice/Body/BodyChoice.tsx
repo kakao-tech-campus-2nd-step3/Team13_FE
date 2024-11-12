@@ -9,7 +9,6 @@ import wheelchair from '@/assets/icons/wheelchair.svg'
 import walking from '@/assets/icons/walking.svg'
 
 import Button from '@/components/common/Button/Button'
-import { ChartData } from '@/types/types'
 import { useEffect, useState } from 'react'
 
 import { Heading } from '@/components/common/Text/TextFactory'
@@ -18,24 +17,25 @@ import { CheckBox } from '@/components/features/MultipleChoice/CheckBox'
 import { MultipleBox } from '@/components/features/MultipleChoice/MultipleBox'
 import { TimesBox } from '@/components/features/MultipleChoice/TimesBox'
 import { useNavigate } from 'react-router-dom'
+import { Chart } from '@/api/hooks/user/chart/types'
 interface ListWrapperProps {
   isScrolled: boolean
 }
 export const BodyChoicePage = () => {
   const navigate = useNavigate()
-  const [selectedOptions, setSelectedOptions] = useState<ChartData['bodyManagement']>({
+  const [selectedOptions, setSelectedOptions] = useState<Chart['bodyManagement']>({
     wash: false,
     bath: false,
     mealType: '',
     intakeAmount: '',
     physicalRestroom: 0,
-    has_walked: false,
-    isPositionChangeRequired: false,
-    isMobilityAssistance: false,
+    hasWalked: false,
+    positionChangeRequired: false,
+    mobilityAssistance: false,
     physicalNote: '',
   })
   const [isScrolled, setIsScrolled] = useState(false)
-  const handleScroll = (event: any) => {
+  const scroll = (event: any) => {
     const scrollTop = event.target.scrollTop
     setIsScrolled(scrollTop > 0)
   }
@@ -57,7 +57,7 @@ export const BodyChoicePage = () => {
     physicalRestroom: '',
   })
 
-  const handleSelectOption = (key: keyof ChartData['bodyManagement'], value: any) => {
+  const selectOption = (key: keyof Chart['bodyManagement'], value: any) => {
     setSelectedOptions((prev) => {
       const updatedOptions = { ...prev, [key]: value }
       localStorage.setItem('bodyManagement', JSON.stringify(updatedOptions))
@@ -81,7 +81,7 @@ export const BodyChoicePage = () => {
     return !Object.values(newErrors).some((error) => error)
   }
 
-  const handleConfirm = () => {
+  const confirm = () => {
     if (validateInputs()) {
       navigate('/chart/significant/body')
     }
@@ -93,51 +93,46 @@ export const BodyChoicePage = () => {
         <Steps currentStep={1} totalSteps={4} />
         <Heading.Medium style={{ marginTop: '26px', width: '100%' }}>신체 활동 지원</Heading.Medium>
       </TitleWrapper>
-      <ListWrapper onScroll={handleScroll} isScrolled={isScrolled}>
+      <ListWrapper onScroll={scroll} isScrolled={isScrolled}>
         <ChoiceGrid>
           <CheckBox
             icon={waterDrop}
             title="청결 관리"
             checked={selectedOptions.wash}
-            onChange={() => handleSelectOption('wash', !selectedOptions.wash)}
+            onChange={() => selectOption('wash', !selectedOptions.wash)}
           />
           <CheckBox
             icon={shower}
             title="목욕"
             checked={selectedOptions.bath}
-            onChange={() => handleSelectOption('bath', !selectedOptions.bath)}
+            onChange={() => selectOption('bath', !selectedOptions.bath)}
           />
           <CheckBox
             icon={movement}
             title="체위 변경"
-            checked={selectedOptions.isPositionChangeRequired}
+            checked={selectedOptions.positionChangeRequired}
             onChange={() =>
-              handleSelectOption(
-                'isPositionChangeRequired',
-                !selectedOptions.isPositionChangeRequired,
-              )
+              selectOption('positionChangeRequired', !selectedOptions.positionChangeRequired)
             }
           />
           <CheckBox
             icon={wheelchair}
             title="이동 도움"
-            checked={selectedOptions.isMobilityAssistance}
-            onChange={() =>
-              handleSelectOption('isMobilityAssistance', !selectedOptions.isMobilityAssistance)
-            }
+            checked={selectedOptions.mobilityAssistance}
+            onChange={() => selectOption('mobilityAssistance', !selectedOptions.mobilityAssistance)}
           />
           <CheckBox
             icon={walking}
             title="산책 / 외출 동행"
-            checked={selectedOptions.has_walked}
-            onChange={() => handleSelectOption('has_walked', !selectedOptions.has_walked)}
+            checked={selectedOptions.hasWalked}
+            onChange={() => selectOption('hasWalked', !selectedOptions.hasWalked)}
           />
           <div>
             <TimesBox
               icon={bathroom}
               title="화장실 이용 횟수"
               count={selectedOptions.physicalRestroom}
-              onCountChange={(count) => handleSelectOption('physicalRestroom', count)}
+              onCountChange={(count) => selectOption('physicalRestroom', count)}
             />
             {errors.physicalRestroom && <ErrorMessage>{errors.physicalRestroom}</ErrorMessage>}
           </div>
@@ -147,7 +142,7 @@ export const BodyChoicePage = () => {
               title="식사 종류"
               options={['일반식', '죽', '유동식']}
               selectedOption={selectedOptions.mealType}
-              onSelectOption={(option) => handleSelectOption('mealType', option)}
+              onSelectOption={(option) => selectOption('mealType', option)}
             />
             {errors.mealType && <ErrorMessage>{errors.mealType}</ErrorMessage>}
           </div>
@@ -157,7 +152,7 @@ export const BodyChoicePage = () => {
               title="섭취량"
               options={['1 (전부)', '1/2 이상', '1/2 미만']}
               selectedOption={selectedOptions.intakeAmount}
-              onSelectOption={(option) => handleSelectOption('intakeAmount', option)}
+              onSelectOption={(option) => selectOption('intakeAmount', option)}
             />{' '}
             {errors.intakeAmount && <ErrorMessage>{errors.intakeAmount}</ErrorMessage>}
           </div>
@@ -165,7 +160,7 @@ export const BodyChoicePage = () => {
         <ButtonWrapper>
           <Button
             theme="dark"
-            onClick={handleConfirm}
+            onClick={confirm}
             css={{
               width: '100%',
               height: '62px',

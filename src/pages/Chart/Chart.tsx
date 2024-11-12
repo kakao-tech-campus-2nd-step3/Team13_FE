@@ -28,13 +28,13 @@ export const ChartPage = () => {
     }
   }
 
-  const handleCamera = () => {}
+  const navigateToCamera = () => {}
 
-  const handleRecord = () => {
+  const navigateToRecord = () => {
     navigate('/chart/audioRecord')
   }
 
-  const handleDIY = () => {
+  const navigateToDIY = () => {
     navigate('/chart/choice/body')
   }
 
@@ -65,13 +65,13 @@ export const ChartPage = () => {
           icon={recording}
           title="음성 녹음"
           sub="작성할 내용을 녹음해주세요."
-          onClick={handleRecord}
+          onClick={navigateToRecord}
         ></ChartBlock>
         <ChartBlock
           icon={pencil}
           title="직접 입력"
           sub="작성할 내용을 직접 입력해주세요."
-          onClick={handleDIY}
+          onClick={navigateToDIY}
         ></ChartBlock>
       </div>
       {showPopup && (

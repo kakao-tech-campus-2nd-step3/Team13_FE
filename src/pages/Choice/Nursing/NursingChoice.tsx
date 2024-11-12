@@ -12,18 +12,18 @@ import Steps from '@/components/common/Steps/Steps'
 import { WriteBox } from '@/components/features/MultipleChoice/WriteBox'
 import { CheckBox } from '@/components/features/MultipleChoice/CheckBox'
 import { useNavigate } from 'react-router-dom'
-import { ChartData } from '@/types/types'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { Chart } from '@/api/hooks/user/chart/types'
 
 export const NursingChoicePage = () => {
   const navigate = useNavigate()
-  const [selectedOptions, setSelectedOptions] = useState<ChartData['nursingManagement']>({
+  const [selectedOptions, setSelectedOptions] = useState<Chart['nursingManagement']>({
     systolic: '',
     diastolic: '',
     healthTemperature: '',
-    isHealthCareProvided: false,
-    isNursingCareProvided: false,
-    isEmergencyCareProvided: false,
+    healthCareProvided: false,
+    nursingCareProvided: false,
+    emergencyCareProvided: false,
     healthNote: '',
   })
   const [errors, setErrors] = useState({
@@ -32,7 +32,7 @@ export const NursingChoicePage = () => {
     healthTemperature: '',
   })
 
-  const handleSelectOption = (key: keyof ChartData['nursingManagement'], value: any) => {
+  const selectOption = (key: keyof Chart['nursingManagement'], value: any) => {
     setSelectedOptions((prev) => {
       const updatedOptions = { ...prev, [key]: value }
       localStorage.setItem('nursingManagement', JSON.stringify(updatedOptions))
@@ -40,8 +40,8 @@ export const NursingChoicePage = () => {
     })
   }
 
-  const handleInputChange = (key: keyof ChartData['nursingManagement'], value: string) => {
-    handleSelectOption(key, value.replace(/\D/g, ''))
+  const inputChange = (key: keyof Chart['nursingManagement'], value: string) => {
+    selectOption(key, value.replace(/\D/g, ''))
     setErrors((prevErrors) => ({
       ...prevErrors,
       [key]: '', // Clear error when user types something valid
@@ -64,7 +64,7 @@ export const NursingChoicePage = () => {
     return !Object.values(newErrors).some((error) => error)
   }
 
-  const handleConfirm = () => {
+  const confirm = () => {
     if (validateInputs()) {
       navigate('/chart/significant/nursing')
     }
@@ -87,8 +87,8 @@ export const NursingChoicePage = () => {
             placeholderSecond="최저"
             firstInputValue={selectedOptions.systolic.toString()}
             secondInputValue={selectedOptions.diastolic.toString()}
-            onFirstInputChange={(value) => handleInputChange('systolic', value)}
-            onSecondInputChange={(value) => handleInputChange('diastolic', value)}
+            onFirstInputChange={(value) => inputChange('systolic', value)}
+            onSecondInputChange={(value) => inputChange('diastolic', value)}
           />
           {errors.systolic && <ErrorMessage>{errors.systolic}</ErrorMessage>}
           {errors.diastolic && <ErrorMessage>{errors.diastolic}</ErrorMessage>}
@@ -101,39 +101,35 @@ export const NursingChoicePage = () => {
             isDualInput={false}
             placeholderFirst="입력해주세요"
             firstInputValue={selectedOptions.healthTemperature}
-            onFirstInputChange={(value) => handleInputChange('healthTemperature', value)}
+            onFirstInputChange={(value) => inputChange('healthTemperature', value)}
           />
           {errors.healthTemperature && <ErrorMessage>{errors.healthTemperature}</ErrorMessage>}
         </div>
         <CheckBox
           icon={health}
           title="건강 관리"
-          checked={selectedOptions.isHealthCareProvided}
-          onChange={() =>
-            handleSelectOption('isHealthCareProvided', !selectedOptions.isHealthCareProvided)
-          }
+          checked={selectedOptions.healthCareProvided}
+          onChange={() => selectOption('healthCareProvided', !selectedOptions.healthCareProvided)}
         />
         <CheckBox
           icon={nursing}
           title="간호 관리"
-          checked={selectedOptions.isNursingCareProvided}
-          onChange={() =>
-            handleSelectOption('isNursingCareProvided', !selectedOptions.isNursingCareProvided)
-          }
+          checked={selectedOptions.nursingCareProvided}
+          onChange={() => selectOption('nursingCareProvided', !selectedOptions.nursingCareProvided)}
         />
         <CheckBox
           icon={emergency}
           title="기타(응급)"
-          checked={selectedOptions.isEmergencyCareProvided}
+          checked={selectedOptions.emergencyCareProvided}
           onChange={() =>
-            handleSelectOption('isEmergencyCareProvided', !selectedOptions.isEmergencyCareProvided)
+            selectOption('emergencyCareProvided', !selectedOptions.emergencyCareProvided)
           }
         />
       </ChoiceGrid>
       <ButtonWrapper>
         <Button
           theme="dark"
-          onClick={handleConfirm}
+          onClick={confirm}
           css={{
             width: '100%',
             height: '62px',

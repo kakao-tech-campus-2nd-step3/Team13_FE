@@ -17,12 +17,10 @@ export const CalendarPage = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    // API 호출
     const fetchCalendarData = async () => {
       try {
         const response = await getCalendarData()
         if (response.success) {
-          // API 응답을 CalendarData 타입에 맞게 변환
           const dates = response.response.map((item: Calendar) => ({
             chartId: item.chartId,
             recipientName: item.recipientName,
@@ -48,7 +46,7 @@ export const CalendarPage = () => {
     return availableDates.some((item) => item.chartDate === dateStr)
   }
 
-  const handleDayClick = (day: number) => {
+  const dayClick = (day: number) => {
     if (isDateAvailable(day)) {
       const clickedDate = availableDates.find(
         (item) =>
@@ -97,7 +95,7 @@ export const CalendarPage = () => {
             <Day
               key={day}
               available={isDateAvailable(day) || undefined}
-              onClick={() => handleDayClick(day)}
+              onClick={() => dayClick(day)}
             >
               {day}
             </Day>

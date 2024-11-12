@@ -33,7 +33,7 @@ export const RecipientsPage = () => {
     fetchRecipients()
   }, [role])
 
-  const handleScroll = (event: any) => {
+  const scroll = (event: any) => {
     const scrollTop = event.target.scrollTop
     setIsScrolled(scrollTop > 0)
   }
@@ -43,7 +43,7 @@ export const RecipientsPage = () => {
       <Heading.Medium style={{ width: '100%', margin: '20px 0 10px 0' }}>
         돌봄대상자를 선택해주세요.
       </Heading.Medium>
-      <ListWrapper onScroll={handleScroll} isScrolled={isScrolled}>
+      <ListWrapper onScroll={scroll} isScrolled={isScrolled}>
         {recipients.map((recipient) => (
           <RecipientsList
             key={recipient.id}

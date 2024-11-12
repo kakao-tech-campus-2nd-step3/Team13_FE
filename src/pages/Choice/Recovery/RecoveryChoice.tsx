@@ -11,16 +11,16 @@ import { Heading } from '@/components/common/Text/TextFactory'
 import Steps from '@/components/common/Steps/Steps'
 import { WriteBox } from '@/components/features/MultipleChoice/WriteBox'
 import { useNavigate } from 'react-router-dom'
-import { ChartData } from '@/types/types'
 import { useEffect, useState } from 'react'
+import { Chart } from '@/api/hooks/user/chart/types'
 
 export const RecoveryChoicePage = () => {
   const navigate = useNavigate()
-  const [selectedOptions, setSelectedOptions] = useState<ChartData['recoveryTraining']>({
+  const [selectedOptions, setSelectedOptions] = useState<Chart['recoveryTraining']>({
     recoveryProgram: '',
     recoveryTraining: false,
-    isCognitiveTrainingProvided: false,
-    isPhysicalTherapyProvided: false,
+    cognitiveTrainingProvided: false,
+    physicalTherapyProvided: false,
     recoveryNote: '',
   })
 
@@ -31,7 +31,7 @@ export const RecoveryChoicePage = () => {
     }
   }, [])
 
-  const handleSelectOption = (key: keyof ChartData['recoveryTraining'], value: any) => {
+  const selectOption = (key: keyof Chart['recoveryTraining'], value: any) => {
     setSelectedOptions((prev) => {
       const updatedOptions = { ...prev, [key]: value }
       localStorage.setItem('recoveryTraining', JSON.stringify(updatedOptions))
@@ -39,8 +39,8 @@ export const RecoveryChoicePage = () => {
     })
   }
 
-  const handleInputChange = (key: keyof ChartData['recoveryTraining'], value: any) => {
-    handleSelectOption(key, value)
+  const handleInputChange = (key: keyof Chart['recoveryTraining'], value: any) => {
+    selectOption(key, value)
   }
 
   return (
@@ -59,28 +59,22 @@ export const RecoveryChoicePage = () => {
           icon={moving}
           title="신체 동작 훈련"
           checked={selectedOptions.recoveryTraining}
-          onChange={() => handleSelectOption('recoveryTraining', !selectedOptions.recoveryTraining)}
+          onChange={() => selectOption('recoveryTraining', !selectedOptions.recoveryTraining)}
         />
         <CheckBox
           icon={cognitiveTreatment}
           title="인지기능 훈련"
-          checked={selectedOptions.isCognitiveTrainingProvided}
+          checked={selectedOptions.cognitiveTrainingProvided}
           onChange={() =>
-            handleSelectOption(
-              'isCognitiveTrainingProvided',
-              !selectedOptions.isCognitiveTrainingProvided,
-            )
+            selectOption('cognitiveTrainingProvided', !selectedOptions.cognitiveTrainingProvided)
           }
         />
         <CheckBox
           icon={physicalTreatment}
           title="물리치료"
-          checked={selectedOptions.isPhysicalTherapyProvided}
+          checked={selectedOptions.physicalTherapyProvided}
           onChange={() =>
-            handleSelectOption(
-              'isPhysicalTherapyProvided',
-              !selectedOptions.isPhysicalTherapyProvided,
-            )
+            selectOption('physicalTherapyProvided', !selectedOptions.physicalTherapyProvided)
           }
         />
       </ChoiceGrid>

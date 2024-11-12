@@ -28,7 +28,7 @@ export const BodyChoiceLogPage = () => {
   const { chartId, selectedDate } = useParams<{ chartId: string; selectedDate: string }>()
   const [detailLog, setDetailLog] = useState<Chart | null>(null)
   const [isScrolled, setIsScrolled] = useState(false)
-  const handleScroll = (event: any) => {
+  const scroll = (event: any) => {
     const scrollTop = event.target.scrollTop
     setIsScrolled(scrollTop > 0)
   }
@@ -82,7 +82,7 @@ export const BodyChoiceLogPage = () => {
         </div>
       </TitleWrapper>
 
-      <ListWrapper onScroll={handleScroll} isScrolled={isScrolled}>
+      <ListWrapper onScroll={scroll} isScrolled={isScrolled}>
         <ChoiceGrid>
           <ChoiceBox
             icon={waterDrop}

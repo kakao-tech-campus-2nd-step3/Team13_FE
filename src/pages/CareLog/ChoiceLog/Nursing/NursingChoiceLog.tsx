@@ -15,12 +15,12 @@ import { Heading } from '@/components/common/Text/TextFactory'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getDetailLogData } from '@/api/hooks/chart/useGetChart'
-import { ChartData } from '@/types/types'
+import { Chart } from '@/api/hooks/user/chart/types'
 
 export const NursingChoiceLogPage = () => {
   const navigate = useNavigate()
   const { chartId, selectedDate } = useParams<{ chartId: string; selectedDate: string }>()
-  const [detailLog, setDetailLog] = useState<ChartData | null>(null)
+  const [detailLog, setDetailLog] = useState<Chart | null>(null)
 
   useEffect(() => {
     if (chartId) {
@@ -76,17 +76,17 @@ export const NursingChoiceLogPage = () => {
         <ChoiceBox
           icon={health}
           title="건강 관리"
-          content={detailLog?.nursingManagement.isHealthCareProvided ? 'O' : 'X'}
+          content={detailLog?.nursingManagement.healthCareProvided ? 'O' : 'X'}
         />
         <ChoiceBox
           icon={nursing}
           title="간호 관리"
-          content={detailLog?.nursingManagement.isNursingCareProvided ? 'O' : 'X'}
+          content={detailLog?.nursingManagement.nursingCareProvided ? 'O' : 'X'}
         />
         <ChoiceBox
           icon={emergency}
           title="기타(응급)"
-          content={detailLog?.nursingManagement.isEmergencyCareProvided ? 'O' : 'X'}
+          content={detailLog?.nursingManagement.emergencyCareProvided ? 'O' : 'X'}
         />
       </ChoiceGrid>
       <ButtonWrapper>

@@ -5,16 +5,6 @@ import { BrowserRouter } from 'react-router-dom'
 
 const queryClient = new QueryClient()
 
-// function App() {
-//   return (
-//     <QueryClientProvider client={queryClient}>
-//       <div className="App">
-//         <BrowserRouter><Routes /></BrowserRouter>
-//       </div>
-//     </QueryClientProvider>
-//   )
-// }
-
 function App() {
   return (
     <QueryClientProvider client={queryClient}>

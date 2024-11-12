@@ -31,16 +31,14 @@ export const SignificantPage = ({ step, title, navigateTo }: DIYProps) => {
     }
   }, [title])
 
-  // Save note to localStorage and handle final step confirmation
-  const handleConfirmClick = async () => {
-    // Ensure the note is saved
+  const confirmClick = async () => {
     localStorage.setItem(noteFieldMap[title], note)
     if (step === 4) {
       const confirmSave = window.confirm('차트를 저장하시겠습니까?')
       if (confirmSave) {
         await submitChartData()
         localStorage.clear()
-        navigate('/recipients') // Navigate to desired page after submission
+        navigate('/recipients')
       }
     } else {
       navigate(navigateTo)
@@ -65,7 +63,7 @@ export const SignificantPage = ({ step, title, navigateTo }: DIYProps) => {
       />
       <Button
         theme="dark"
-        onClick={handleConfirmClick}
+        onClick={confirmClick}
         css={{
           margin: '26px 0',
           width: '100%',

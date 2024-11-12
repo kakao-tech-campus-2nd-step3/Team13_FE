@@ -19,7 +19,7 @@ export const SharePage = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const navigate = useNavigate() // 추가
 
-  const handleFileSelect = () => {
+  const fileSelect = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click()
     }
@@ -56,7 +56,7 @@ export const SharePage = () => {
           icon={galleryIcon}
           title="갤러리에서 선택"
           sub="미리 찍은 김쿠키님의 사진을 업로드 해주세요."
-          onClick={handleFileSelect}
+          onClick={fileSelect}
         >
           <input type="file" ref={fileInputRef} style={{ display: 'none' }} />
         </ShareSquare>
