@@ -1,6 +1,5 @@
 import { QueryClient } from '@tanstack/react-query'
-import type { AxiosInstance, AxiosRequestConfig } from 'axios'
-import axios from 'axios'
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 
 const initInstance = (config: AxiosRequestConfig): AxiosInstance => {
   const instance = axios.create({
