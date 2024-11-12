@@ -1,20 +1,16 @@
 import { fetchInstance } from '@/api/instance/instance'
 import type { UserResponseData } from './types'
 
-// Function to handle login and store tokens
 export const AuthProvider = async (
   role: string,
   userInfo: { userId: string; password: string },
 ) => {
   const endpoint = `/v1/auth/login/${role}`
-  console.log(role, userInfo)
-  console.log(import.meta.env.VITE_API_BASE_URL, '/v1/login/', role)
 
   try {
     const response = await fetchInstance.post<UserResponseData>(endpoint, userInfo)
     const { accessToken, refreshToken } = response.data
 
-    // Store tokens in localStorage
     localStorage.setItem('accessToken', accessToken)
     localStorage.setItem('refreshToken', refreshToken)
 
@@ -25,7 +21,6 @@ export const AuthProvider = async (
   }
 }
 
-// Function to renew tokens if the access token is expired
 export const renewTokens = async (): Promise<string> => {
   const refreshToken = localStorage.getItem('refreshToken')
   if (!refreshToken) throw new Error('No refresh token available')
@@ -36,7 +31,6 @@ export const renewTokens = async (): Promise<string> => {
     })
     const { accessToken, refreshToken: newRefreshToken } = response.data
 
-    // Update tokens in localStorage
     localStorage.setItem('accessToken', accessToken)
     localStorage.setItem('refreshToken', newRefreshToken)
 

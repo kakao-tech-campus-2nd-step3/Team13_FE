@@ -13,13 +13,13 @@ import Steps from '@/components/common/Steps/Steps'
 import { Heading } from '@/components/common/Text/TextFactory'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { ChartData } from '@/types/types'
 import { getDetailLogData } from '@/api/hooks/chart/useGetChart'
+import { Chart } from '@/api/hooks/user/chart/types'
 
 export const RecoveryChoiceLogPage = () => {
   const navigate = useNavigate()
   const { chartId, selectedDate } = useParams<{ chartId: string; selectedDate: string }>()
-  const [detailLog, setDetailLog] = useState<ChartData | null>(null)
+  const [detailLog, setDetailLog] = useState<Chart | null>(null)
 
   useEffect(() => {
     if (chartId) {
@@ -79,12 +79,12 @@ export const RecoveryChoiceLogPage = () => {
         <ChoiceBox
           icon={cognitiveTreatment}
           title="인지기능 훈련"
-          content={detailLog?.recoveryTraining.isCognitiveTrainingProvided ? 'O' : 'X'}
+          content={detailLog?.recoveryTraining.cognitiveTrainingProvided ? 'O' : 'X'}
         />
         <ChoiceBox
           icon={physicalTreatment}
           title="물리치료"
-          content={detailLog?.recoveryTraining.isPhysicalTherapyProvided ? 'O' : 'X'}
+          content={detailLog?.recoveryTraining.physicalTherapyProvided ? 'O' : 'X'}
         />
       </ChoiceGrid>
       <ButtonWrapper>

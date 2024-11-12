@@ -37,5 +37,39 @@ export interface Chart {
 }
 
 export type ChartResponseData = {
-  chartData: Chart[]
+  response: Chart[]
+}
+
+//일지 내역
+export interface Calendar {
+  chartId: number
+  recipientName: string
+  chartDate: string
+  [key: string]: unknown
+}
+
+export type CalendarResponseData = {
+  response: Calendar[]
+}
+
+//요약일지
+export type Summary = {
+  summaryResponse: {
+    condition_disease: string
+    body_management: string
+    nursing_management: string
+    cognitive_management: string
+    recovery_training: string
+  }
+  tagResponse: {
+    tag1: string
+    tag2: string
+    tag3: string
+  }
+  updatedAt: string
+  institutionName: string
+}
+
+export type SummaryResponseData = {
+  response: Summary[]
 }

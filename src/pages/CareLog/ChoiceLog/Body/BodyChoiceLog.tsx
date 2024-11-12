@@ -16,8 +16,8 @@ import Steps from '@/components/common/Steps/Steps'
 import { Heading } from '@/components/common/Text/TextFactory'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { ChartData } from '@/types/types'
 import { getDetailLogData } from '@/api/hooks/chart/useGetChart'
+import { Chart } from '@/api/hooks/user/chart/types'
 
 interface ListWrapperProps {
   isScrolled: boolean
@@ -26,7 +26,7 @@ interface ListWrapperProps {
 export const BodyChoiceLogPage = () => {
   const navigate = useNavigate()
   const { chartId, selectedDate } = useParams<{ chartId: string; selectedDate: string }>()
-  const [detailLog, setDetailLog] = useState<ChartData | null>(null)
+  const [detailLog, setDetailLog] = useState<Chart | null>(null)
   const [isScrolled, setIsScrolled] = useState(false)
   const handleScroll = (event: any) => {
     const scrollTop = event.target.scrollTop
@@ -97,17 +97,17 @@ export const BodyChoiceLogPage = () => {
           <ChoiceBox
             icon={movement}
             title="체위 변경"
-            content={detailLog?.bodyManagement.isPositionChangeRequired ? 'O' : 'X'}
+            content={detailLog?.bodyManagement.positionChangeRequired ? 'O' : 'X'}
           />
           <ChoiceBox
             icon={wheelchair}
             title="이동 도움"
-            content={detailLog?.bodyManagement.isMobilityAssistance ? 'O' : 'X'}
+            content={detailLog?.bodyManagement.mobilityAssistance ? 'O' : 'X'}
           />
           <ChoiceBox
             icon={walking}
             title="산책 / 외출 동행"
-            content={detailLog?.bodyManagement.has_walked ? 'O' : 'X'}
+            content={detailLog?.bodyManagement.hasWalked ? 'O' : 'X'}
           />
           <ChoiceBox
             icon={bathroom}

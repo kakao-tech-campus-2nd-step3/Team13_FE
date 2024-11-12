@@ -1,9 +1,9 @@
 import { getDetailLogData } from '@/api/hooks/chart/useGetChart'
+import { Chart } from '@/api/hooks/user/chart/types'
 import Button from '@/components/common/Button/Button'
 import Steps from '@/components/common/Steps/Steps'
 import { Heading } from '@/components/common/Text/TextFactory'
 import { colors } from '@/styles/colors/colors'
-import { ChartData } from '@/types/types'
 import { useEffect, useState } from 'react'
 import { IoCalendarNumberOutline } from 'react-icons/io5'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -15,23 +15,20 @@ interface DIYProps {
   navigateTo: string
 }
 
-// Update the map to use a tuple of keys for two-level deep access
-const noteFieldMap: { [key: string]: [keyof ChartData, string] } = {
+const noteFieldMap: { [key: string]: [keyof Chart, string] } = {
   '신체 활동 지원': ['bodyManagement', 'physicalNote'],
   '인지관리 및 의사소통': ['cognitiveManagement', 'cognitiveNote'],
   '건강 및 간호 관리': ['nursingManagement', 'healthNote'],
   '기능 회복 훈련': ['recoveryTraining', 'recoveryNote'],
 }
 
-// Utility function to get nested values based on a two-level path
-function getNestedValue(obj: any, path: [string, string]): any {
-  return obj?.[path[0]]?.[path[1]] ?? ''
+function getNestedValue<T, K1 extends keyof T>(obj: T, path: [K1, string]): any {
+  return obj?.[path[0]]?.[path[1] as keyof T[K1]] ?? ''
 }
-
 export const SignificantLogPage = ({ step, title, navigateTo }: DIYProps) => {
   const navigate = useNavigate()
   const { chartId, selectedDate } = useParams<{ chartId: string; selectedDate: string }>()
-  const [detailLog, setDetailLog] = useState<ChartData | null>(null)
+  const [detailLog, setDetailLog] = useState<Chart | null>(null)
 
   useEffect(() => {
     if (chartId) {

@@ -3,22 +3,19 @@ import { renewTokens, tokenIsExpired } from './authApi'
 
 const apiInstance = fetchInstance
 
-// Interceptor to attach token and handle renewal
 apiInstance.interceptors.request.use(
   async (config) => {
     let accessToken = localStorage.getItem('accessToken')
 
-    // Check if the token is expired or missing
     if (!accessToken || tokenIsExpired(accessToken)) {
       try {
-        accessToken = await renewTokens() // Renew token if necessary
+        accessToken = await renewTokens()
       } catch (error) {
         console.error('Token renewal failed', error)
-        return Promise.reject(error) // Reject if renewal fails
+        return Promise.reject(error)
       }
     }
 
-    // Attach the valid access token
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`
     }

@@ -6,14 +6,14 @@ import { IoCalendarNumberOutline } from 'react-icons/io5'
 import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getCareLogData } from '@/api/hooks/chart/useGetChart'
-import { CareLogData } from '@/types/types'
+import { Summary } from '@/api/hooks/user/chart/types'
 
 export const CareLogPage = () => {
   const location = useLocation()
   const { name, birthday, selectedDate } = location.state || {}
   const { chartId } = useParams<{ chartId: string }>()
   const navigate = useNavigate()
-  const [careLog, setCareLog] = useState<CareLogData | null>(null)
+  const [careLog, setCareLog] = useState<Summary | null>(null)
 
   useEffect(() => {
     if (chartId) {

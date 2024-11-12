@@ -4,13 +4,13 @@ import { colors } from '@/styles/colors/colors'
 import { Heading, TextBody } from '@/components/common/Text/TextFactory'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { getCalendarData } from '@/api/hooks/chart/useGetCalendar'
-import { CalendarData } from '@/types/types' // CalendarData 타입을 가져옵니다.
+import { Calendar } from '@/api/hooks/user/chart/types'
 
 export const CalendarPage = () => {
   const location = useLocation()
   const { name, birthday } = location.state || {}
   const [selectedDate, setSelectedDate] = useState('')
-  const [availableDates, setAvailableDates] = useState<CalendarData[]>([])
+  const [availableDates, setAvailableDates] = useState<Calendar[]>([])
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear())
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1)
   const [daysInMonth, setDaysInMonth] = useState<number[]>([])
@@ -23,7 +23,7 @@ export const CalendarPage = () => {
         const response = await getCalendarData()
         if (response.success) {
           // API 응답을 CalendarData 타입에 맞게 변환
-          const dates = response.response.map((item: CalendarData) => ({
+          const dates = response.response.map((item: Calendar) => ({
             chartId: item.chartId,
             recipientName: item.recipientName,
             chartDate: item.chartDate,

@@ -10,13 +10,13 @@ import Steps from '@/components/common/Steps/Steps'
 import { Heading } from '@/components/common/Text/TextFactory'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { ChartData } from '@/types/types'
 import { getDetailLogData } from '@/api/hooks/chart/useGetChart'
+import { Chart } from '@/api/hooks/user/chart/types'
 
 export const CognitiveChoiceLogPage = () => {
   const navigate = useNavigate()
   const { chartId, selectedDate } = useParams<{ chartId: string; selectedDate: string }>()
-  const [detailLog, setDetailLog] = useState<ChartData | null>(null)
+  const [detailLog, setDetailLog] = useState<Chart | null>(null)
 
   useEffect(() => {
     if (chartId) {
@@ -67,7 +67,7 @@ export const CognitiveChoiceLogPage = () => {
         <ChoiceBox
           icon={clap}
           title="말벗 및 격려"
-          content={detailLog?.cognitiveManagement.isCompanionshipProvided ? 'O' : 'X'}
+          content={detailLog?.cognitiveManagement.companionshipProvided ? 'O' : 'X'}
         />
       </ChoiceGrid>
       <ButtonWrapper>
