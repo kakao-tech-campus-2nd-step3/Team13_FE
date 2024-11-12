@@ -5,7 +5,7 @@ export interface Institution {
 }
 
 export type InstitutionResponseData = {
-  institutions: Institution[]
+  response: Institution[]
 }
 
 export type UpdateInstitutionData = Partial<Institution> & {
