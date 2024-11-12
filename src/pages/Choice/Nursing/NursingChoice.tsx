@@ -13,7 +13,7 @@ import { WriteBox } from '@/components/features/MultipleChoice/WriteBox'
 import { CheckBox } from '@/components/features/MultipleChoice/CheckBox'
 import { useNavigate } from 'react-router-dom'
 import { ChartData } from '@/types/types'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export const NursingChoicePage = () => {
   const navigate = useNavigate()

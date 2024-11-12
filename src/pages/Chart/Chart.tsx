@@ -28,7 +28,7 @@ export const ChartPage = () => {
     }
   }
 
-  const handleCamera = () => {}
+  // const handleCamera = () => {}
 
   const handleRecord = () => {
     navigate('/chart/audioRecord')
