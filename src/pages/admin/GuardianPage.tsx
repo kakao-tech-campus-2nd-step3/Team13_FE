@@ -5,8 +5,6 @@ import { useDeleteGuardian } from '@/api/hooks/admin/guardian/useDeleteGuardian'
 import { useUpdateGuardian } from '@/api/hooks/admin/guardian/useUpdateGuardian'
 import { Guardian } from '@/api/hooks/admin/guardian/types'
 
-// const guardians: Guardian[] = [{ phone: '010-0000-0000', name: '이지수', isActive: true }]
-
 const columns: { key: keyof Guardian; label: string }[] = [
   { key: 'name', label: '이름' },
   { key: 'phone', label: '연락처' },

@@ -1,26 +1,35 @@
-import { fetchInstance } from '@/api/instance/instance'
+import apiInstance from '@/provider/Auth/apiInstance'
 import type { CareWorker, CareWorkerResponseData } from './types'
 
-const CAREWORKER_BASE_URL = '/v1/careworker'
+const CAREWORKER_BASE_URL = '/v1/admin/careworker'
 
 export const addCareWorker = async (newCareWorker: Partial<CareWorker>) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id, isNew, ...careWorkerData } = newCareWorker
 
-  return await fetchInstance.post(CAREWORKER_BASE_URL, careWorkerData)
+  const loginPassword = localStorage.getItem('loginPassword')
+
+  const requestData = {
+    ...careWorkerData,
+    loginPassword,
+  }
+
+  console.log(requestData)
+
+  return await apiInstance.post(CAREWORKER_BASE_URL, requestData)
 }
 
 export const getCareWorkers = async (): Promise<CareWorker[]> => {
-  const response = await fetchInstance.get<CareWorkerResponseData>(CAREWORKER_BASE_URL)
-  return response.data.recipients
+  const response = await apiInstance.get<CareWorkerResponseData>(CAREWORKER_BASE_URL)
+  return response.data.response ?? []
 }
 
 export const updateCareWorker = async (id: number, updatedData: Partial<CareWorker>) => {
   // const updatedInstitution = { institutionNumber: id, ...updatedData }
   // console.log(updatedInstitution)
-  return await fetchInstance.put(`${CAREWORKER_BASE_URL}/${id}`, updatedData)
+  return await apiInstance.put(`${CAREWORKER_BASE_URL}/${id}`, updatedData)
 }
 
 export const deleteCareWorker = async (id: number) => {
-  return await fetchInstance.delete(`${CAREWORKER_BASE_URL}/${id}`)
+  return await apiInstance.delete(`${CAREWORKER_BASE_URL}/${id}`)
 }

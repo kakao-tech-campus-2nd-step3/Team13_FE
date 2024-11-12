@@ -5,22 +5,6 @@ import { useGetRecipients } from '@/api/hooks/admin/recipient/useGetRecipient'
 import { useUpdateRecipient } from '@/api/hooks/admin/recipient/useUpdateRecipient'
 import { Table } from '@/components/common/Table/Table'
 
-// const recipients: Recipient[] = [
-//   {
-//     id: 1,
-//     name: '이지수',
-//     birth: '2002.04.30.',
-//     gender: '여성',
-//     careLevel: 'Level 1',
-//     careNumber: '1234',
-//     startDate: '2024.01.01.',
-//     institution: '000 요양원',
-//     institutionNumber: 101,
-//     institutionId: 123,
-//     careworkerId: 1,
-//   },
-// ]
-
 const columns: { key: keyof Recipient; label: string }[] = [
   { key: 'id', label: 'ID' },
   { key: 'name', label: '이름' },

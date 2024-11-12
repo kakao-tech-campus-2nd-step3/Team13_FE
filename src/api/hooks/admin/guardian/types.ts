@@ -8,7 +8,7 @@ export interface Guardian extends TableRow {
 }
 
 export type GuardianResponseData = {
-  guardians: Guardian[]
+  response: Guardian[]
 }
 
 export type UpdateGuardianData = Omit<Guardian, 'isActive'> & {

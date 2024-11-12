@@ -1,4 +1,4 @@
-import { fetchInstance } from '@/api/instance/instance'
+import apiInstance from '@/provider/Auth/apiInstance'
 import type { Institution, InstitutionResponseData } from './types'
 
 const INSTITUTION_BASE_URL = '/v1/admin/institution'
@@ -6,20 +6,20 @@ const INSTITUTION_BASE_URL = '/v1/admin/institution'
 export const addInstitution = async (newInstitution: Partial<Institution>) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id, isNew, ...institutionData } = newInstitution
-  return await fetchInstance.post(INSTITUTION_BASE_URL, institutionData)
+  return await apiInstance.post(INSTITUTION_BASE_URL, institutionData)
 }
 
 export const getInstitutions = async (): Promise<Institution[]> => {
-  const response = await fetchInstance.get<InstitutionResponseData>(INSTITUTION_BASE_URL)
-  return response.data.institutions
+  const response = await apiInstance.get<InstitutionResponseData>(INSTITUTION_BASE_URL)
+  return response.data.response ?? []
 }
 
 export const updateInstitution = async (id: number, updatedData: Partial<Institution>) => {
   // const updatedInstitution = { institutionNumber: id, ...updatedData }
   // console.log(updatedInstitution)
-  return await fetchInstance.put(`${INSTITUTION_BASE_URL}/${id}`, updatedData)
+  return await apiInstance.put(`${INSTITUTION_BASE_URL}/${id}`, updatedData)
 }
 
 export const deleteInstitution = async (institutionNumber: number) => {
-  return await fetchInstance.delete(`${INSTITUTION_BASE_URL}/${institutionNumber}`)
+  return await apiInstance.delete(`${INSTITUTION_BASE_URL}/${institutionNumber}`)
 }

@@ -5,8 +5,6 @@ import { useDeleteInstitution } from '@/api/hooks/admin/institution/useDeleteIns
 import { useUpdateInstitution } from '@/api/hooks/admin/institution/useUpdateInstitution'
 import { Institution } from '@/api/hooks/admin/institution/types'
 
-// const institutions: Institution[] = [{ institutionNumber: 101, institutionName: '000 요양원' }]
-
 const columns: { key: keyof Institution; label: string }[] = [
   { key: 'institutionNumber', label: '요양원 ID' },
   { key: 'institutionName', label: '요양원명' },
@@ -30,7 +28,7 @@ export const InstitutionPage = () => {
       onDeleteRow={(institutionNumber: number) => deleteInstitution(institutionNumber)}
       onUpdateRow={(updatedRow) =>
         updateInstitution({
-          institutionNumber: updatedRow.institutionNumber,
+          institutionNumber: updatedRow.institutionNumber!,
           updatedData: {
             institutionName: updatedRow.institutionName,
           },

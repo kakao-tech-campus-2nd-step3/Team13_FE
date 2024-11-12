@@ -1,11 +1,13 @@
-export interface Institution {
+import { TableRow } from '@/components/common/Table/Table'
+
+export interface Institution extends TableRow {
+  id: number
   institutionNumber: number
   institutionName: string
-  [key: string]: unknown
 }
 
 export type InstitutionResponseData = {
-  institutions: Institution[]
+  response: Institution[]
 }
 
 export type UpdateInstitutionData = Partial<Institution> & {
