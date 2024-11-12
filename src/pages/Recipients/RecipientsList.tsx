@@ -26,7 +26,7 @@ export const RecipientsList = ({
   return (
     <Wrapper
       onClick={
-        currentRole == 'GUARDIAN'
+        currentRole == 'guardian'
           ? () => {
               navigate('/calendar', { state: { name, birthday } })
             }
@@ -49,7 +49,7 @@ export const RecipientsList = ({
         <div style={{ color: colors.text.subtle, fontSize: '20px' }}>{birthday}</div>
       </ProfileWrapper>
 
-      {currentRole == 'CAREWORKER' ? (
+      {currentRole == 'careworker' ? (
         <SelectWrapper>
           <img
             src={newChart}
