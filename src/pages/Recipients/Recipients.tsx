@@ -10,6 +10,11 @@ interface ListWrapperProps {
   isScrolled: boolean
 }
 
+const formatBirthDate = (dateString: string) => {
+  const [year, month, day] = dateString.split('-')
+  return `${year.slice(2)}${month}${day}`
+}
+
 export const RecipientsPage = () => {
   const [recipients, setRecipients] = useState<Recipient[]>([])
   const [isScrolled, setIsScrolled] = useState(false)
@@ -20,7 +25,7 @@ export const RecipientsPage = () => {
       try {
         const data = await getRecipients()
         setRecipients(data)
-        console.log(data)
+        console.log(localStorage.getItem('role'))
       } catch (error) {
         console.error('Failed to fetch recipients:', error)
       }
@@ -42,9 +47,9 @@ export const RecipientsPage = () => {
         {recipients.map((recipient) => (
           <RecipientsList
             key={recipient.id}
-            picture={image} // Placeholder image; replace with recipient picture if available in the data
+            picture={image}
             name={recipient.name}
-            birthday={recipient.birth}
+            birthday={formatBirthDate(recipient.birth)} // 형식 변환 적용
           />
         ))}
       </ListWrapper>

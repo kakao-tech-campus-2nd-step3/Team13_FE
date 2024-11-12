@@ -6,6 +6,7 @@ const role = localStorage.getItem('role')
 const getRecipientsPath = `/v1/${role}/recipient`
 
 export const getRecipients = async (): Promise<Recipient[]> => {
+  console.log(role)
   const response = await apiInstance.get<RecipientResponseData>(getRecipientsPath)
 
   return response.data.response
