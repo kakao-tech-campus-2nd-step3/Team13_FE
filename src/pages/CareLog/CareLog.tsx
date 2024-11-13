@@ -187,8 +187,8 @@ const Content = styled.div`
 const LogoContainer = styled.div`
   color: ${colors.primary.main};
   background-color: #ececec;
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
   padding: 8px;
   border-radius: 50%;
   display: flex;
