@@ -1,4 +1,4 @@
-import { ReactNode, useRef } from 'react'
+import { ReactNode, useRef, useState } from 'react'
 import Button from '@/components/common/Button/Button'
 import heroImg from '@/assets/images/hero_img.svg'
 import arrowBlue from '@/assets/icons/arrow-blue.svg'
@@ -16,8 +16,13 @@ function HeroSection({ id }: { id?: string }) {
   const title = useRef<HTMLDivElement>(null)
   const button = useRef<HTMLDivElement>(null)
 
+  const [isModalOpen, setModalOpen] = useState(false)
+
   useIntersectionSlideEffect({ spyRef: spyRef, targetRef: title, direction: 'top' })
   useIntersectionSlideEffect({ spyRef: spyRef, targetRef: button, direction: 'bottom' })
+
+  const openModal = () => setModalOpen(true)
+  const closeModal = () => setModalOpen(false)
 
   return (
     <section id={id}>
@@ -74,6 +79,7 @@ function HeroSection({ id }: { id?: string }) {
               </TextBody.MLarge>
               <Button
                 theme="white"
+                onClick={openModal}
                 css={{
                   marginTop: '15px',
                   borderRadius: '40px',
@@ -89,6 +95,12 @@ function HeroSection({ id }: { id?: string }) {
               </Button>
             </Container>
           </ButtonContainer>
+          {isModalOpen && (
+            <Modal onClose={closeModal}>
+              <Heading.Medium>Contact Us !</Heading.Medium>
+              <TextBody.Large>e-mail: halfmoonjy99@gmail.com</TextBody.Large>
+            </Modal>
+          )}
         </Container>
       </HeroContainer>
     </section>
@@ -166,5 +178,46 @@ function HeroImage() {
     </Container>
   )
 }
+
+interface ModalProps {
+  onClose: () => void
+  children: ReactNode
+}
+
+function Modal({ onClose, children }: ModalProps) {
+  return (
+    <Overlay onClick={onClose}>
+      <ModalContainer onClick={(e) => e.stopPropagation()}>{children}</ModalContainer>
+    </Overlay>
+  )
+}
+
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); // Darkened overlay effect
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+`
+
+const ModalContainer = styled.div`
+  background: white;
+  height: 20%;
+  width: 80%;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
 
 export default HeroSection
