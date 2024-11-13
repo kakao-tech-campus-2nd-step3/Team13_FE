@@ -11,14 +11,16 @@ import { IoCalendarNumberOutline } from 'react-icons/io5'
 import { colors } from '@/styles/colors/colors'
 import Steps from '@/components/common/Steps/Steps'
 import { Heading } from '@/components/common/Text/TextFactory'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getDetailLogData } from '@/api/hooks/chart/useGetChart'
 import { Chart } from '@/api/hooks/user/chart/types'
 
 export const RecoveryChoiceLogPage = () => {
   const navigate = useNavigate()
-  const { chartId, selectedDate } = useParams<{ chartId: string; selectedDate: string }>()
+  const location = useLocation()
+  const { selectedDate } = location.state || {}
+  const { chartId } = useParams<{ chartId: string }>()
   const [detailLog, setDetailLog] = useState<Chart | null>(null)
 
   useEffect(() => {

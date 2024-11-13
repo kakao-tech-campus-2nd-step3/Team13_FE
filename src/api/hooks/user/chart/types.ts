@@ -71,5 +71,5 @@ export type Summary = {
 }
 
 export type SummaryResponseData = {
-  response: Summary[]
+  response: Summary
 }

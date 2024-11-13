@@ -14,7 +14,7 @@ import { IoCalendarNumberOutline } from 'react-icons/io5'
 import { colors } from '@/styles/colors/colors'
 import Steps from '@/components/common/Steps/Steps'
 import { Heading } from '@/components/common/Text/TextFactory'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getDetailLogData } from '@/api/hooks/chart/useGetChart'
 import { Chart } from '@/api/hooks/user/chart/types'
@@ -25,13 +25,16 @@ interface ListWrapperProps {
 
 export const BodyChoiceLogPage = () => {
   const navigate = useNavigate()
-  const { chartId, selectedDate } = useParams<{ chartId: string; selectedDate: string }>()
+  const location = useLocation()
+  const { selectedDate } = location.state || {}
+  const { chartId } = useParams<{ chartId: string }>()
   const [detailLog, setDetailLog] = useState<Chart | null>(null)
   const [isScrolled, setIsScrolled] = useState(false)
   const scroll = (event: any) => {
     const scrollTop = event.target.scrollTop
     setIsScrolled(scrollTop > 0)
   }
+  console.log(selectedDate)
 
   useEffect(() => {
     if (chartId) {

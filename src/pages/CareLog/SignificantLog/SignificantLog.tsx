@@ -6,7 +6,7 @@ import { Heading } from '@/components/common/Text/TextFactory'
 import { colors } from '@/styles/colors/colors'
 import { useEffect, useState } from 'react'
 import { IoCalendarNumberOutline } from 'react-icons/io5'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 interface DIYProps {
@@ -27,7 +27,9 @@ function getNestedValue<T, K1 extends keyof T>(obj: T, path: [K1, string]): any 
 }
 export const SignificantLogPage = ({ step, title, navigateTo }: DIYProps) => {
   const navigate = useNavigate()
-  const { chartId, selectedDate } = useParams<{ chartId: string; selectedDate: string }>()
+  const location = useLocation()
+  const { selectedDate } = location.state || {}
+  const { chartId } = useParams<{ chartId: string }>()
   const [detailLog, setDetailLog] = useState<Chart | null>(null)
 
   useEffect(() => {
@@ -81,7 +83,9 @@ export const SignificantLogPage = ({ step, title, navigateTo }: DIYProps) => {
         margin="26px 0"
         width="100%"
         height="62px"
-        onClick={() => navigate(navigateTo, { state: { selectedDate } })}
+        onClick={() =>
+          navigate(`${navigateTo.replace(':chartId', chartId!)}`, { state: { selectedDate } })
+        }
       >
         확인
       </Button>

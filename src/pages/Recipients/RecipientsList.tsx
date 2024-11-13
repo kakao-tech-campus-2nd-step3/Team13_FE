@@ -26,12 +26,17 @@ export const RecipientsList = ({
   const navigate = useNavigate()
   const currentRole = localStorage.getItem('role')
   console.log(recipientId)
+
+  const formatBirthDate = (dateString: string) => {
+    const [year, month, day] = dateString.split('-')
+    return `${year.slice(2)}${month}${day}`
+  }
   return (
     <Wrapper
       onClick={
         currentRole == 'guardian'
           ? () => {
-              navigate('/calendar', { state: { recipientId, name, birthday } })
+              navigate('/calendar', { state: { recipientId } })
             }
           : () => {}
       }
@@ -49,7 +54,9 @@ export const RecipientsList = ({
         <div style={{ color: colors.text.moderate, fontSize: '24px', marginRight: '12px' }}>
           {name}
         </div>
-        <div style={{ color: colors.text.subtle, fontSize: '20px' }}>{birthday}</div>
+        <div style={{ color: colors.text.subtle, fontSize: '20px' }}>
+          {formatBirthDate(birthday)}
+        </div>
       </ProfileWrapper>
 
       {currentRole == 'careworker' ? (
@@ -59,7 +66,11 @@ export const RecipientsList = ({
             alt="new chart"
             onClick={() => {
               localStorage.removeItem('recipientId')
+              localStorage.removeItem('recipientName')
+              localStorage.removeItem('recipientBirthday')
               localStorage.setItem('recipientId', recipientId.toString())
+              localStorage.setItem('recipientName', name)
+              localStorage.setItem('recipientBirthday', birthday)
               navigate('/share')
             }}
           />
@@ -69,7 +80,11 @@ export const RecipientsList = ({
             alt="chart list"
             onClick={() => {
               localStorage.removeItem('recipientId')
+              localStorage.removeItem('recipientName')
+              localStorage.removeItem('recipientBirthday')
               localStorage.setItem('recipientId', recipientId.toString())
+              localStorage.setItem('recipientName', name)
+              localStorage.setItem('recipientBirthday', birthday)
               navigate('/calendar', { state: { name, birthday } })
             }}
           />

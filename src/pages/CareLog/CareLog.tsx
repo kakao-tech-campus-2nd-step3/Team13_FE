@@ -5,42 +5,48 @@ import '../../styles/pages/CareLog.styles'
 import { IoCalendarNumberOutline } from 'react-icons/io5'
 import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { getCareLogData } from '@/api/hooks/chart/useGetChart'
 import { Summary } from '@/api/hooks/user/chart/types'
+import { getSummaryData } from '@/api/hooks/user/chart/useGetSummary'
 
 export const CareLogPage = () => {
   const location = useLocation()
-  const { name, birthday, selectedDate } = location.state || {}
+  const { selectedDate } = location.state || {}
   const { chartId } = useParams<{ chartId: string }>()
   const navigate = useNavigate()
-  const [careLog, setCareLog] = useState<Summary | null>(null)
+  const [careLog, setCareLog] = useState<Summary>()
 
+  const name = localStorage.getItem('recipientName')
+  const birthday = localStorage.getItem('recipientBirthday')
+
+  const formatBirthDate = (dateString: string) => {
+    if (!dateString) return ''
+    const [year, month, day] = dateString.split('-')
+    return `${year}.${month}.${day}`
+  }
+  console.log(selectedDate)
   useEffect(() => {
     if (chartId) {
-      // Convert chartId to a number and fetch data
-      const fetchCareLogData = async () => {
+      const fetchCalendarData = async () => {
         try {
-          const response = await getCareLogData({ chartId: Number(chartId) })
-          if (response.success) {
-            setCareLog(response.response)
-          }
+          const data = await getSummaryData(Number(chartId))
+          setCareLog(data)
         } catch (error) {
-          console.error('요약일지 API 호출 중 오류 발생:', error)
+          console.error('Failed to fetch recipients:', error)
         }
       }
-      fetchCareLogData()
+      fetchCalendarData()
     }
   }, [chartId])
 
   return (
     <S.Container>
       <S.Header>
-        <S.Birth>{birthday}</S.Birth>
+        <S.Birth>{formatBirthDate(birthday!)}</S.Birth>
         <S.Name>
-          <span>{name}</span> 피요양자
+          돌봄대상자 <span>{name}</span> 님
         </S.Name>
         <S.SubTitle>
-          {careLog?.institutionName} 요양원 |{careLog?.updatedAt} 업데이트
+          {careLog?.institutionName} 요양원 | {formatBirthDate(careLog?.updatedAt!)} 업데이트
         </S.SubTitle>
       </S.Header>
 

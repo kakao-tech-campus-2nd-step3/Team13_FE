@@ -10,11 +10,6 @@ interface ListWrapperProps {
   isScrolled: boolean
 }
 
-const formatBirthDate = (dateString: string) => {
-  const [year, month, day] = dateString.split('-')
-  return `${year.slice(2)}${month}${day}`
-}
-
 export const RecipientsPage = () => {
   const [recipients, setRecipients] = useState<Recipient[]>([])
   const [isScrolled, setIsScrolled] = useState(false)
@@ -50,7 +45,7 @@ export const RecipientsPage = () => {
             recipientId={recipient.id}
             picture={image}
             name={recipient.name}
-            birthday={formatBirthDate(recipient.birth)} // 형식 변환 적용
+            birthday={recipient.birth} // 형식 변환 적용
           />
         ))}
       </ListWrapper>

@@ -48,12 +48,11 @@ export const CalendarPage = () => {
           `${selectedYear}-${String(selectedMonth).padStart(2, '0')}-${String(day).padStart(2, '0')}`,
       )
       if (clickedDate) {
-        console.log(`Selected chartId: ${clickedDate.chartId}`)
-        console.log(`Selected name: ${clickedDate.recipientName}`)
-        setSelectedDate(
-          `${selectedYear}.${String(selectedMonth).padStart(2, '0')}.${String(day).padStart(2, '0')}.`,
-        )
-        navigate(`/careLog/${clickedDate.chartId}`, { state: { name, birthday, selectedDate } })
+        const newSelectedDate = `${selectedYear}.${String(selectedMonth).padStart(2, '0')}.${String(day).padStart(2, '0')}`
+        setSelectedDate(newSelectedDate)
+        navigate(`/careLog/${clickedDate.chartId}`, {
+          state: { name, birthday, selectedDate: newSelectedDate },
+        })
       }
     }
   }
@@ -72,7 +71,10 @@ export const CalendarPage = () => {
     <Wrapper>
       <Header>
         <Heading.Medium style={{ color: 'black', margin: '70px 0 13px 0' }}>
-          <span style={{ color: `${colors.text.prominent}` }}>김쿠키</span> 님의 요양일지
+          <span style={{ color: `${colors.text.prominent}` }}>
+            {localStorage.getItem('recipientName')}
+          </span>{' '}
+          님의 요양일지
         </Heading.Medium>
         <TextBody.Large style={{ color: `${colors.text.subtle}` }}>
           일지를 확인할 날짜를 선택해주세요.
