@@ -1,5 +1,4 @@
-import Steps from '@/components/common/Steps/Steps'
-import { Heading, Paragraph, TextBody } from '@/components/common/Text/TextFactory'
+import { Heading, Paragraph } from '@/components/common/Text/TextFactory'
 import { colors } from '@/styles/colors/colors'
 import { BeatLoader } from 'react-spinners'
 import { useState } from 'react'
@@ -8,6 +7,7 @@ import { useSpeechToText } from '@/components/features/SpeechToText/hooks/useSpe
 import { FaPlay, FaStop } from 'react-icons/fa'
 
 export const AudioRecordPage = () => {
+  const { transcript, listening, toggleListening } = useSpeechToText()
   const [isRecording, setIsRecording] = useState(false)
 
   const handleToggleListening = () => {
@@ -21,13 +21,7 @@ export const AudioRecordPage = () => {
 
   return (
     <Wrapper>
-      <div
-        style={{
-          flexGrow: '1',
-          justifyContent: 'center',
-          alignContent: 'center',
-        }}
-      >
+      <Content>
         <Heading.Medium
           style={{
             marginBottom: '18px',
