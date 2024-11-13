@@ -1,31 +1,31 @@
-import { fetchInstance } from '@/api/instance/instance'
-import { renewTokens, tokenIsExpired } from './authApi'
+import { QueryClient } from '@tanstack/react-query'
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 
-const apiInstance = fetchInstance
+const initInstance = (config: AxiosRequestConfig): AxiosInstance => {
+  const instance = axios.create({
+    timeout: 5000,
+    ...config,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      ...config.headers,
+    },
+  })
 
-// Interceptor to attach token and handle renewal
-apiInstance.interceptors.request.use(
-  async (config) => {
-    let accessToken = localStorage.getItem('accessToken')
+  return instance
+}
 
-    // Check if the token is expired or missing
-    if (!accessToken || tokenIsExpired(accessToken)) {
-      try {
-        accessToken = await renewTokens() // Renew token if necessary
-      } catch (error) {
-        console.error('Token renewal failed', error)
-        return Promise.reject(error) // Reject if renewal fails
-      }
-    }
+export const apiInstance = initInstance({
+  baseURL: import.meta.env.VITE_API_BASE_URL,
+})
 
-    // Attach the valid access token
-    if (accessToken) {
-      config.headers['Authorization'] = `Bearer ${accessToken}`
-    }
-
-    return config
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 3,
+      refetchOnMount: true,
+      refetchOnReconnect: true,
+      refetchOnWindowFocus: true,
+    },
   },
-  (error) => Promise.reject(error),
-)
-
-export default apiInstance
+})

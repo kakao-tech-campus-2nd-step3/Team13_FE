@@ -7,6 +7,7 @@ interface StepsProps {
   currentStep: number
   totalSteps: number
   isLog?: boolean
+  chartId?: string
 }
 
 const stepPaths_post = [
@@ -23,11 +24,13 @@ const stepPaths_get = [
   '/careLog/choice/recovery',
 ]
 
-function Steps({ currentStep, totalSteps, isLog = false }: StepsProps) {
+function Steps({ currentStep, totalSteps, isLog = false, chartId = '' }: StepsProps) {
   const navigate = useNavigate()
   const stepPaths = isLog ? stepPaths_get : stepPaths_post
-  const handleStepClick = (index: number, isCompleted: boolean) => {
-    if (isCompleted || isLog) {
+  const handleStepClick = (index: number, isCompleted: boolean, isCurrent: boolean) => {
+    if (isLog) {
+      navigate(`${stepPaths[index]}/${chartId}`)
+    } else if (isCompleted || isCurrent) {
       navigate(stepPaths[index])
     }
   }
@@ -39,7 +42,7 @@ function Steps({ currentStep, totalSteps, isLog = false }: StepsProps) {
         const isCompleted = index < currentStep - 1
 
         return (
-          <Step key={index} onClick={() => handleStepClick(index, isCompleted)}>
+          <Step key={index} onClick={() => handleStepClick(index, isCompleted, isCurrent)}>
             {isCompleted ? (
               <Done>
                 <img src={checkIcon} alt="done" style={{ width: '13px' }} />

@@ -27,6 +27,8 @@ export const HomePage = () => {
 
 const RoleButton = ({ title, role, isBlue }: RoleProps) => {
   const navigate = useNavigate()
+  localStorage.clear()
+  console.log(localStorage.getItem('role'))
 
   return (
     <RoleWrapper

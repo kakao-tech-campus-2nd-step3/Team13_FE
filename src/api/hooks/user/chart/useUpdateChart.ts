@@ -3,7 +3,7 @@ import { Chart, ChartResponseData } from './types'
 
 const postChartPath = `/v1/careworker/chart`
 
-export const submitChartData = async () => {
+export const updateChartData = async (chartId: number) => {
   const chartData = localStorage.getItem('chartData')
   const recipientId = localStorage.getItem('recipientId')
 
@@ -39,7 +39,7 @@ export const submitChartData = async () => {
       healthCareProvided: parsedChartData.nursingManagement?.healthCareProvided || false,
       nursingCareProvided: parsedChartData.nursingManagement?.nursingCareProvided || false,
       emergencyCareProvided: parsedChartData.nursingManagement?.emergencyCareProvided || false,
-      healthNote: parsedChartData.nursingManagement?.recoveryNote || '',
+      healthNote: parsedChartData.nursingManagement?.healthNote || '',
     },
     recoveryTraining: {
       recoveryProgram: parsedChartData.recoveryTraining?.recoveryProgram || '',
@@ -50,11 +50,8 @@ export const submitChartData = async () => {
       recoveryNote: parsedChartData.recoveryTraining?.recoveryNote || '',
     },
   }
-  const response = await fetchInstance.post<ChartResponseData>(
-    `${postChartPath}?recipient-id=${recipientId}`,
-    chart,
-  )
-  console.log('sdf')
+  const response = await fetchInstance.put<ChartResponseData>(`${postChartPath}/${chartId}`, chart)
+
   localStorage.removeItem('chartData')
   return response.data
 }
