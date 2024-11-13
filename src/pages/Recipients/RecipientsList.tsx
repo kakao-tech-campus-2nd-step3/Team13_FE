@@ -36,7 +36,13 @@ export const RecipientsList = ({
       onClick={
         currentRole == 'guardian'
           ? () => {
-              navigate('/calendar', { state: { recipientId } })
+              localStorage.removeItem('recipientId')
+              localStorage.removeItem('recipientName')
+              localStorage.removeItem('recipientBirthday')
+              localStorage.setItem('recipientId', recipientId.toString())
+              localStorage.setItem('recipientName', name)
+              localStorage.setItem('recipientBirthday', birthday)
+              navigate('/calendar', { state: { name, birthday } })
             }
           : () => {}
       }

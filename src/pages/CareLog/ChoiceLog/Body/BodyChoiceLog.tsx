@@ -1,5 +1,4 @@
-import Date from '@/components/common/Date/Date'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import waterDrop from '@/assets/icons/water_drop.svg'
 import shower from '@/assets/icons/shower.svg'
 import meal from '@/assets/icons/meal.svg'
@@ -18,6 +17,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getDetailLogData } from '@/api/hooks/chart/useGetChart'
 import { Chart } from '@/api/hooks/user/chart/types'
+import { Spinner } from 'basic-loading'
 
 interface ListWrapperProps {
   isScrolled: boolean
@@ -29,6 +29,7 @@ export const BodyChoiceLogPage = () => {
   const { selectedDate } = location.state || {}
   const { chartId } = useParams<{ chartId: string }>()
   const [detailLog, setDetailLog] = useState<Chart | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
   const [isScrolled, setIsScrolled] = useState(false)
   const scroll = (event: any) => {
     const scrollTop = event.target.scrollTop
@@ -38,15 +39,17 @@ export const BodyChoiceLogPage = () => {
 
   useEffect(() => {
     if (chartId) {
-      // Convert chartId to a number and fetch data
       const fetchCareLogData = async () => {
         try {
           const response = await getDetailLogData({ chartId: Number(chartId) })
           if (response.success) {
             setDetailLog(response.response)
+            localStorage.setItem('detailLog', JSON.stringify(response.response))
           }
         } catch (error) {
           console.error('Chart API 호출 중 오류 발생:', error)
+        } finally {
+          setIsLoading(false)
         }
       }
       fetchCareLogData()
@@ -73,7 +76,7 @@ export const BodyChoiceLogPage = () => {
             {selectedDate}
           </div>
         </div>
-        <Steps currentStep={1} totalSteps={4} isLog={true} />
+        <Steps currentStep={1} totalSteps={4} isLog={true} chartId={chartId} />
         <div
           style={{
             width: '100%',
@@ -86,48 +89,64 @@ export const BodyChoiceLogPage = () => {
       </TitleWrapper>
 
       <ListWrapper onScroll={scroll} isScrolled={isScrolled}>
-        <ChoiceGrid>
-          <ChoiceBox
-            icon={waterDrop}
-            title="청결 관리"
-            content={detailLog?.bodyManagement.wash ? 'O' : 'X'}
-          />
-          <ChoiceBox
-            icon={shower}
-            title="목욕"
-            content={detailLog?.bodyManagement.bath ? 'O' : 'X'}
-          />
-          <ChoiceBox
-            icon={movement}
-            title="체위 변경"
-            content={detailLog?.bodyManagement.positionChangeRequired ? 'O' : 'X'}
-          />
-          <ChoiceBox
-            icon={wheelchair}
-            title="이동 도움"
-            content={detailLog?.bodyManagement.mobilityAssistance ? 'O' : 'X'}
-          />
-          <ChoiceBox
-            icon={walking}
-            title="산책 / 외출 동행"
-            content={detailLog?.bodyManagement.hasWalked ? 'O' : 'X'}
-          />
-          <ChoiceBox
-            icon={bathroom}
-            title="화장실 이용 횟수"
-            content={`${detailLog?.bodyManagement.physicalRestroom}회`}
-          />
-          <ChoiceBox
-            icon={meal}
-            title="식사 종류"
-            content={`${detailLog?.bodyManagement.mealType}`}
-          />
-          <ChoiceBox
-            icon={mealAmount}
-            title="섭취량"
-            content={`${detailLog?.bodyManagement.intakeAmount}`}
-          />
-        </ChoiceGrid>
+        {isLoading ? (
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Spinner
+              option={{ size: 70, thickness: 5, bgColor: '#EDF4FF', barColor: colors.primary.main }}
+            />
+          </div>
+        ) : (
+          <ChoiceGrid>
+            <ChoiceBox
+              icon={waterDrop}
+              title="청결 관리"
+              content={detailLog?.bodyManagement.wash ? 'O' : 'X'}
+            />
+            <ChoiceBox
+              icon={shower}
+              title="목욕"
+              content={detailLog?.bodyManagement.bath ? 'O' : 'X'}
+            />
+            <ChoiceBox
+              icon={movement}
+              title="체위 변경"
+              content={detailLog?.bodyManagement.positionChangeRequired ? 'O' : 'X'}
+            />
+            <ChoiceBox
+              icon={wheelchair}
+              title="이동 도움"
+              content={detailLog?.bodyManagement.mobilityAssistance ? 'O' : 'X'}
+            />
+            <ChoiceBox
+              icon={walking}
+              title="산책 / 외출 동행"
+              content={detailLog?.bodyManagement.hasWalked ? 'O' : 'X'}
+            />
+            <ChoiceBox
+              icon={bathroom}
+              title="화장실 이용 횟수"
+              content={`${detailLog?.bodyManagement.physicalRestroom}회`}
+            />
+            <ChoiceBox
+              icon={meal}
+              title="식사 종류"
+              content={`${detailLog?.bodyManagement.mealType}`}
+            />
+            <ChoiceBox
+              icon={mealAmount}
+              title="섭취량"
+              content={`${detailLog?.bodyManagement.intakeAmount}`}
+            />
+          </ChoiceGrid>
+        )}
 
         <ButtonWrapper>
           <Button

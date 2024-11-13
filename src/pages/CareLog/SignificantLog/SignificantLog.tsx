@@ -4,6 +4,7 @@ import Button from '@/components/common/Button/Button'
 import Steps from '@/components/common/Steps/Steps'
 import { Heading } from '@/components/common/Text/TextFactory'
 import { colors } from '@/styles/colors/colors'
+import { Spinner } from 'basic-loading'
 import { useEffect, useState } from 'react'
 import { IoCalendarNumberOutline } from 'react-icons/io5'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
@@ -31,6 +32,7 @@ export const SignificantLogPage = ({ step, title, navigateTo }: DIYProps) => {
   const { selectedDate } = location.state || {}
   const { chartId } = useParams<{ chartId: string }>()
   const [detailLog, setDetailLog] = useState<Chart | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if (chartId) {
@@ -42,6 +44,8 @@ export const SignificantLogPage = ({ step, title, navigateTo }: DIYProps) => {
           }
         } catch (error) {
           console.error('Chart API 호출 중 오류 발생:', error)
+        } finally {
+          setIsLoading(false)
         }
       }
       fetchCareLogData()
@@ -73,11 +77,27 @@ export const SignificantLogPage = ({ step, title, navigateTo }: DIYProps) => {
           {selectedDate}
         </div>
       </div>
-      <Steps currentStep={step} totalSteps={4} isLog={true} />
+      <Steps currentStep={step} totalSteps={4} isLog={true} chartId={chartId} />
       <div style={{ padding: '26px 0 15px 0', lineHeight: '1.2' }}>
         <Heading.Medium>{title} 특이사항</Heading.Medium>
       </div>
-      <TextBox>{getNote()}</TextBox>
+      {isLoading ? (
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Spinner
+            option={{ size: 70, thickness: 5, bgColor: '#EDF4FF', barColor: colors.primary.main }}
+          />
+        </div>
+      ) : (
+        <TextBox>{getNote()}</TextBox>
+      )}
       <Button
         theme="dark"
         margin="26px 0"

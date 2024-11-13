@@ -14,13 +14,12 @@ export const RecipientsPage = () => {
   const [recipients, setRecipients] = useState<Recipient[]>([])
   const [isScrolled, setIsScrolled] = useState(false)
   const role = localStorage.getItem('role')
-
+  console.log(role)
   useEffect(() => {
     const fetchRecipients = async () => {
       try {
-        const data = await getRecipients()
+        const data = await getRecipients(role!)
         setRecipients(data)
-        console.log(localStorage.getItem('role'))
       } catch (error) {
         console.error('Failed to fetch recipients:', error)
       }
@@ -45,7 +44,7 @@ export const RecipientsPage = () => {
             recipientId={recipient.id}
             picture={image}
             name={recipient.name}
-            birthday={recipient.birth} // 형식 변환 적용
+            birthday={recipient.birth}
           />
         ))}
       </ListWrapper>

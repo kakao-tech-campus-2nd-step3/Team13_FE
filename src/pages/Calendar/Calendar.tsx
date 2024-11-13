@@ -17,10 +17,11 @@ export const CalendarPage = () => {
   const navigate = useNavigate()
 
   const recipientId = Number(localStorage.getItem('recipientId'))
+  const role = localStorage.getItem('role')
   useEffect(() => {
     const fetchCalendarData = async () => {
       try {
-        const data = await getCalendarData(recipientId)
+        const data = await getCalendarData(recipientId, role!)
         setAvailableDates(data)
       } catch (error) {
         console.error('Failed to fetch recipients:', error)

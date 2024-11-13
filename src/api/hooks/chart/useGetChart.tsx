@@ -1,9 +1,7 @@
 import { fetchInstance } from '@/api/instance/instance'
 
-const role = localStorage.getItem('role')?.toLowerCase()
-
 const getCareLogPath = () => `/summary`
-const getDetailLogPath = (chartId: number) => `/v1/${role}/chart/${chartId}`
+const getDetailLogPath = (role: string, chartId: number) => `/v1/${role}/chart/${chartId}`
 
 export const getCareLogData = async ({ chartId }: { chartId: number }) => {
   const path = getCareLogPath()
@@ -17,7 +15,8 @@ export const getCareLogData = async ({ chartId }: { chartId: number }) => {
 }
 
 export const getDetailLogData = async ({ chartId }: { chartId: number }) => {
-  const path = getDetailLogPath(chartId) // Pass chartId to getDetailLogPath
+  const role = localStorage.getItem('role')
+  const path = getDetailLogPath(role!, chartId) // Pass chartId to getDetailLogPath
   try {
     const response = await fetchInstance.get(path)
     return response.data
