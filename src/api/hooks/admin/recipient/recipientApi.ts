@@ -15,8 +15,6 @@ export const getRecipients = async (): Promise<Recipient[]> => {
 }
 
 export const updateRecipient = async (id: number, updatedData: Partial<Recipient>) => {
-  // const updatedInstitution = { institutionNumber: id, ...updatedData }
-  // console.log(updatedInstitution)
   return await apiInstance.put(`${RECIPIENT_BASE_URL}/${id}`, updatedData)
 }
 

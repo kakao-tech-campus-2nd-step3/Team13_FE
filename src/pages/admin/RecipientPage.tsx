@@ -10,13 +10,14 @@ const columns: { key: keyof Recipient; label: string }[] = [
   { key: 'name', label: '이름' },
   { key: 'birth', label: '생년월일' },
   { key: 'gender', label: '성별' },
-  { key: 'careLevel', label: 'Care Level' }, // 한국어로 뭐라고 표기?
-  { key: 'careNumber', label: 'Care Number' }, // 한국어로 뭐라고 표기?
+  { key: 'careLevel', label: 'Care Level' },
+  { key: 'careNumber', label: 'Care Number' },
   { key: 'startDate', label: '시작일' },
   { key: 'institution', label: '요양원' },
-  { key: 'institutionNumber', label: '요양원 ID' }, // 한국어로 뭐라고 표기?
+  { key: 'institutionNumber', label: '요양원 ID' },
   { key: 'institutionId', label: '요양원 ID' },
   { key: 'careworkerId', label: '요양관리사 ID' },
+  { key: 'guardianId', label: '보호자 ID' },
 ]
 
 export const RecipientPage = () => {
