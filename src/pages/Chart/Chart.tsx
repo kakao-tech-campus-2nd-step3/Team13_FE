@@ -28,6 +28,7 @@ export const ChartPage = () => {
     }
   }
 
+
   const navigateToCamera = () => {}
 
   const navigateToRecord = () => {

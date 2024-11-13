@@ -38,6 +38,7 @@ export const RouterPath = {
   OCR: '/ocr',
   OCR_LOADING: '/ocr/loading',
   OCR_CHECKING: '/ocr/check',
+  MYPAGE: '/my',
   ADMIN: {
     ROOT: '/admin',
     CAREWORKER: '/admin/careWorker',

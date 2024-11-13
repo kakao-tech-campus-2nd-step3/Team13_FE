@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { Chart } from '@/api/hooks/user/chart/types'
 
+
 export const NursingChoicePage = () => {
   const navigate = useNavigate()
   const [selectedOptions, setSelectedOptions] = useState<Chart['nursingManagement']>({
