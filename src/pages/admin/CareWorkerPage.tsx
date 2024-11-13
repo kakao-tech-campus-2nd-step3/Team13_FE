@@ -41,6 +41,8 @@ export const CareWorkerPage = () => {
           },
         })
       }
+      downloadUrl="/v1/excel/careworker/download"
+      uploadUrl="/v1/excel/careworker/upload"
     />
   )
 }

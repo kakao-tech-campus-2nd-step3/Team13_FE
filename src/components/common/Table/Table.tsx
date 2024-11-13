@@ -3,6 +3,8 @@ import Button from '../Button/Button'
 import * as S from './Table.styles'
 import { MdDeleteOutline, MdOutlineModeEdit } from 'react-icons/md'
 import { FileUploadModal } from '../Modal/Modal'
+import { useExcelDownload } from '@/api/hooks/common/useExcelDownload'
+import { useExcelUpload } from '@/api/hooks/common/useExcelUpload'
 
 export interface TableRow extends Record<string, unknown> {
   id: number
@@ -17,6 +19,8 @@ interface TableProps<T extends TableRow> {
   onAddRow?: (newRow: Partial<T>) => void
   onDeleteRow?: (institutionNumber: number) => void
   onUpdateRow?: (updatedRow: T) => void
+  downloadUrl?: string
+  uploadUrl?: string
 }
 
 export const Table = <T extends TableRow>({
@@ -26,10 +30,30 @@ export const Table = <T extends TableRow>({
   onAddRow,
   onDeleteRow,
   onUpdateRow,
+  downloadUrl,
+  uploadUrl,
 }: TableProps<T>) => {
   const [tableData, setTableData] = useState<T[]>(data)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingRowIndex, setEditingRowIndex] = useState<number | null>(null)
+
+  const { refetch: downloadExcel, isFetching: isDownloading } = useExcelDownload(downloadUrl || '')
+  const { uploadExcel, isLoading: isUploading } = useExcelUpload(uploadUrl || '')
+  const [file, setFile] = useState<File | null>(null)
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      setFile(event.target.files[0])
+    }
+  }
+
+  const handleUpload = () => {
+    if (file) {
+      uploadExcel(file)
+    } else {
+      alert('업로드할 파일을 선택하세요.')
+    }
+  }
 
   const handleAddRow = () => {
     const newRow: T = { id: tableData.length + 1, isNew: true } as T
@@ -142,6 +166,15 @@ export const Table = <T extends TableRow>({
         </Button>
 
         <FileUploadModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} />
+
+        <Button theme="gray" height="50px" onClick={downloadExcel} disabled={isDownloading}>
+          {isDownloading ? '다운로드 중...' : '템플릿 다운로드'}
+        </Button>
+
+        <input type="file" accept=".xlsx, .xls" onChange={handleFileChange} />
+        <Button theme="dark" height="50px" onClick={handleUpload} disabled={isUploading}>
+          {isUploading ? '업로드 중...' : '엑셀 업로드'}
+        </Button>
       </S.ButtonWrapper>
     </>
   )

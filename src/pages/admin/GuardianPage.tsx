@@ -32,6 +32,8 @@ export const GuardianPage = () => {
         const { id: guardianId, ...updatedData } = updatedRow
         updateGuardian({ guardianId, updatedData })
       }}
+      downloadUrl="/v1/excel/guardian/download"
+      uploadUrl="/v1/excel/guardian/upload"
     />
   )
 }
