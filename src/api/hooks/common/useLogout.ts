@@ -19,12 +19,9 @@ export const useLogout = () => {
       )
     },
     onSuccess: () => {
-      localStorage.removeItem('accessToken')
-      localStorage.removeItem('role')
-
+      localStorage.clear()
       queryClient.clear()
-
-      navigate('/login')
+      navigate('/landing')
     },
     onError: (error) => {
       console.error(error)
