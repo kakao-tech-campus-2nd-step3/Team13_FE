@@ -11,11 +11,10 @@ export const LoginPage = () => {
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
-  // Update handleLogin to accept an event and prevent default form submission
   const login = async (event: React.FormEvent) => {
-    event.preventDefault() // Prevent default form submission
+    event.preventDefault()
     const role = localStorage.getItem('role')
-    console.log('sfes')
+
     try {
       await AuthProvider(role!, { userId, password })
       navigate('/recipients')

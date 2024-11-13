@@ -27,8 +27,10 @@ const initInstance = (config: AxiosRequestConfig): AxiosInstance => {
 
       if (!isRefreshing) {
         isRefreshing = true
+
         try {
           const newToken = await renewTokens()
+
           accessToken = newToken
           localStorage.setItem('accessToken', accessToken)
           pendingRequests.forEach((callback) => callback(accessToken!))
