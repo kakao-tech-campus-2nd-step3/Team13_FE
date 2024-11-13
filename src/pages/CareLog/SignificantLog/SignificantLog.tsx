@@ -128,5 +128,4 @@ const TextBox = styled.div`
   padding: 5px;
   box-sizing: border-box;
   line-height: 1.6;
-  overflow: scroll;
 `

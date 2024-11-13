@@ -91,7 +91,7 @@ export const CalendarPage = () => {
           {daysInMonth.map((day) => (
             <Day
               key={day}
-              available={isDateAvailable(day) || undefined}
+              available={isDateAvailable(day) ? 'true' : undefined} // 수정된 부분
               onClick={() => dayClick(day)}
             >
               {day}
@@ -169,7 +169,7 @@ const DaysGrid = styled.div`
 `
 
 interface DayProps {
-  available?: boolean
+  available?: string // 타입을 string으로 수정
 }
 
 const Day = styled.div<DayProps>`
@@ -179,11 +179,12 @@ const Day = styled.div<DayProps>`
   border-radius: 20px;
   font-weight: 600;
   font-size: 20px;
-  color: ${({ available }) => (available ? colors.primary.main : colors.border.subtle)};
-  cursor: ${({ available }) => (available ? 'pointer' : 'default')};
-  pointer-events: ${({ available }) => (available ? 'auto' : 'none')};
+  color: ${({ available }) => (available === 'true' ? colors.primary.main : colors.border.subtle)};
+  cursor: ${({ available }) => (available === 'true' ? 'pointer' : 'default')};
+  pointer-events: ${({ available }) => (available === 'true' ? 'auto' : 'none')};
   &:hover {
-    background-color: ${({ available }) => (available ? colors.primary.main : 'transparent')};
-    color: ${({ available }) => (available ? 'white' : colors.border.subtle)};
+    background-color: ${({ available }) =>
+      available === 'true' ? colors.primary.main : 'transparent'};
+    color: ${({ available }) => (available === 'true' ? 'white' : colors.border.subtle)};
   }
 `
