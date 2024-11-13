@@ -8,6 +8,8 @@ import { Institution } from '@/api/hooks/admin/institution/types'
 const columns: { key: keyof Institution; label: string }[] = [
   { key: 'institutionNumber', label: '요양원 ID' },
   { key: 'institutionName', label: '요양원명' },
+  { key: 'institutionLoginId', label: '아이디' },
+  { key: 'institutionLoginPassword', label: '비밀번호' },
 ]
 
 export const InstitutionPage = () => {
@@ -28,10 +30,11 @@ export const InstitutionPage = () => {
       onDeleteRow={(institutionNumber: number) => deleteInstitution(institutionNumber)}
       onUpdateRow={(updatedRow) =>
         updateInstitution({
+          id: updatedRow.id,
           institutionNumber: updatedRow.institutionNumber!,
-          updatedData: {
-            institutionName: updatedRow.institutionName,
-          },
+          institutionName: updatedRow.institutionName,
+          institutionLoginId: updatedRow.institutionLoginId,
+          institutionLoginPassword: updatedRow.institutionLoginPassword,
         })
       }
     />

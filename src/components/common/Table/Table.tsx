@@ -92,7 +92,7 @@ export const Table = <T extends TableRow>({
               onChange={(e) => handleCellChange(rowIndex, col.key, e.target.value)}
             />
           ) : (
-            <>{String(row[col.key])}</>
+            <>{String(row[col.key] || '')}</>
           )}
         </td>
       ))}

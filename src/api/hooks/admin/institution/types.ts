@@ -11,5 +11,5 @@ export type InstitutionResponseData = {
 }
 
 export type UpdateInstitutionData = Partial<Institution> & {
-  institutionNumber: number
+  id: number
 }

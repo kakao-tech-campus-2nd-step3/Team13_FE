@@ -6,11 +6,12 @@ import { useUpdateCareWorker } from '@/api/hooks/admin/careWorker/useUpdateCareW
 import { Table } from '@/components/common/Table/Table'
 
 const columns: { key: keyof CareWorker; label: string }[] = [
-  { key: 'id', label: 'ID' },
+  { key: 'id', label: '순서' },
   { key: 'institutionId', label: '요양원 ID' },
   { key: 'name', label: '이름' },
   { key: 'email', label: '이메일' },
   { key: 'phone', label: '연락처' },
+  { key: 'loginPassword', label: '비밀번호' },
 ]
 
 export const CareWorkerPage = () => {

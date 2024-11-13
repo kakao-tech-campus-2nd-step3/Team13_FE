@@ -14,8 +14,6 @@ export const addCareWorker = async (newCareWorker: Partial<CareWorker>) => {
     loginPassword,
   }
 
-  console.log(requestData)
-
   return await apiInstance.post(CAREWORKER_BASE_URL, requestData)
 }
 
@@ -25,8 +23,6 @@ export const getCareWorkers = async (): Promise<CareWorker[]> => {
 }
 
 export const updateCareWorker = async (id: number, updatedData: Partial<CareWorker>) => {
-  // const updatedInstitution = { institutionNumber: id, ...updatedData }
-  // console.log(updatedInstitution)
   return await apiInstance.put(`${CAREWORKER_BASE_URL}/${id}`, updatedData)
 }
 

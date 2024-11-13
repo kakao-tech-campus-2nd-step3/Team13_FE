@@ -15,9 +15,9 @@ export const getInstitutions = async (): Promise<Institution[]> => {
 }
 
 export const updateInstitution = async (id: number, updatedData: Partial<Institution>) => {
-  // const updatedInstitution = { institutionNumber: id, ...updatedData }
-  // console.log(updatedInstitution)
-  return await apiInstance.put(`${INSTITUTION_BASE_URL}/${id}`, updatedData)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { id: _, ...dataWithoutId } = updatedData
+  return await apiInstance.put(`${INSTITUTION_BASE_URL}/${id}`, dataWithoutId)
 }
 
 export const deleteInstitution = async (institutionNumber: number) => {

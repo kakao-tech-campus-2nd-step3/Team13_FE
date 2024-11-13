@@ -1,7 +1,7 @@
 import apiInstance from '@/provider/Auth/apiInstance'
 import type { Guardian, GuardianResponseData } from './types'
 
-const GUARDIAN_BASE_URL = '/v1/institution/guardian'
+const GUARDIAN_BASE_URL = '/v1/admin/guardian'
 
 export const addGuardian = async (newGuardian: Partial<Guardian>) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
