@@ -11,9 +11,8 @@ export const LoginPage = () => {
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
-  // Update handleLogin to accept an event and prevent default form submission
-  const handleLogin = async (event: React.FormEvent) => {
-    event.preventDefault() // Prevent default form submission
+  const login = async (event: React.FormEvent) => {
+    event.preventDefault()
     const role = localStorage.getItem('role')
 
     try {
@@ -27,8 +26,7 @@ export const LoginPage = () => {
 
   return (
     <Wrapper>
-      {/* Attach handleLogin to the form's onSubmit */}
-      <StyledForm onSubmit={handleLogin}>
+      <StyledForm onSubmit={login}>
         <div>
           <div style={{ fontSize: '24px', fontWeight: '700', marginBottom: '10px' }}>
             안녕하세요 :) 돌봄다리입니다.

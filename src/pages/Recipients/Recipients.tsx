@@ -10,22 +10,17 @@ interface ListWrapperProps {
   isScrolled: boolean
 }
 
-const formatBirthDate = (dateString: string) => {
-  const [year, month, day] = dateString.split('-')
-  return `${year.slice(2)}${month}${day}`
-}
-
 export const RecipientsPage = () => {
   const [recipients, setRecipients] = useState<Recipient[]>([])
   const [isScrolled, setIsScrolled] = useState(false)
   const role = localStorage.getItem('role')
-
+  console.log(role)
   useEffect(() => {
+    localStorage.removeItem('chartData')
     const fetchRecipients = async () => {
       try {
-        const data = await getRecipients()
+        const data = await getRecipients(role!)
         setRecipients(data)
-        console.log(localStorage.getItem('role'))
       } catch (error) {
         console.error('Failed to fetch recipients:', error)
       }
@@ -33,7 +28,7 @@ export const RecipientsPage = () => {
     fetchRecipients()
   }, [role])
 
-  const handleScroll = (event: any) => {
+  const scroll = (event: any) => {
     const scrollTop = event.target.scrollTop
     setIsScrolled(scrollTop > 0)
   }
@@ -43,13 +38,14 @@ export const RecipientsPage = () => {
       <Heading.Medium style={{ width: '100%', margin: '20px 0 10px 0' }}>
         돌봄대상자를 선택해주세요.
       </Heading.Medium>
-      <ListWrapper onScroll={handleScroll} isScrolled={isScrolled}>
+      <ListWrapper onScroll={scroll} isScrolled={isScrolled}>
         {recipients.map((recipient) => (
           <RecipientsList
             key={recipient.id}
+            recipientId={recipient.id}
             picture={image}
             name={recipient.name}
-            birthday={formatBirthDate(recipient.birth)} // 형식 변환 적용
+            birthday={recipient.birth}
           />
         ))}
       </ListWrapper>

@@ -1,5 +1,5 @@
-import apiInstance from '@/provider/Auth/apiInstance'
 import type { CareWorker, CareWorkerResponseData } from './types'
+import fetchInstance from '@/api/instance/instance'
 
 const CAREWORKER_BASE_URL = '/v1/admin/careworker'
 
@@ -14,18 +14,18 @@ export const addCareWorker = async (newCareWorker: Partial<CareWorker>) => {
     loginPassword,
   }
 
-  return await apiInstance.post(CAREWORKER_BASE_URL, requestData)
+  return await fetchInstance.post(CAREWORKER_BASE_URL, requestData)
 }
 
 export const getCareWorkers = async (): Promise<CareWorker[]> => {
-  const response = await apiInstance.get<CareWorkerResponseData>(CAREWORKER_BASE_URL)
+  const response = await fetchInstance.get<CareWorkerResponseData>(CAREWORKER_BASE_URL)
   return response.data.response ?? []
 }
 
 export const updateCareWorker = async (id: number, updatedData: Partial<CareWorker>) => {
-  return await apiInstance.put(`${CAREWORKER_BASE_URL}/${id}`, updatedData)
+  return await fetchInstance.put(`${CAREWORKER_BASE_URL}/${id}`, updatedData)
 }
 
 export const deleteCareWorker = async (id: number) => {
-  return await apiInstance.delete(`${CAREWORKER_BASE_URL}/${id}`)
+  return await fetchInstance.delete(`${CAREWORKER_BASE_URL}/${id}`)
 }

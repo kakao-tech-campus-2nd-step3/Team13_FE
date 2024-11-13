@@ -47,7 +47,7 @@ export const WriteBox = ({
         {isDualInput ? (
           <>
             <StyledInput
-              type="number"
+              type="text"
               value={firstInputValue}
               onChange={handleFirstInputChange}
               placeholder={placeholderFirst}
@@ -57,7 +57,7 @@ export const WriteBox = ({
             />
             <Separator>/</Separator>
             <StyledInput
-              type="number"
+              type="text"
               value={secondInputValue}
               onChange={handleSecondInputChange}
               placeholder={placeholderSecond}

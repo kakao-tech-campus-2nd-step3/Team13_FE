@@ -17,16 +17,18 @@ export const HomePage = () => {
     <Wrapper>
       <LogoWrapper>
         <img src={logo} alt="logo" style={{ width: '140px' }} />
-        {/* <Heading.Large style={{ color: `${colors.text.subtle}` }}>돌봄 다리</Heading.Large> */}
       </LogoWrapper>
       <RoleButton title="요양보호사" role="careworker" isBlue={false} />
       <RoleButton title="보호자" role="guardian" isBlue={true} />
+      <RoleButton title="요양원" role="institution" isBlue={false} />
+      <RoleButton title="관리자" role="admin" isBlue={true} />
     </Wrapper>
   )
 }
 
 const RoleButton = ({ title, role, isBlue }: RoleProps) => {
   const navigate = useNavigate()
+  localStorage.clear()
 
   return (
     <RoleWrapper
@@ -67,12 +69,11 @@ const RoleWrapper = styled.div<{ isBlue: boolean }>`
   border: ${({ isBlue }) => (isBlue ? 'none' : `2px solid ${colors.border.prominent}`)};
   color: ${({ isBlue }) => (isBlue ? 'white' : `${colors.text.prominent}`)};
   width: 100%;
-  height: 138px;
+  height: 100px;
   padding: 10px 20px;
   border-radius: 8px;
   box-sizing: border-box;
-  margin: 5px;
-  font-size: 16px;
+  margin: 4px;
   text-align: center;
   display: flex;
   justify-content: space-between;

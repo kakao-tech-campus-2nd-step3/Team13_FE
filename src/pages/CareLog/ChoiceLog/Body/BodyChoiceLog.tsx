@@ -1,5 +1,4 @@
-import Date from '@/components/common/Date/Date'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import waterDrop from '@/assets/icons/water_drop.svg'
 import shower from '@/assets/icons/shower.svg'
 import meal from '@/assets/icons/meal.svg'
@@ -14,8 +13,11 @@ import { IoCalendarNumberOutline } from 'react-icons/io5'
 import { colors } from '@/styles/colors/colors'
 import Steps from '@/components/common/Steps/Steps'
 import { Heading } from '@/components/common/Text/TextFactory'
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { getDetailLogData } from '@/api/hooks/chart/useGetChart'
+import { Chart } from '@/api/hooks/user/chart/types'
+import { Spinner } from 'basic-loading'
 
 interface ListWrapperProps {
   isScrolled: boolean
@@ -23,11 +25,36 @@ interface ListWrapperProps {
 
 export const BodyChoiceLogPage = () => {
   const navigate = useNavigate()
+  const location = useLocation()
+  const { selectedDate } = location.state || {}
+  const { chartId } = useParams<{ chartId: string }>()
+  const [detailLog, setDetailLog] = useState<Chart | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
   const [isScrolled, setIsScrolled] = useState(false)
-  const handleScroll = (event: any) => {
+  const scroll = (event: any) => {
     const scrollTop = event.target.scrollTop
     setIsScrolled(scrollTop > 0)
   }
+  console.log(selectedDate)
+
+  useEffect(() => {
+    if (chartId) {
+      const fetchCareLogData = async () => {
+        try {
+          const response = await getDetailLogData({ chartId: Number(chartId) })
+          if (response.success) {
+            setDetailLog(response.response)
+            localStorage.setItem('detailLog', JSON.stringify(response.response))
+          }
+        } catch (error) {
+          console.error('Chart API 호출 중 오류 발생:', error)
+        } finally {
+          setIsLoading(false)
+        }
+      }
+      fetchCareLogData()
+    }
+  }, [chartId])
   return (
     <Wrapper>
       <TitleWrapper>
@@ -46,10 +73,10 @@ export const BodyChoiceLogPage = () => {
             style={{ color: `${colors.border.prominent}`, width: '23px', height: '23px' }}
           />
           <div style={{ fontSize: '20px', color: `${colors.text.subtle}`, fontWeight: '700' }}>
-            2024.09.19.
+            {selectedDate}
           </div>
         </div>
-        <Steps currentStep={1} totalSteps={4} isLog={true} />
+        <Steps currentStep={1} totalSteps={4} isLog={true} chartId={chartId} />
         <div
           style={{
             width: '100%',
@@ -61,17 +88,65 @@ export const BodyChoiceLogPage = () => {
         </div>
       </TitleWrapper>
 
-      <ListWrapper onScroll={handleScroll} isScrolled={isScrolled}>
-        <ChoiceGrid>
-          <ChoiceBox icon={waterDrop} title="청결 관리" content={'O'} />
-          <ChoiceBox icon={shower} title="목욕" content={'O'} />
-          <ChoiceBox icon={movement} title="체위 변경" content={'X'} />
-          <ChoiceBox icon={wheelchair} title="이동 도움" content={'O'} />
-          <ChoiceBox icon={walking} title="산책 / 외출 동행" content={'X'} />
-          <ChoiceBox icon={bathroom} title="화장실 이용 횟수" content={'5회'} />
-          <ChoiceBox icon={meal} title="식사 종류" content={'일반식'} />
-          <ChoiceBox icon={mealAmount} title="섭취량" content={'1/2 이상'} />
-        </ChoiceGrid>
+      <ListWrapper onScroll={scroll} isScrolled={isScrolled}>
+        {isLoading ? (
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Spinner
+              option={{ size: 70, thickness: 5, bgColor: '#EDF4FF', barColor: colors.primary.main }}
+            />
+          </div>
+        ) : (
+          <ChoiceGrid>
+            <ChoiceBox
+              icon={waterDrop}
+              title="청결 관리"
+              content={detailLog?.bodyManagement.wash ? 'O' : 'X'}
+            />
+            <ChoiceBox
+              icon={shower}
+              title="목욕"
+              content={detailLog?.bodyManagement.bath ? 'O' : 'X'}
+            />
+            <ChoiceBox
+              icon={movement}
+              title="체위 변경"
+              content={detailLog?.bodyManagement.positionChangeRequired ? 'O' : 'X'}
+            />
+            <ChoiceBox
+              icon={wheelchair}
+              title="이동 도움"
+              content={detailLog?.bodyManagement.mobilityAssistance ? 'O' : 'X'}
+            />
+            <ChoiceBox
+              icon={walking}
+              title="산책 / 외출 동행"
+              content={detailLog?.bodyManagement.hasWalked ? 'O' : 'X'}
+            />
+            <ChoiceBox
+              icon={bathroom}
+              title="화장실 이용 횟수"
+              content={`${detailLog?.bodyManagement.physicalRestroom}회`}
+            />
+            <ChoiceBox
+              icon={meal}
+              title="식사 종류"
+              content={`${detailLog?.bodyManagement.mealType}`}
+            />
+            <ChoiceBox
+              icon={mealAmount}
+              title="섭취량"
+              content={`${detailLog?.bodyManagement.intakeAmount}`}
+            />
+          </ChoiceGrid>
+        )}
 
         <ButtonWrapper>
           <Button
@@ -81,7 +156,7 @@ export const BodyChoiceLogPage = () => {
               height: '62px',
             }}
             onClick={() => {
-              navigate('/careLog/significant/body')
+              navigate(`/careLog/significant/body/${chartId}`, { state: { selectedDate } })
             }}
           >
             확인
