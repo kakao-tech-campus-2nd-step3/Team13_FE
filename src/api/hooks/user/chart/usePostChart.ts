@@ -1,9 +1,11 @@
-import apiInstance from '@/provider/Auth/apiInstance'
-import { Chart } from './types'
+import fetchInstance from '@/api/instance/instance'
+import { Chart, ChartResponseData } from './types'
 
-const postChartPath = () => `/v1/careworker/chart`
+const postChartPath = `/v1/careworker/chart`
 
 export const submitChartData = async () => {
+  const recipientId = localStorage.getItem('recipientId')
+
   const bodyManagement = JSON.parse(
     localStorage.getItem('bodyManagement') ||
       '{"wash": false, "bath": false, "mealType": "", "intakeAmount": "", "physicalRestroom": 0, "hasWalked": false,"positionChangeRequired": false,"mobilityAssistance":false, "physicalNote": ""}',
@@ -17,18 +19,18 @@ export const submitChartData = async () => {
   )
   const recoveryTraining = JSON.parse(
     localStorage.getItem('recoveryTraining') ||
-      '{"recoveryProgram": "", "recoveryTraining": false, "recoveryNote": ""}',
+      '{"recoveryProgram": "없음", "recoveryTraining": false, "recoveryNote": ""}',
   )
   // Assemble the chart data from localStorage
   const chartData: Chart = {
-    conditionDisease: localStorage.getItem('conditionDisease') || '',
+    conditionDisease: localStorage.getItem('conditionDisease') || '없음',
     recipientId: localStorage.getItem('recipientId') || '',
     bodyManagement: {
       wash: bodyManagement.wash,
       bath: bodyManagement.bath,
       mealType: bodyManagement.mealType,
       intakeAmount: bodyManagement.intakeAmount,
-      physicalRestroom: bodyManagement.physicalRestroom,
+      physicalRestroom: bodyManagement.physicalRestroom.toString(),
       hasWalked: bodyManagement.hasWalked,
       positionChangeRequired: bodyManagement.positionChangeRequired,
       mobilityAssistance: bodyManagement.mobilityAssistance,
@@ -56,11 +58,17 @@ export const submitChartData = async () => {
       recoveryNote: localStorage.getItem('recoveryNote') || '',
     },
   }
-
-  try {
-    await apiInstance.post(postChartPath(), chartData)
-    console.log('Chart data submitted successfully!')
-  } catch (error) {
-    console.error('Error submitting chart data:', error)
-  }
+  const response = await fetchInstance.post<ChartResponseData>(
+    `${postChartPath}?recipient-id=${recipientId}`,
+    chartData,
+  )
+  localStorage.removeItem('bodyManagement')
+  localStorage.removeItem('physicalNote')
+  localStorage.removeItem('cognitiveManagement')
+  localStorage.removeItem('cognitiveNote')
+  localStorage.removeItem('nursingManagement')
+  localStorage.removeItem('healthNote')
+  localStorage.removeItem('recoveryTraining')
+  localStorage.removeItem('recoveryNote')
+  return response.data
 }

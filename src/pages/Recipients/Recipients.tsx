@@ -47,6 +47,7 @@ export const RecipientsPage = () => {
         {recipients.map((recipient) => (
           <RecipientsList
             key={recipient.id}
+            recipientId={recipient.id}
             picture={image}
             name={recipient.name}
             birthday={formatBirthDate(recipient.birth)} // 형식 변환 적용

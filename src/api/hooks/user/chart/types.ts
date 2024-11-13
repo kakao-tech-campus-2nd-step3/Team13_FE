@@ -6,7 +6,7 @@ export interface Chart {
     bath: boolean
     mealType: string
     intakeAmount: string
-    physicalRestroom: number
+    physicalRestroom: string
     hasWalked: boolean
     positionChangeRequired: boolean
     mobilityAssistance: boolean

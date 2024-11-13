@@ -7,7 +7,7 @@ import recording from '@/assets/icons/recording.svg'
 import pencil from '@/assets/icons/pencil.svg'
 import cameraLineIcon from '@/assets/icons/camera_line.svg'
 import galleryLineIcon from '@/assets/icons/gallery_line.svg'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 interface Props {
@@ -37,6 +37,17 @@ export const ChartPage = () => {
   const navigateToDIY = () => {
     navigate('/chart/choice/body')
   }
+
+  useEffect(() => {
+    localStorage.removeItem('bodyManagement')
+    localStorage.removeItem('physicalNote')
+    localStorage.removeItem('cognitiveManagement')
+    localStorage.removeItem('cognitiveNote')
+    localStorage.removeItem('nursingManagement')
+    localStorage.removeItem('healthNote')
+    localStorage.removeItem('recoveryTraining')
+    localStorage.removeItem('recoveryNote')
+  })
 
   return (
     <Wrapper>

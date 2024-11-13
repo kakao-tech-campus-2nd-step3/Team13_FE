@@ -6,14 +6,13 @@ export const AuthProvider = async (
   userInfo: { userId: string; password: string },
 ) => {
   const endpoint = `/v1/auth/login/${role}`
+  localStorage.setItem('loginPassword', userInfo.password)
 
   try {
     const response = await fetchInstance.post<UserResponseData>(endpoint, userInfo)
     const { accessToken, refreshToken } = response.data
-
     localStorage.setItem('accessToken', accessToken)
     localStorage.setItem('refreshToken', refreshToken)
-
     return response.data
   } catch (error) {
     console.error('Error during login:', error)

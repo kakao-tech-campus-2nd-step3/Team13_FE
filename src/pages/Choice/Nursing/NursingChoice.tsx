@@ -6,13 +6,12 @@ import nursing from '@/assets/icons/nursing.svg'
 import emergency from '@/assets/icons/emergency.svg'
 
 import Button from '@/components/common/Button/Button'
-
+import { CheckBox } from '@/components/features/MultipleChoice/CheckBox'
 import { Heading } from '@/components/common/Text/TextFactory'
 import Steps from '@/components/common/Steps/Steps'
 import { WriteBox } from '@/components/features/MultipleChoice/WriteBox'
-import { CheckBox } from '@/components/features/MultipleChoice/CheckBox'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Chart } from '@/api/hooks/user/chart/types'
 
 export const NursingChoicePage = () => {
@@ -26,11 +25,19 @@ export const NursingChoicePage = () => {
     emergencyCareProvided: false,
     healthNote: '',
   })
+
   const [errors, setErrors] = useState({
-    systolic: '',
-    diastolic: '',
-    healthTemperature: '',
+    systolicError: '',
+    diastolicError: '',
+    healthTemperatureError: '',
   })
+
+  useEffect(() => {
+    const savedData = localStorage.getItem('nursingManagement')
+    if (savedData) {
+      setSelectedOptions(JSON.parse(savedData))
+    }
+  }, [])
 
   const selectOption = (key: keyof Chart['nursingManagement'], value: any) => {
     setSelectedOptions((prev) => {
@@ -40,27 +47,24 @@ export const NursingChoicePage = () => {
     })
   }
 
-  const inputChange = (key: keyof Chart['nursingManagement'], value: string) => {
-    selectOption(key, value.replace(/\D/g, ''))
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [key]: '', // Clear error when user types something valid
-    }))
+  const handleInputChange = (key: keyof Chart['nursingManagement'], value: any) => {
+    selectOption(key, value)
   }
 
   const validateInputs = () => {
     const { systolic, diastolic, healthTemperature } = selectedOptions
-    const newErrors: typeof errors = {
-      systolic: '',
-      diastolic: '',
-      healthTemperature: '',
+    const newErrors: any = {
+      systolicError: '',
+      diastolicError: '',
+      healthTemperatureError: '',
     }
 
-    if (!systolic) newErrors.systolic = '최고 혈압을 입력해주세요'
-    if (!diastolic) newErrors.diastolic = '최저 혈압을 입력해주세요'
-    if (!healthTemperature) newErrors.healthTemperature = '체온을 입력해주세요'
+    if (!systolic) newErrors.systolicError = '최고 혈압을 입력해주세요'
+    if (!diastolic) newErrors.diastolicError = '최저 혈압을 입력해주세요'
+    if (!healthTemperature) newErrors.healthTemperatureError = '체온을 입력해주세요'
 
     setErrors(newErrors)
+
     return !Object.values(newErrors).some((error) => error)
   }
 
@@ -85,13 +89,13 @@ export const NursingChoicePage = () => {
             isDualInput={true}
             placeholderFirst="최고"
             placeholderSecond="최저"
-            firstInputValue={selectedOptions.systolic.toString()}
-            secondInputValue={selectedOptions.diastolic.toString()}
-            onFirstInputChange={(value) => inputChange('systolic', value)}
-            onSecondInputChange={(value) => inputChange('diastolic', value)}
+            firstInputValue={selectedOptions.systolic}
+            secondInputValue={selectedOptions.diastolic}
+            onFirstInputChange={(value) => handleInputChange('systolic', value)}
+            onSecondInputChange={(value) => handleInputChange('diastolic', value)}
           />
-          {errors.systolic && <ErrorMessage>{errors.systolic}</ErrorMessage>}
-          {errors.diastolic && <ErrorMessage>{errors.diastolic}</ErrorMessage>}
+          {errors.systolicError && <ErrorMessage>{errors.systolicError}</ErrorMessage>}
+          {errors.diastolicError && <ErrorMessage>{errors.diastolicError}</ErrorMessage>}
         </div>
         <div>
           <WriteBox
@@ -101,9 +105,11 @@ export const NursingChoicePage = () => {
             isDualInput={false}
             placeholderFirst="입력해주세요"
             firstInputValue={selectedOptions.healthTemperature}
-            onFirstInputChange={(value) => inputChange('healthTemperature', value)}
+            onFirstInputChange={(value) => handleInputChange('healthTemperature', value)}
           />
-          {errors.healthTemperature && <ErrorMessage>{errors.healthTemperature}</ErrorMessage>}
+          {errors.healthTemperatureError && (
+            <ErrorMessage>{errors.healthTemperatureError}</ErrorMessage>
+          )}
         </div>
         <CheckBox
           icon={health}

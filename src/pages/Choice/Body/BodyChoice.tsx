@@ -28,7 +28,7 @@ export const BodyChoicePage = () => {
     bath: false,
     mealType: '',
     intakeAmount: '',
-    physicalRestroom: 0,
+    physicalRestroom: '',
     hasWalked: false,
     positionChangeRequired: false,
     mobilityAssistance: false,
@@ -64,7 +64,6 @@ export const BodyChoicePage = () => {
       return updatedOptions
     })
   }
-
   const validateInputs = () => {
     const { mealType, intakeAmount, physicalRestroom } = selectedOptions
     const newErrors: typeof errors = {
@@ -132,7 +131,7 @@ export const BodyChoicePage = () => {
               icon={bathroom}
               title="화장실 이용 횟수"
               count={selectedOptions.physicalRestroom}
-              onCountChange={(count) => selectOption('physicalRestroom', count)}
+              onCountChange={(count) => selectOption('physicalRestroom', count.toString())}
             />
             {errors.physicalRestroom && <ErrorMessage>{errors.physicalRestroom}</ErrorMessage>}
           </div>

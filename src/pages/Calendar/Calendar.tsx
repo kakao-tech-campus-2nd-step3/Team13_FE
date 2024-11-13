@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { colors } from '@/styles/colors/colors'
 import { Heading, TextBody } from '@/components/common/Text/TextFactory'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { getCalendarData } from '@/api/hooks/chart/useGetCalendar'
+import { getCalendarData } from '@/api/hooks/user/chart/useGetCalendar'
 import { Calendar } from '@/api/hooks/user/chart/types'
 
 export const CalendarPage = () => {
@@ -16,20 +16,14 @@ export const CalendarPage = () => {
   const [daysInMonth, setDaysInMonth] = useState<number[]>([])
   const navigate = useNavigate()
 
+  const recipientId = Number(localStorage.getItem('recipientId'))
   useEffect(() => {
     const fetchCalendarData = async () => {
       try {
-        const response = await getCalendarData()
-        if (response.success) {
-          const dates = response.response.map((item: Calendar) => ({
-            chartId: item.chartId,
-            recipientName: item.recipientName,
-            chartDate: item.chartDate,
-          }))
-          setAvailableDates(dates)
-        }
+        const data = await getCalendarData(recipientId)
+        setAvailableDates(data)
       } catch (error) {
-        console.error('Calendar API 호출 중 오류 발생:', error)
+        console.error('Failed to fetch recipients:', error)
       }
     }
     fetchCalendarData()

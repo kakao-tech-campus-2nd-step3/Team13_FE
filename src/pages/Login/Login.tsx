@@ -15,7 +15,7 @@ export const LoginPage = () => {
   const login = async (event: React.FormEvent) => {
     event.preventDefault() // Prevent default form submission
     const role = localStorage.getItem('role')
-
+    console.log('sfes')
     try {
       await AuthProvider(role!, { userId, password })
       navigate('/recipients')

@@ -37,7 +37,6 @@ export const SignificantPage = ({ step, title, navigateTo }: DIYProps) => {
       const confirmSave = window.confirm('차트를 저장하시겠습니까?')
       if (confirmSave) {
         await submitChartData()
-        localStorage.clear()
         navigate('/recipients')
       }
     } else {

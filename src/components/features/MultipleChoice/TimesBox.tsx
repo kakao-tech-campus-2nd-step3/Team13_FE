@@ -6,13 +6,15 @@ import styled from 'styled-components'
 interface Props {
   icon: string
   title: string
-  count: number
+  count: string // count is passed as string but needs to be treated as a number for operations
   onCountChange: (newCount: number) => void
 }
 
 export const TimesBox = ({ icon, title, count, onCountChange }: Props) => {
-  const increaseTimes = () => onCountChange(count + 1)
-  const decreaseTimes = () => onCountChange(count > 0 ? count - 1 : 0)
+  const currentCount = Number(count) // Convert count to a number before using it
+
+  const increaseTimes = () => onCountChange(currentCount + 1)
+  const decreaseTimes = () => onCountChange(currentCount > 0 ? currentCount - 1 : 0)
 
   return (
     <Box>
@@ -28,7 +30,7 @@ export const TimesBox = ({ icon, title, count, onCountChange }: Props) => {
           <ButtonWrapper onClick={decreaseTimes}>
             <img src={minus} alt="minus" />
           </ButtonWrapper>
-          <CountDisplay>{count}</CountDisplay>
+          <CountDisplay>{currentCount}</CountDisplay> {/* Display the numeric value */}
           <ButtonWrapper onClick={increaseTimes}>
             <img src={plus} alt="plus" />
           </ButtonWrapper>

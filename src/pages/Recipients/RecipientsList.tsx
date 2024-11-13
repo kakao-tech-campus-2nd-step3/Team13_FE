@@ -5,6 +5,7 @@ import chartList from '@/assets/icons/chart_list.svg'
 import styled from 'styled-components'
 
 interface Props {
+  recipientId: number
   picture: string
   name: string
   birthday: string
@@ -14,6 +15,7 @@ interface Props {
 }
 
 export const RecipientsList = ({
+  recipientId,
   picture,
   name,
   birthday,
@@ -23,12 +25,13 @@ export const RecipientsList = ({
 }: Props) => {
   const navigate = useNavigate()
   const currentRole = localStorage.getItem('role')
+  console.log(recipientId)
   return (
     <Wrapper
       onClick={
         currentRole == 'guardian'
           ? () => {
-              navigate('/calendar', { state: { name, birthday } })
+              navigate('/calendar', { state: { recipientId, name, birthday } })
             }
           : () => {}
       }
@@ -55,6 +58,8 @@ export const RecipientsList = ({
             src={newChart}
             alt="new chart"
             onClick={() => {
+              localStorage.removeItem('recipientId')
+              localStorage.setItem('recipientId', recipientId.toString())
               navigate('/share')
             }}
           />
@@ -63,6 +68,8 @@ export const RecipientsList = ({
             src={chartList}
             alt="chart list"
             onClick={() => {
+              localStorage.removeItem('recipientId')
+              localStorage.setItem('recipientId', recipientId.toString())
               navigate('/calendar', { state: { name, birthday } })
             }}
           />
