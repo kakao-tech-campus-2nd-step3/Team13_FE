@@ -16,13 +16,14 @@ export const useExcelUpload = (url: string) => {
     },
     onSuccess: () => {
       alert('엑셀 파일이 성공적으로 업로드되었습니다.')
+      window.location.reload()
     },
     onError: (error) => {
-      console.error('엑셀 파일 업로드 중 오류 발생:', error)
+      console.error(error)
     },
   })
 
-  const isLoading = mutation.status === 'pending' // 'pending' 상태로 로딩 확인
+  const isLoading = mutation.status === 'pending'
 
   return {
     uploadExcel: mutation.mutate,
