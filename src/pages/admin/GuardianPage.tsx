@@ -6,9 +6,10 @@ import { useUpdateGuardian } from '@/api/hooks/admin/guardian/useUpdateGuardian'
 import { Guardian } from '@/api/hooks/admin/guardian/types'
 
 const columns: { key: keyof Guardian; label: string }[] = [
+  { key: 'institutionId', label: '요양원 ID' },
   { key: 'name', label: '이름' },
   { key: 'phone', label: '연락처' },
-  { key: 'isActive', label: '활성화' },
+  { key: 'loginPassword', label: '비밀번호' },
 ]
 
 export const GuardianPage = () => {
