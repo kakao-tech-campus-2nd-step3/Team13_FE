@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const TimesBox = ({ icon, title, count, onCountChange }: Props) => {
-  const currentCount = Number(count) // Convert count to a number before using it
+  const currentCount = isNaN(Number(count)) ? 0 : Number(count)
 
   const increaseTimes = () => onCountChange(currentCount + 1)
   const decreaseTimes = () => onCountChange(currentCount > 0 ? currentCount - 1 : 0)

@@ -40,13 +40,21 @@ export const BodyChoicePage = () => {
     setIsScrolled(scrollTop > 0)
   }
   useEffect(() => {
-    const savedData = localStorage.getItem('bodyManagement')
-    if (savedData) {
-      setSelectedOptions(JSON.parse(savedData))
-      const parsedData = JSON.parse(savedData)
+    const savedChartData = localStorage.getItem('chartData')
+    if (savedChartData) {
+      const parsedData = JSON.parse(savedChartData)
+
       setSelectedOptions((prev) => ({
         ...prev,
-        physicalRestroom: parsedData.physicalRestroom ?? 0,
+        wash: parsedData.bodyManagement?.wash || false,
+        bath: parsedData.bodyManagement?.bath || false,
+        mealType: parsedData.bodyManagement?.mealType || '',
+        intakeAmount: parsedData.bodyManagement?.intakeAmount || '',
+        physicalRestroom: parsedData.bodyManagement?.physicalRestroom || '',
+        hasWalked: parsedData.bodyManagement?.hasWalked || false,
+        positionChangeRequired: parsedData.bodyManagement?.positionChangeRequired || false,
+        mobilityAssistance: parsedData.bodyManagement?.mobilityAssistance || false,
+        physicalNote: parsedData.bodyManagement?.physicalNote || '',
       }))
     }
   }, [])
@@ -58,11 +66,20 @@ export const BodyChoicePage = () => {
   })
 
   const selectOption = (key: keyof Chart['bodyManagement'], value: any) => {
-    setSelectedOptions((prev) => {
-      const updatedOptions = { ...prev, [key]: value }
-      localStorage.setItem('bodyManagement', JSON.stringify(updatedOptions))
-      return updatedOptions
-    })
+    const existingChartData = JSON.parse(localStorage.getItem('chartData') || '{}')
+
+    const updatedBodyManagement = {
+      ...existingChartData.bodyManagement,
+      [key]: value,
+    }
+
+    const updatedChartData = {
+      ...existingChartData,
+      bodyManagement: updatedBodyManagement,
+    }
+    localStorage.setItem('chartData', JSON.stringify(updatedChartData))
+
+    setSelectedOptions(updatedBodyManagement)
   }
   const validateInputs = () => {
     const { mealType, intakeAmount, physicalRestroom } = selectedOptions
@@ -152,7 +169,7 @@ export const BodyChoicePage = () => {
               options={['1 (전부)', '1/2 이상', '1/2 미만']}
               selectedOption={selectedOptions.intakeAmount}
               onSelectOption={(option) => selectOption('intakeAmount', option)}
-            />{' '}
+            />
             {errors.intakeAmount && <ErrorMessage>{errors.intakeAmount}</ErrorMessage>}
           </div>
         </ChoiceGrid>

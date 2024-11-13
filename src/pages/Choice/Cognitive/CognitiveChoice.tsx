@@ -20,18 +20,35 @@ export const CognitiveChoicePage = () => {
   })
 
   useEffect(() => {
-    const savedData = localStorage.getItem('cognitiveManagement')
-    if (savedData) {
-      setSelectedOptions(JSON.parse(savedData))
+    const savedChartData = localStorage.getItem('chartData')
+    if (savedChartData) {
+      const parsedData = JSON.parse(savedChartData)
+
+      setSelectedOptions((prev) => ({
+        ...prev,
+        cognitiveHelp: parsedData.cognitiveManagement?.cognitiveHelp || false,
+        companionshipProvided: parsedData.cognitiveManagement?.companionshipProvided || false,
+        cognitiveNote: parsedData.cognitiveManagement?.cognitiveNote || '',
+      }))
     }
   }, [])
 
   const selectOption = (key: keyof Chart['cognitiveManagement'], value: any) => {
-    setSelectedOptions((prev) => {
-      const updatedOptions = { ...prev, [key]: value }
-      localStorage.setItem('cognitiveManagement', JSON.stringify(updatedOptions))
-      return updatedOptions
-    })
+    const existingChartData = JSON.parse(localStorage.getItem('chartData') || '{}')
+
+    const updatedCognitiveManagement = {
+      ...existingChartData.cognitiveManagement,
+      [key]: value,
+    }
+
+    const updatedChartData = {
+      ...existingChartData,
+      cognitiveManagement: updatedCognitiveManagement,
+    }
+    localStorage.setItem('chartData', JSON.stringify(updatedChartData))
+
+    // Update the component's state
+    setSelectedOptions(updatedCognitiveManagement)
   }
 
   return (

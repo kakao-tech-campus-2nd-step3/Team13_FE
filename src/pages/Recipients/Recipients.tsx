@@ -16,6 +16,7 @@ export const RecipientsPage = () => {
   const role = localStorage.getItem('role')
   console.log(role)
   useEffect(() => {
+    localStorage.removeItem('chartData')
     const fetchRecipients = async () => {
       try {
         const data = await getRecipients(role!)

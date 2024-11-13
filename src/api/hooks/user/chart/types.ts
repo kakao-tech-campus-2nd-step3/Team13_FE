@@ -1,6 +1,6 @@
 export interface Chart {
   conditionDisease: string
-  recipientId: string
+  recipientId: number
   bodyManagement: {
     wash: boolean
     bath: boolean

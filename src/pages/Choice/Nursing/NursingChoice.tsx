@@ -33,18 +33,39 @@ export const NursingChoicePage = () => {
   })
 
   useEffect(() => {
-    const savedData = localStorage.getItem('nursingManagement')
-    if (savedData) {
-      setSelectedOptions(JSON.parse(savedData))
+    const savedChartData = localStorage.getItem('chartData')
+    if (savedChartData) {
+      const parsedData = JSON.parse(savedChartData)
+
+      setSelectedOptions((prev) => ({
+        ...prev,
+        systolic: parsedData.nursingManagement?.systolic || '',
+        diastolic: parsedData.nursingManagement?.diastolic || '',
+        healthTemperature: parsedData.nursingManagement?.healthTemperature || '',
+        healthCareProvided: parsedData.nursingManagement?.healthCareProvided || false,
+        nursingCareProvided: parsedData.nursingManagement?.nursingCareProvided || false,
+        emergencyCareProvided: parsedData.nursingManagement?.emergencyCareProvided || false,
+        healthNote: parsedData.nursingManagement?.healthNote || '',
+      }))
     }
   }, [])
 
   const selectOption = (key: keyof Chart['nursingManagement'], value: any) => {
-    setSelectedOptions((prev) => {
-      const updatedOptions = { ...prev, [key]: value }
-      localStorage.setItem('nursingManagement', JSON.stringify(updatedOptions))
-      return updatedOptions
-    })
+    const existingChartData = JSON.parse(localStorage.getItem('chartData') || '{}')
+
+    const updatedNursingManagement = {
+      ...existingChartData.nursingManagement,
+      [key]: value,
+    }
+
+    const updatedChartData = {
+      ...existingChartData,
+      nursingManagement: updatedNursingManagement,
+    }
+    localStorage.setItem('chartData', JSON.stringify(updatedChartData))
+
+    // Update the component's state
+    setSelectedOptions(updatedNursingManagement)
   }
 
   const handleInputChange = (key: keyof Chart['nursingManagement'], value: any) => {

@@ -7,7 +7,7 @@ let pendingRequests: ((token: string) => void)[] = []
 
 const initInstance = (config: AxiosRequestConfig): AxiosInstance => {
   const instance = axios.create({
-    timeout: 8000,
+    timeout: 15000,
     ...config,
     headers: {
       Accept: 'application/json',

@@ -25,18 +25,36 @@ export const RecoveryChoicePage = () => {
   })
 
   useEffect(() => {
-    const savedData = localStorage.getItem('recoveryTraining')
-    if (savedData) {
-      setSelectedOptions(JSON.parse(savedData))
+    const savedChartData = localStorage.getItem('chartData')
+    if (savedChartData) {
+      const parsedData = JSON.parse(savedChartData)
+
+      setSelectedOptions((prev) => ({
+        ...prev,
+        recoveryProgram: parsedData.recoveryTraining?.recoveryProgram || '',
+        recoveryTraining: parsedData.recoveryTraining?.recoveryTraining || false,
+        cognitiveTrainingProvided: parsedData.recoveryTraining?.cognitiveTrainingProvided || false,
+        physicalTherapyProvided: parsedData.recoveryTraining?.physicalTherapyProvided || false,
+        recoveryNote: parsedData.recoveryTraining?.recoveryNote || '',
+      }))
     }
   }, [])
 
   const selectOption = (key: keyof Chart['recoveryTraining'], value: any) => {
-    setSelectedOptions((prev) => {
-      const updatedOptions = { ...prev, [key]: value }
-      localStorage.setItem('recoveryTraining', JSON.stringify(updatedOptions))
-      return updatedOptions
-    })
+    const existingChartData = JSON.parse(localStorage.getItem('chartData') || '{}')
+
+    const updatedRecoveryTraining = {
+      ...existingChartData.recoveryTraining,
+      [key]: value,
+    }
+
+    const updatedChartData = {
+      ...existingChartData,
+      recoveryTraining: updatedRecoveryTraining,
+    }
+    localStorage.setItem('chartData', JSON.stringify(updatedChartData))
+
+    setSelectedOptions(updatedRecoveryTraining)
   }
 
   const handleInputChange = (key: keyof Chart['recoveryTraining'], value: any) => {
