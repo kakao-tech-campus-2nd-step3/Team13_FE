@@ -5,8 +5,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 
 export const useUpdateInstitution = () => {
   const { mutate } = useMutation<AxiosResponse<Institution>, AxiosError, UpdateInstitutionData>({
-    mutationFn: ({ institutionNumber, ...updatedData }) =>
-      updateInstitution(institutionNumber, updatedData),
+    mutationFn: (updatedData) => updateInstitution(updatedData.id, updatedData),
     onSuccess: () => {
       alert('요양원 정보가 업데이트되었습니다.')
     },
