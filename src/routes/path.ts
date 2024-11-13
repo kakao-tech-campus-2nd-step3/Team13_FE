@@ -50,7 +50,6 @@ export const RouterPath = {
 }
 
 export const getDynamicPath = {
-  // theme: (themeKey: string) => RouterPath.theme.replace(':themeKey', themeKey),
   login: (redirect?: string) => {
     const currentRedirect = redirect ?? window.location.href
     return `${RouterPath.LOGIN}?redirect=${encodeURIComponent(currentRedirect)}`
