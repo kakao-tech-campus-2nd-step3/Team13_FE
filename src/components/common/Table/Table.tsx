@@ -17,6 +17,8 @@ interface TableProps<T extends TableRow> {
   onAddRow?: (newRow: Partial<T>) => void
   onDeleteRow?: (institutionNumber: number) => void
   onUpdateRow?: (updatedRow: T) => void
+  downloadUrl?: string
+  uploadUrl?: string
 }
 
 export const Table = <T extends TableRow>({
@@ -26,6 +28,8 @@ export const Table = <T extends TableRow>({
   onAddRow,
   onDeleteRow,
   onUpdateRow,
+  downloadUrl,
+  uploadUrl,
 }: TableProps<T>) => {
   const [tableData, setTableData] = useState<T[]>(data)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -141,7 +145,12 @@ export const Table = <T extends TableRow>({
           파일 업로드로 추가
         </Button>
 
-        <FileUploadModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} />
+        <FileUploadModal
+          isOpen={isModalOpen}
+          onRequestClose={() => setIsModalOpen(false)}
+          downloadUrl={downloadUrl}
+          uploadUrl={uploadUrl}
+        />
       </S.ButtonWrapper>
     </>
   )

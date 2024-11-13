@@ -43,6 +43,8 @@ export const RecipientPage = () => {
           updatedData,
         })
       }}
+      downloadUrl="/v1/excel/recipient/download"
+      uploadUrl="/v1/excel/recipient/upload"
     />
   )
 }
