@@ -13,11 +13,13 @@ interface RoleProps {
 }
 
 export const HomePage = () => {
+  const navigate = useNavigate()
+
   return (
     <WrapperBody>
       <Wrapper>
         <LogoWrapper>
-          <img src={logo} alt="logo" style={{ width: '140px' }} />
+          <img src={logo} alt="logo" style={{ width: '140px' }} onClick={() => navigate('/')} />
         </LogoWrapper>
         <RoleButton title="요양보호사" role="careworker" isBlue={true} />
         <RoleButton title="보호자" role="guardian" isBlue={true} />

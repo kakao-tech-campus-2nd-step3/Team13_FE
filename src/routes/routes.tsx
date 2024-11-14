@@ -10,7 +10,12 @@ import { SpeechToTextPage } from '@/pages/SpeechToText/SpeechToText'
 import { OCRPage } from '@/pages/OCR/OCR'
 import { LoginPage } from '@/pages/Login/Login'
 import { RecipientsPage } from '@/pages/Recipients/Recipients'
-import { AdminLayout, Layout, LayoutWithoutMyPage } from '@/components/common/Layout/Layout'
+import {
+  AdminLayout,
+  Layout,
+  LayoutWithoutBack,
+  LayoutWithoutMyPage,
+} from '@/components/common/Layout/Layout'
 import { SignificantPage } from '@/pages/Significant/Significant'
 import { OCRCheckPage } from '@/pages/OCR/OCRCheck/OCRCheck'
 import { SharePage } from '@/pages/Share/Share'
@@ -35,14 +40,21 @@ import { RecoveryChoiceLogPage } from '@/pages/CareLog/ChoiceLog/Recovery/Recove
 
 import { LandingPage } from '@/pages/Landing/Landing'
 import { CalendarPage } from '@/pages/Calendar/Calendar'
+import { SelectPage } from '@/pages/Select/Select'
 const router = createBrowserRouter([
   {
-    path: RouterPath.LANDING,
+    path: RouterPath.HOME,
     element: <LandingPage />,
   },
   {
-    path: RouterPath.HOME,
+    path: RouterPath.ROLE,
     element: <HomePage />,
+  },
+  { path: RouterPath.SELECT, element: <SelectPage /> },
+  {
+    path: RouterPath.ROOT,
+    element: <LayoutWithoutBack />,
+    children: [{ path: RouterPath.RECIPIENTS, element: <RecipientsPage /> }],
   },
   {
     path: RouterPath.ROOT,
@@ -104,7 +116,7 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: RouterPath.CALENDAR, element: <CalendarPage /> },
-      { path: RouterPath.RECIPIENTS, element: <RecipientsPage /> },
+
       { path: RouterPath.CHART, element: <ChartPage /> },
       { path: RouterPath.SHARE, element: <SharePage /> },
       { path: RouterPath.CARE_LOG, element: <CareLogPage /> },
