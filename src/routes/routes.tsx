@@ -17,7 +17,6 @@ import {
 } from '@/components/common/Layout/Layout'
 import { SignificantPage } from '@/pages/Significant/Significant'
 import { OCRCheckPage } from '@/pages/OCR/OCRCheck/OCRCheck'
-import { SharePage } from '@/pages/Share/Share'
 import { ChartPage } from '@/pages/Chart/Chart'
 import { OCRLoadingPage } from '@/pages/OCR/OCRLoading/OCRLoading'
 import { BodyChoicePage } from '@/pages/Choice/Body/BodyChoice'
@@ -165,7 +164,6 @@ const router = createBrowserRouter([
       { path: RouterPath.CALENDAR, element: <CalendarPage /> },
 
       { path: RouterPath.CHART, element: <ChartPage /> },
-      { path: RouterPath.SHARE, element: <SharePage /> },
       { path: RouterPath.CARE_LOG, element: <CareLogPage /> },
       { path: RouterPath.CHOICE_LOG.BODY, element: <BodyChoiceLogPage /> },
       { path: RouterPath.CHOICE_LOG.COGNITIVE, element: <CognitiveChoiceLogPage /> },
