@@ -21,20 +21,24 @@ export const ChartPage = () => {
   const [showPopup, setShowPopup] = useState(false)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const navigate = useNavigate()
-
+  localStorage.removeItem('chartType')
   const handleFileSelect = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click()
     }
   }
 
-  const navigateToCamera = () => {}
+  const navigateToCamera = () => {
+    localStorage.setItem('chartType', 'ocr')
+  }
 
   const navigateToRecord = () => {
-    navigate('/chart/audioRecord')
+    localStorage.setItem('chartType', 'record')
+    navigate('/chart/choice/body')
   }
 
   const navigateToDIY = () => {
+    localStorage.setItem('chartType', 'DIY')
     navigate('/chart/choice/body')
   }
 
