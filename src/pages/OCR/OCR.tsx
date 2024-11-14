@@ -4,6 +4,7 @@ import { usePerformOCR } from '@/api/hooks/user/OCR/usePerformOCR'
 import { fetchInstance } from '@/api/instance/instance'
 import { OCRTable } from './OCRTable/OCRTable'
 import { parseData } from '@/utils/dataParser'
+import { OCRLoadingPage } from './OCRLoading/OCRLoading'
 
 export const OCRPage = () => {
   const [imageFile, setImageFile] = useState<File | null>(null)
@@ -11,7 +12,7 @@ export const OCRPage = () => {
   const [isOCRReady, setIsOCRReady] = useState(false)
 
   const saveImageUrlMutation = useSaveImageUrl()
-  const { data: ocrResult } = usePerformOCR(objectKey || '', '8', {
+  const { data: ocrResult, isLoading } = usePerformOCR(objectKey || '', '8', {
     enabled: isOCRReady && !!objectKey,
   }) //TODO: id 수정
 
@@ -49,7 +50,7 @@ export const OCRPage = () => {
       <input type="file" accept="image/*" onChange={handleFileChange} />
       <button onClick={handleOCRRequest}>OCR 요청</button>
 
-      {ocrResult && <OCRTable data={parseData(ocrResult)} />}
+      {isLoading ? <OCRLoadingPage /> : ocrResult && <OCRTable data={parseData(ocrResult)} />}
     </div>
   )
 }
