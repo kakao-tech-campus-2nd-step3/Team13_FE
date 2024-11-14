@@ -5,7 +5,11 @@ function Back() {
   const navigate = useNavigate()
 
   const handleGoBack = () => {
-    navigate(-1)
+    const previousPage = document.referrer
+    console.log(previousPage)
+    if (!previousPage.includes('/login')) {
+      navigate(-1)
+    }
   }
 
   return (
@@ -14,6 +18,7 @@ function Back() {
       style={{
         width: '100vw',
         paddingLeft: '15px',
+        position: 'relative',
         boxSizing: 'border-box',
         display: 'flex',
         zIndex: '5000',

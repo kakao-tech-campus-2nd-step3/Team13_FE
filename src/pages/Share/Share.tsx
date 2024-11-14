@@ -19,7 +19,7 @@ export const SharePage = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const navigate = useNavigate() // 추가
 
-  const handleFileSelect = () => {
+  const fileSelect = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click()
     }
@@ -41,7 +41,7 @@ export const SharePage = () => {
         }}
       >
         <TextBody.Large style={{ color: colors.text.subtle }}>
-          오늘 피요양자는 어떤 일상을 보냈나요?
+          오늘 {localStorage.getItem('recipientName')}님은 어떤 일상을 보냈나요?
         </TextBody.Large>
         <Heading.Medium>보호자와 일상을 공유해 보세요!</Heading.Medium>
       </div>
@@ -49,14 +49,14 @@ export const SharePage = () => {
         <ShareSquare
           icon={cameraIcon}
           title="사진 찍기"
-          sub="피요양자의 일상을 촬영해 주세요."
+          sub={`${localStorage.getItem('recipientName')}님의 일상을 촬영해 주세요.`}
           onClick={() => {}}
         />
         <ShareSquare
           icon={galleryIcon}
           title="갤러리에서 선택"
-          sub="미리 찍은 피요양자의 사진을 업로드 해주세요."
-          onClick={handleFileSelect}
+          sub={`찍어둔 ${localStorage.getItem('recipientName')}님의 사진을 업로드 해주세요.`}
+          onClick={fileSelect}
         >
           <input type="file" ref={fileInputRef} style={{ display: 'none' }} />
         </ShareSquare>

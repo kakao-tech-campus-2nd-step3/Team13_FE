@@ -1,21 +1,48 @@
 import { colors } from '@/styles/colors/colors'
 import styled from 'styled-components'
 import checkIcon from '@/assets/icons/check_icon.svg'
+import { useNavigate } from 'react-router-dom'
 
 interface StepsProps {
   currentStep: number
   totalSteps: number
+  isLog?: boolean
+  chartId?: string
 }
 
-function Steps({ currentStep, totalSteps }: StepsProps) {
+const stepPaths_post = [
+  '/chart/choice/body',
+  '/chart/choice/cognitive',
+  '/chart/choice/nursing',
+  '/chart/choice/recovery',
+]
+
+const stepPaths_get = [
+  '/careLog/choice/body',
+  '/careLog/choice/cognitive',
+  '/careLog/choice/nursing',
+  '/careLog/choice/recovery',
+]
+
+function Steps({ currentStep, totalSteps, isLog = false, chartId = '' }: StepsProps) {
+  const navigate = useNavigate()
+  const stepPaths = isLog ? stepPaths_get : stepPaths_post
+  const handleStepClick = (index: number, isCompleted: boolean, isCurrent: boolean) => {
+    if (isLog) {
+      navigate(`${stepPaths[index]}/${chartId}`)
+    } else if (isCompleted || isCurrent) {
+      navigate(stepPaths[index])
+    }
+  }
+
   return (
     <StepWrapper>
       {[...Array(totalSteps)].map((_, index) => {
-        const isCurrent = index + 1 === currentStep // Current step logic
-        const isCompleted = index < currentStep - 1 // Completed step logic
+        const isCurrent = index + 1 === currentStep
+        const isCompleted = index < currentStep - 1
 
         return (
-          <Step key={index}>
+          <Step key={index} onClick={() => handleStepClick(index, isCompleted, isCurrent)}>
             {isCompleted ? (
               <Done>
                 <img src={checkIcon} alt="done" style={{ width: '13px' }} />
@@ -35,7 +62,7 @@ function Steps({ currentStep, totalSteps }: StepsProps) {
 
 const StepWrapper = styled.div`
   display: flex;
-  width: 100%;
+  width: 96%;
   box-sizing: border-box;
   justify-content: space-between;
   flex-direction: row;
@@ -47,7 +74,9 @@ const Step = styled.div`
   flex-direction: row;
   position: relative;
   width: 100%;
+  cursor: pointer;
 `
+
 const Done = styled.div`
   width: 25px;
   height: 25px;
@@ -58,6 +87,7 @@ const Done = styled.div`
   border-radius: 50%;
   background-color: ${colors.background.done};
 `
+
 const StepNumber = styled.div.withConfig({
   shouldForwardProp: (prop) => !['isCurrent', 'isCompleted'].includes(prop),
 })<{ isCurrent: boolean; isCompleted: boolean }>`
@@ -89,4 +119,5 @@ const Divider = styled.div.withConfig({
   z-index: -1000;
   margin-left: 12.5px;
 `
+
 export default Steps

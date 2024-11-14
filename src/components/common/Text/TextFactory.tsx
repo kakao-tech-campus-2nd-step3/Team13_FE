@@ -1,4 +1,4 @@
-import { TextProps } from '@/types/props'
+import { TextProps } from '@/styles/props'
 import Text from '@/components/common/Text/Text'
 
 export function createTextComponent(props: Partial<TextProps>) {
@@ -12,6 +12,13 @@ export const TextBody = {
     defaultSize: '16px',
     responsiveSize: {
       sm: '22px',
+    },
+    as: 'p',
+  }),
+  MLarge: createTextComponent({
+    defaultSize: '16px',
+    responsiveSize: {
+      sm: '18px',
     },
     as: 'p',
   }),
@@ -32,6 +39,14 @@ export const TextBody = {
 }
 
 export const Heading = {
+  XXLarge: createTextComponent({
+    defaultSize: '30px',
+    responsiveSize: {
+      sm: '50px',
+    },
+    as: 'h1',
+    weight: 600,
+  }),
   XLarge: createTextComponent({
     defaultSize: '32px',
     responsiveSize: {
@@ -50,6 +65,14 @@ export const Heading = {
   }),
   Medium: createTextComponent({
     defaultSize: '24px',
+    responsiveSize: {
+      sm: '34px',
+    },
+    as: 'h3',
+    weight: 'bold',
+  }),
+  SMedium: createTextComponent({
+    defaultSize: '20px',
     responsiveSize: {
       sm: '34px',
     },
