@@ -14,7 +14,7 @@ export const OCRPage = () => {
   const saveImageUrlMutation = useSaveImageUrl()
   const { data: ocrResult, isLoading } = usePerformOCR(objectKey || '', '8', {
     enabled: isOCRReady && !!objectKey,
-  }) //TODO: id 수정
+  }) // TODO: id 수정
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -45,12 +45,23 @@ export const OCRPage = () => {
     }
   }
 
+  const handleDownload = () => {
+    const link = document.createElement('a')
+    link.href = '/OCR_template.xlsx'
+    link.download = 'OCR_template.xlsx'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
   return (
     <div>
       <input type="file" accept="image/*" onChange={handleFileChange} />
       <button onClick={handleOCRRequest}>OCR 요청</button>
 
       {isLoading ? <OCRLoadingPage /> : ocrResult && <OCRTable data={parseData(ocrResult)} />}
+
+      <button onClick={handleDownload}>양식 다운로드</button>
     </div>
   )
 }
