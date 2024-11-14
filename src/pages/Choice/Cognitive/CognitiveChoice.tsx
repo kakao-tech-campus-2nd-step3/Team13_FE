@@ -13,6 +13,7 @@ import { Chart } from '@/api/hooks/user/chart/types'
 
 export const CognitiveChoicePage = () => {
   const navigate = useNavigate()
+  const chartType = localStorage.getItem('chartType')
   const [selectedOptions, setSelectedOptions] = useState<Chart['cognitiveManagement']>({
     cognitiveHelp: false,
     companionshipProvided: false,
@@ -77,7 +78,11 @@ export const CognitiveChoicePage = () => {
         <Button
           theme="dark"
           onClick={() => {
-            navigate('/chart/significant/cognitive')
+            if (chartType === 'DIY') {
+              navigate('/chart/significant/cognitive')
+            } else if (chartType === 'record') {
+              navigate('/chart/audioRecord/cognitive')
+            }
           }}
           css={{
             width: '100%',
