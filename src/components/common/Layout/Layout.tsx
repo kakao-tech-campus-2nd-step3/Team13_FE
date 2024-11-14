@@ -23,6 +23,16 @@ export const LayoutWithoutMyPage = () => (
     </Wrapper>
   </WrapperBody>
 )
+export const LayoutWithoutBack = () => (
+  <WrapperBody>
+    <Wrapper>
+      <Back back={false} />
+      <InnerWrapper>
+        <Outlet />
+      </InnerWrapper>
+    </Wrapper>
+  </WrapperBody>
+)
 
 export const AdminLayout = () => (
   <AdminWrapperBody>

@@ -5,7 +5,7 @@ import { colors } from '@/styles/colors/colors'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-function Back({ myPage = true, logout = false }) {
+function Back({ back = true, myPage = true, logout = false }) {
   const navigate = useNavigate()
   const userLogout = useLogout()
 
@@ -23,14 +23,19 @@ function Back({ myPage = true, logout = false }) {
 
   return (
     <Wrapper>
-      <div
-        onClick={goBack}
-        style={{
-          cursor: 'pointer',
-        }}
-      >
-        <img src={backArrow} alt="back_arrow" />
-      </div>
+      {back ? (
+        <div
+          onClick={goBack}
+          style={{
+            cursor: 'pointer',
+          }}
+        >
+          <img src={backArrow} alt="back_arrow" />
+        </div>
+      ) : (
+        <div></div>
+      )}
+
       {myPage ? (
         <div
           onClick={navigateToMyPage}

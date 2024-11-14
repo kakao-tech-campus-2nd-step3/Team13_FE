@@ -28,7 +28,6 @@ export const RecipientsList = ({
 }: Props) => {
   const navigate = useNavigate()
   const currentRole = localStorage.getItem('role')
-  console.log(recipientId)
 
   const formatBirthDate = (dateString: string) => {
     const [year, month, day] = dateString.split('-')

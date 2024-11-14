@@ -25,7 +25,7 @@ export const CareWorkerPage = () => {
 
   return (
     <Table
-      title="요양관리사 목록"
+      title="요양보호사 목록"
       columns={columns}
       data={careWorkers || []}
       onAddRow={addCareWorker}

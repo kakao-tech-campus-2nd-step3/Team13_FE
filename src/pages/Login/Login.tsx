@@ -11,14 +11,13 @@ export const LoginPage = () => {
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
   const role = localStorage.getItem('role')
-  console.log(role)
+
   const login = async (event: React.FormEvent) => {
     event.preventDefault()
-    const role = localStorage.getItem('role')
 
     try {
       await AuthProvider(role!, { userId, password })
-      navigate('/recipients')
+      role === 'careworker' || role === 'guardian' ? navigate('/recipients') : navigate('/select')
     } catch (error) {
       console.error('Login failed:', error)
       alert('Login failed. Please try again.')
