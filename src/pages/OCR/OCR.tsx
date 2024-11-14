@@ -4,6 +4,7 @@ import { usePerformOCR } from '@/api/hooks/user/OCR/usePerformOCR'
 import { fetchInstance } from '@/api/instance/instance'
 import { OCRTable } from './OCRTable/OCRTable'
 import { parseData } from '@/utils/dataParser'
+import { transformData } from '@/utils/dataTransformer'
 import { OCRLoadingPage } from './OCRLoading/OCRLoading'
 
 export const OCRPage = () => {
@@ -59,7 +60,11 @@ export const OCRPage = () => {
       <input type="file" accept="image/*" onChange={handleFileChange} />
       <button onClick={handleOCRRequest}>OCR 요청</button>
 
-      {isLoading ? <OCRLoadingPage /> : ocrResult && <OCRTable data={parseData(ocrResult)} />}
+      {isLoading ? (
+        <OCRLoadingPage />
+      ) : (
+        ocrResult && <OCRTable data={transformData(parseData(ocrResult))} />
+      )}
 
       <button onClick={handleDownload}>양식 다운로드</button>
     </div>
