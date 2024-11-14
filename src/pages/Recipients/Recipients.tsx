@@ -15,7 +15,6 @@ export const RecipientsPage = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const role = localStorage.getItem('role')
 
-  console.log(role)
   useEffect(() => {
     localStorage.removeItem('chartData')
     const fetchRecipients = async () => {

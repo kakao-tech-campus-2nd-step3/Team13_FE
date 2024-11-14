@@ -28,7 +28,14 @@ export const RecipientsList = ({
 }: Props) => {
   const navigate = useNavigate()
   const currentRole = localStorage.getItem('role')
-
+  const todayKST = new Date()
+    .toLocaleDateString('ko-KR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+    .replace(/\. /g, '-')
+    .replace('.', '')
   const formatBirthDate = (dateString: string) => {
     const [year, month, day] = dateString.split('-')
     return `${year.slice(2)}${month}${day}`
@@ -38,9 +45,7 @@ export const RecipientsList = ({
   const handleNewChartClick = async () => {
     try {
       const response = await getCalendarData(recipientId, role!)
-      const todayChart = response.find(
-        (chart: Calendar) => chart.chartDate === new Date().toISOString().split('T')[0],
-      )
+      const todayChart = response.find((chart: Calendar) => chart.chartDate === todayKST)
 
       if (todayChart) {
         const chartId = todayChart.chartId
