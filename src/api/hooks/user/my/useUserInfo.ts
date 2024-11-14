@@ -1,41 +1,22 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import fetchInstance from '@/api/instance/instance'
-import { useCallback } from 'react'
-import { CareWorkerResponse, GuardianResponse } from './types'
 import { AxiosResponse } from 'axios'
+import { CareWorkerResponse, GuardianResponse } from '@/api/hooks/user/my/types'
+import { getUserInfo, updateUserInfo } from '@/api/hooks/user/my/userInfoApi'
 
 type UserResponse = CareWorkerResponse | GuardianResponse
 
-const getUserInfo = async (role: string): Promise<UserResponse> => {
-  const endpoint = role === 'careworker' ? '/v1/careworker' : '/v1/guardian'
-  const response = await fetchInstance.get(endpoint)
-  return response.data.response
-}
-
 export const useUserInfo = () => {
-  const role = localStorage.getItem('role') || 'careworker'
   const queryClient = useQueryClient()
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['userInfo', role],
-    queryFn: () => getUserInfo(role),
-    enabled: !!role,
+  const { data, isLoading, isError } = useQuery<UserResponse>({
+    queryKey: ['userInfo'],
+    queryFn: getUserInfo,
   })
-
-  const updateUserInfo = useCallback(
-    async (updatedData: Partial<UserResponse>) => {
-      const endpoint = role === 'careworker' ? '/v1/careworker' : '/v1/guardian'
-      return await fetchInstance.put(endpoint, updatedData)
-    },
-    [role],
-  )
 
   const mutation = useMutation<AxiosResponse, Error, Partial<UserResponse>>({
     mutationFn: updateUserInfo,
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['userInfo', role],
-      })
+      queryClient.invalidateQueries({ queryKey: ['userInfo'] })
     },
   })
 
