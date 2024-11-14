@@ -14,10 +14,9 @@ interface LogWrapperProps {
 }
 
 export const CareLogPage = () => {
-  const location = useLocation()
-  const { selectedDate } = location.state || {}
   const { chartId } = useParams<{ chartId: string }>()
   const navigate = useNavigate()
+  const selectedDate = localStorage.getItem('selectedDate')
   const [careLog, setCareLog] = useState<Summary>()
   const [isLoading, setIsLoading] = useState(true)
   const [isScrolled, setIsScrolled] = useState(false)
@@ -114,7 +113,7 @@ export const CareLogPage = () => {
         margin="26px 0"
         width="100%"
         height="62px"
-        onClick={() => navigate(`/careLog/choice/body/${chartId}`, { state: { selectedDate } })}
+        onClick={() => navigate(`/careLog/choice/body/${chartId}`)}
       >
         상세 일지 보기
       </Button>

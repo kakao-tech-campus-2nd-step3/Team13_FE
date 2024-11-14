@@ -51,8 +51,9 @@ export const CalendarPage = () => {
       if (clickedDate) {
         const newSelectedDate = `${selectedYear}.${String(selectedMonth).padStart(2, '0')}.${String(day).padStart(2, '0')}`
         setSelectedDate(newSelectedDate)
+        localStorage.setItem('selectedDate', newSelectedDate)
         navigate(`/careLog/${clickedDate.chartId}`, {
-          state: { name, birthday, selectedDate: newSelectedDate },
+          state: { name, birthday },
         })
       }
     }
