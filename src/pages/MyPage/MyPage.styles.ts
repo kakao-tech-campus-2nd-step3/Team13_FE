@@ -68,3 +68,7 @@ export const Value = styled.span`
   color: #555;
   width: 130px;
 `
+
+export const Checkbox = styled.input`
+  margin-right: 4px;
+`
