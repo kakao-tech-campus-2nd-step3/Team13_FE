@@ -102,7 +102,7 @@ export const CalendarPage = () => {
       </CalendarWrapper>
       <Footer>
         <div
-          style={{ borderBottom: `1px solid  ${colors.text.subtle}` }}
+          style={{ borderBottom: `1px solid  ${colors.text.subtle}`, cursor: 'pointer' }}
           onClick={() => navigate('/recipients')}
         >
           <TextBody.Large style={{ color: `${colors.text.subtle}` }}>
