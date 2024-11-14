@@ -37,11 +37,11 @@ import { LandingPage } from '@/pages/Landing/Landing'
 import { CalendarPage } from '@/pages/Calendar/Calendar'
 const router = createBrowserRouter([
   {
-    path: RouterPath.LANDING,
+    path: RouterPath.HOME,
     element: <LandingPage />,
   },
   {
-    path: RouterPath.HOME,
+    path: RouterPath.ROLE,
     element: <HomePage />,
   },
   {
