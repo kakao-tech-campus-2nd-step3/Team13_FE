@@ -10,7 +10,7 @@ import { SpeechToTextPage } from '@/pages/SpeechToText/SpeechToText'
 import { OCRPage } from '@/pages/OCR/OCR'
 import { LoginPage } from '@/pages/Login/Login'
 import { RecipientsPage } from '@/pages/Recipients/Recipients'
-import { AdminLayout, Layout } from '@/components/common/Layout/Layout'
+import { AdminLayout, Layout, LayoutWithoutMyPage } from '@/components/common/Layout/Layout'
 import { SignificantPage } from '@/pages/Significant/Significant'
 import { OCRCheckPage } from '@/pages/OCR/OCRCheck/OCRCheck'
 import { SharePage } from '@/pages/Share/Share'
@@ -46,13 +46,10 @@ const router = createBrowserRouter([
   },
   {
     path: RouterPath.ROOT,
-    element: <Layout />,
+    element: <LayoutWithoutMyPage />,
     children: [
-      { path: RouterPath.CALENDAR, element: <CalendarPage /> },
       { path: RouterPath.LOGIN, element: <LoginPage /> },
-      { path: RouterPath.RECIPIENTS, element: <RecipientsPage /> },
-      { path: RouterPath.CHART, element: <ChartPage /> },
-      { path: RouterPath.SHARE, element: <SharePage /> },
+
       { path: RouterPath.CAMERA, element: <CameraPage /> },
       { path: RouterPath.AUDIO_RECORD, element: <AudioRecordPage /> },
       { path: RouterPath.CHOICE.BODY, element: <BodyChoicePage /> },
@@ -95,7 +92,21 @@ const router = createBrowserRouter([
           <SignificantPage step={4} title="기능 회복 훈련" navigateTo={RouterPath.RECIPIENTS} />
         ),
       },
-
+      { path: RouterPath.SPEECH_TO_TEXT, element: <SpeechToTextPage /> },
+      { path: RouterPath.OCR, element: <OCRPage /> },
+      { path: RouterPath.OCR_LOADING, element: <OCRLoadingPage /> },
+      { path: RouterPath.OCR_CHECKING, element: <OCRCheckPage /> },
+      { path: RouterPath.MYPAGE, element: <MyPage /> },
+    ],
+  },
+  {
+    path: RouterPath.ROOT,
+    element: <Layout />,
+    children: [
+      { path: RouterPath.CALENDAR, element: <CalendarPage /> },
+      { path: RouterPath.RECIPIENTS, element: <RecipientsPage /> },
+      { path: RouterPath.CHART, element: <ChartPage /> },
+      { path: RouterPath.SHARE, element: <SharePage /> },
       { path: RouterPath.CARE_LOG, element: <CareLogPage /> },
       { path: RouterPath.CHOICE_LOG.BODY, element: <BodyChoiceLogPage /> },
       { path: RouterPath.CHOICE_LOG.COGNITIVE, element: <CognitiveChoiceLogPage /> },
@@ -137,11 +148,6 @@ const router = createBrowserRouter([
           <SignificantLogPage step={4} title="기능 회복 훈련" navigateTo={RouterPath.CALENDAR} />
         ),
       },
-      { path: RouterPath.SPEECH_TO_TEXT, element: <SpeechToTextPage /> },
-      { path: RouterPath.OCR, element: <OCRPage /> },
-      { path: RouterPath.OCR_LOADING, element: <OCRLoadingPage /> },
-      { path: RouterPath.OCR_CHECKING, element: <OCRCheckPage /> },
-      { path: RouterPath.MYPAGE, element: <MyPage /> },
 
       { path: RouterPath.NOT_FOUND, element: <HomePage /> },
     ],

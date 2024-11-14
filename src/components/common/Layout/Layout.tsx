@@ -13,10 +13,21 @@ export const Layout = () => (
   </WrapperBody>
 )
 
+export const LayoutWithoutMyPage = () => (
+  <WrapperBody>
+    <Wrapper>
+      <Back myPage={false} />
+      <InnerWrapper>
+        <Outlet />
+      </InnerWrapper>
+    </Wrapper>
+  </WrapperBody>
+)
+
 export const AdminLayout = () => (
   <AdminWrapperBody>
     <AdminWrapper>
-      <Back />
+      <Back myPage={false} />
       <InnerWrapper>
         <Outlet />
       </InnerWrapper>
@@ -40,7 +51,6 @@ const Wrapper = styled.div`
   max-width: 600px;
   min-height: 100vh;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding-top: 15px;
   position: relative;
   @media (max-width: 600px) {
     width: 100vw;
