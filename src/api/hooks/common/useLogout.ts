@@ -21,7 +21,7 @@ export const useLogout = () => {
     onSuccess: () => {
       localStorage.clear()
       queryClient.clear()
-      navigate('/landing')
+      navigate('/')
     },
     onError: (error) => {
       console.error(error)

@@ -6,11 +6,15 @@ import { HomePage } from '@/pages/Home/Home'
 import { CameraPage } from '@/pages/Camera/Camera'
 import { AudioRecordPage } from '@/pages/AudioRecord/AudioRecord'
 import { CareLogPage } from '@/pages/CareLog/CareLog'
-import { SpeechToTextPage } from '@/pages/SpeechToText/SpeechToText'
 import { OCRPage } from '@/pages/OCR/OCR'
 import { LoginPage } from '@/pages/Login/Login'
 import { RecipientsPage } from '@/pages/Recipients/Recipients'
-import { AdminLayout, Layout, LayoutWithoutMyPage } from '@/components/common/Layout/Layout'
+import {
+  AdminLayout,
+  Layout,
+  LayoutWithoutBack,
+  LayoutWithoutMyPage,
+} from '@/components/common/Layout/Layout'
 import { SignificantPage } from '@/pages/Significant/Significant'
 import { OCRCheckPage } from '@/pages/OCR/OCRCheck/OCRCheck'
 import { SharePage } from '@/pages/Share/Share'
@@ -35,14 +39,22 @@ import { RecoveryChoiceLogPage } from '@/pages/CareLog/ChoiceLog/Recovery/Recove
 
 import { LandingPage } from '@/pages/Landing/Landing'
 import { CalendarPage } from '@/pages/Calendar/Calendar'
+import { SelectPage } from '@/pages/Select/Select'
+import CheckPage from '@/pages/AudioRecord/Check/Check'
 const router = createBrowserRouter([
   {
-    path: RouterPath.LANDING,
+    path: RouterPath.HOME,
     element: <LandingPage />,
   },
   {
-    path: RouterPath.HOME,
+    path: RouterPath.ROLE,
     element: <HomePage />,
+  },
+  { path: RouterPath.SELECT, element: <SelectPage /> },
+  {
+    path: RouterPath.ROOT,
+    element: <LayoutWithoutBack />,
+    children: [{ path: RouterPath.RECIPIENTS, element: <RecipientsPage /> }],
   },
   {
     path: RouterPath.ROOT,
@@ -51,7 +63,55 @@ const router = createBrowserRouter([
       { path: RouterPath.LOGIN, element: <LoginPage /> },
 
       { path: RouterPath.CAMERA, element: <CameraPage /> },
-      { path: RouterPath.AUDIO_RECORD, element: <AudioRecordPage /> },
+      {
+        path: RouterPath.AUDIO_RECORD.BODY,
+        element: (
+          <AudioRecordPage title="신체 활동 지원" navigateTo={RouterPath.AUDIO_CHECK.BODY} />
+        ),
+      },
+      {
+        path: RouterPath.AUDIO_RECORD.COGNITIVE,
+        element: (
+          <AudioRecordPage
+            title="인지관리 및 의사소통"
+            navigateTo={RouterPath.AUDIO_CHECK.COGNITIVE}
+          />
+        ),
+      },
+      {
+        path: RouterPath.AUDIO_RECORD.NURSING,
+        element: (
+          <AudioRecordPage title="건강 및 간호 관리" navigateTo={RouterPath.AUDIO_CHECK.NURSING} />
+        ),
+      },
+      {
+        path: RouterPath.AUDIO_RECORD.RECOVERY,
+        element: (
+          <AudioRecordPage title="기능 회복 훈련" navigateTo={RouterPath.AUDIO_CHECK.RECOVERY} />
+        ),
+      },
+      {
+        path: RouterPath.AUDIO_CHECK.BODY,
+        element: (
+          <CheckPage step={1} title="신체 활동 지원" navigateTo={RouterPath.CHOICE.COGNITIVE} />
+        ),
+      },
+      {
+        path: RouterPath.AUDIO_CHECK.COGNITIVE,
+        element: (
+          <CheckPage step={2} title="인지관리 및 의사소통" navigateTo={RouterPath.CHOICE.NURSING} />
+        ),
+      },
+      {
+        path: RouterPath.AUDIO_CHECK.NURSING,
+        element: (
+          <CheckPage step={3} title="건강 및 간호 관리" navigateTo={RouterPath.CHOICE.RECOVERY} />
+        ),
+      },
+      {
+        path: RouterPath.AUDIO_CHECK.RECOVERY,
+        element: <CheckPage step={4} title="기능 회복 훈련" navigateTo={RouterPath.RECIPIENTS} />,
+      },
       { path: RouterPath.CHOICE.BODY, element: <BodyChoicePage /> },
       { path: RouterPath.CHOICE.COGNITIVE, element: <CognitiveChoicePage /> },
       { path: RouterPath.CHOICE.NURSING, element: <NursingChoicePage /> },
@@ -92,7 +152,6 @@ const router = createBrowserRouter([
           <SignificantPage step={4} title="기능 회복 훈련" navigateTo={RouterPath.RECIPIENTS} />
         ),
       },
-      { path: RouterPath.SPEECH_TO_TEXT, element: <SpeechToTextPage /> },
       { path: RouterPath.OCR, element: <OCRPage /> },
       { path: RouterPath.OCR_LOADING, element: <OCRLoadingPage /> },
       { path: RouterPath.OCR_CHECKING, element: <OCRCheckPage /> },
@@ -104,7 +163,7 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: RouterPath.CALENDAR, element: <CalendarPage /> },
-      { path: RouterPath.RECIPIENTS, element: <RecipientsPage /> },
+
       { path: RouterPath.CHART, element: <ChartPage /> },
       { path: RouterPath.SHARE, element: <SharePage /> },
       { path: RouterPath.CARE_LOG, element: <CareLogPage /> },

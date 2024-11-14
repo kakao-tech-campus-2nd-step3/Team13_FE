@@ -1,24 +1,26 @@
 import { Heading, Paragraph } from '@/components/common/Text/TextFactory'
 import { colors } from '@/styles/colors/colors'
 import { BeatLoader } from 'react-spinners'
-import { useState } from 'react'
+import micImg from '@/assets/icons/mic_record.svg'
 import styled from 'styled-components'
 import { useSpeechToText } from '@/components/features/SpeechToText/hooks/useSpeechToText'
 import { FaPlay, FaStop } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
 
-export const AudioRecordPage = () => {
-  const { transcript, listening, toggleListening } = useSpeechToText()
-  const [isRecording, setIsRecording] = useState(false)
+interface DIYProps {
+  title: string
+  navigateTo: string
+}
 
-  const handleToggleListening = () => {
-    toggleListening()
-    setIsRecording(!listening)
+export const AudioRecordPage = ({ title, navigateTo }: DIYProps) => {
+  const { transcript, listening, toggleListening, toggleReset } = useSpeechToText()
+  const navigate = useNavigate()
+  localStorage.removeItem('data')
+  const done = () => {
+    localStorage.setItem('data', transcript)
+    toggleReset
+    navigate(navigateTo)
   }
-
-  const handleResetAndListen = () => {
-    setIsRecording(true)
-  }
-
   return (
     <Wrapper>
       <Content>
@@ -29,7 +31,9 @@ export const AudioRecordPage = () => {
             textAlign: 'center',
           }}
         >
-          오늘 김영숙 환자의 인지 관리 <br />
+          오늘 {localStorage.getItem('recipientName')}님의{' '}
+          <span style={{ color: `${colors.text.prominent}` }}>{title} </span>
+          <br />
           특이사항을 입력해주세요.
         </Heading.Medium>
         <Paragraph.Large style={{ color: colors.text.subtle }}>
@@ -37,23 +41,39 @@ export const AudioRecordPage = () => {
         </Paragraph.Large>
         <RecordSection>
           <RecordCircle>
-            <BeatLoader
-              color={colors.primary.main}
-              margin={6}
-              size={8}
-              speedMultiplier={isRecording ? 1.2 : 0}
-            />
+            {listening ? (
+              <BeatLoader color="#4894FE" margin={6} size={8} />
+            ) : (
+              <img src={micImg} alt="mic" />
+            )}
           </RecordCircle>
         </RecordSection>
       </Content>
-      <TextArea value={transcript} readOnly />
+      {transcript ? (
+        <TextArea value={transcript} style={{ lineHeight: '1.4', color: 'black' }} readOnly />
+      ) : null}
+
       <WaveBackground>
         <Mountain3 />
         <Mountain2 />
         <Mountain1 />
-        <CenteredImage onClick={isRecording ? handleToggleListening : handleResetAndListen}>
-          {isRecording ? <FaStop color="#fff" size="30" /> : <FaPlay color="#fff" size="30" />}
-        </CenteredImage>
+        {transcript && !listening ? (
+          <ButtonWrapper>
+            <TextButton onClick={toggleReset}>재녹음</TextButton>
+            <CenteredImage onClick={toggleListening}>
+              {listening ? <FaStop color="#fff" size="30" /> : <FaPlay color="#fff" size="30" />}
+            </CenteredImage>
+            <TextButton onClick={done}>완료</TextButton>
+          </ButtonWrapper>
+        ) : (
+          <ButtonWrapper>
+            <TextButton></TextButton>
+            <CenteredImage onClick={toggleListening}>
+              {listening ? <FaStop color="#fff" size="30" /> : <FaPlay color="#fff" size="30" />}
+            </CenteredImage>
+            <TextButton></TextButton>
+          </ButtonWrapper>
+        )}
       </WaveBackground>
     </Wrapper>
   )
@@ -64,7 +84,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 30px 24px 0 24px;
+  padding: 30px 0 0 0;
 `
 
 const Content = styled.div`
@@ -86,30 +106,32 @@ const RecordCircle = styled.div`
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background-color: #f8f8f8;
+  display: flex;
+  background-color: white;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
   justify-content: center;
-  align-content: center;
+  align-items: center;
   text-align: center;
   margin-top: 80px;
   margin-bottom: 20px;
 `
 
 const TextArea = styled.textarea`
-  width: 100%;
+  width: 90%;
   height: 100px;
   padding: 10px;
+  line-height: 1.4;
   border-radius: 8px;
   border: 1px solid ${colors.border.subtle};
   font-size: 1rem;
-  color: ${colors.border.prominent};
   resize: none;
   outline: none;
 `
 
 const WaveBackground = styled.div`
   position: relative;
-  width: 100vw;
-  height: 250px; // 필요한 높이
+  width: 100%;
+  height: 250px;
   overflow: hidden;
   margin-top: auto;
 `
@@ -140,11 +162,30 @@ const Mountain3 = styled.div`
   background-color: #e4efff;
   clip-path: ellipse(100% 90% at 30% 100%);
 `
-
-const CenteredImage = styled.div`
+const ButtonWrapper = styled.div`
   position: absolute;
   bottom: 70px;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   z-index: 4;
+  padding: 0 25px;
+`
+
+const TextButton = styled.div`
+  font-size: 16px;
+  color: white;
+  width: 44px;
+  text-align: center;
+  font-weight: 600;
+  cursor: pointer;
+`
+
+const CenteredImage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
 `

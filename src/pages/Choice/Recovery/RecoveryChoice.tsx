@@ -16,6 +16,7 @@ import { Chart } from '@/api/hooks/user/chart/types'
 
 export const RecoveryChoicePage = () => {
   const navigate = useNavigate()
+  const chartType = localStorage.getItem('chartType')
   const [selectedOptions, setSelectedOptions] = useState<Chart['recoveryTraining']>({
     recoveryProgram: '',
     recoveryTraining: false,
@@ -100,7 +101,11 @@ export const RecoveryChoicePage = () => {
         <Button
           theme="dark"
           onClick={() => {
-            navigate('/chart/significant/recovery')
+            if (chartType === 'DIY') {
+              navigate('/chart/significant/recovery')
+            } else if (chartType === 'record') {
+              navigate('/chart/audioRecord/recovery')
+            }
           }}
           css={{
             width: '100%',

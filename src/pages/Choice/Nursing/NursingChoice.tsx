@@ -14,9 +14,9 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { Chart } from '@/api/hooks/user/chart/types'
 
-
 export const NursingChoicePage = () => {
   const navigate = useNavigate()
+  const chartType = localStorage.getItem('chartType')
   const [selectedOptions, setSelectedOptions] = useState<Chart['nursingManagement']>({
     systolic: '',
     diastolic: '',
@@ -92,7 +92,11 @@ export const NursingChoicePage = () => {
 
   const confirm = () => {
     if (validateInputs()) {
-      navigate('/chart/significant/nursing')
+      if (chartType === 'DIY') {
+        navigate('/chart/significant/nursing')
+      } else if (chartType === 'record') {
+        navigate('/chart/audioRecord/nursing')
+      }
     }
   }
 
