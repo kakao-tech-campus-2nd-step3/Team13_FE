@@ -7,16 +7,17 @@ import styled from '@emotion/styled'
 import { AuthProvider } from '@/provider/Auth/authApi'
 
 export const LoginPage = () => {
-  const [id, setId] = useState('')
+  const [userId, setId] = useState('')
   const [password, setPassword] = useState('')
-
   const navigate = useNavigate()
 
-  const handleLogin = async () => {
-    console.log(localStorage.getItem('role'))
+  const login = async (event: React.FormEvent) => {
+    event.preventDefault()
+    const role = localStorage.getItem('role')
+
     try {
-      await AuthProvider(localStorage.getItem('role')!, id, password)
-      navigate('/dashboard') // Redirect to the main page upon successful login
+      await AuthProvider(role!, { userId, password })
+      navigate('/recipients')
     } catch (error) {
       console.error('Login failed:', error)
       alert('Login failed. Please try again.')
@@ -25,7 +26,7 @@ export const LoginPage = () => {
 
   return (
     <Wrapper>
-      <StyledForm>
+      <StyledForm onSubmit={login}>
         <div>
           <div style={{ fontSize: '24px', fontWeight: '700', marginBottom: '10px' }}>
             안녕하세요 :) 돌봄다리입니다.
@@ -37,19 +38,23 @@ export const LoginPage = () => {
         <div>
           <InputField
             placeholder="전화번호 ( '-' 제외)"
-            value={id}
+            id="userId"
+            name="userId"
+            value={userId}
             onChange={(e) => setId(e.target.value)}
             style={{ fontSize: '20px', marginBottom: '20px' }}
           />
           <InputField
             placeholder="비밀번호"
+            id="password"
+            name="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             style={{ fontSize: '20px' }}
           />
         </div>
-        <Button theme="dark" width="100%" height="62px" onClick={handleLogin}>
+        <Button theme="dark" width="100%" height="62px" type="submit">
           로그인
         </Button>
       </StyledForm>

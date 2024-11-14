@@ -6,65 +6,91 @@ import nursing from '@/assets/icons/nursing.svg'
 import emergency from '@/assets/icons/emergency.svg'
 
 import Button from '@/components/common/Button/Button'
-
+import { CheckBox } from '@/components/features/MultipleChoice/CheckBox'
 import { Heading } from '@/components/common/Text/TextFactory'
 import Steps from '@/components/common/Steps/Steps'
 import { WriteBox } from '@/components/features/MultipleChoice/WriteBox'
-import { CheckBox } from '@/components/features/MultipleChoice/CheckBox'
 import { useNavigate } from 'react-router-dom'
-import { ChartData } from '@/types/types'
 import { useEffect, useState } from 'react'
+import { Chart } from '@/api/hooks/user/chart/types'
+
 
 export const NursingChoicePage = () => {
   const navigate = useNavigate()
-  const [selectedOptions, setSelectedOptions] = useState<ChartData['nursingManagement']>({
+  const [selectedOptions, setSelectedOptions] = useState<Chart['nursingManagement']>({
     systolic: '',
     diastolic: '',
     healthTemperature: '',
-    isHealthCareProvided: false,
-    isNursingCareProvided: false,
-    isEmergencyCareProvided: false,
+    healthCareProvided: false,
+    nursingCareProvided: false,
+    emergencyCareProvided: false,
     healthNote: '',
   })
+
   const [errors, setErrors] = useState({
-    systolic: '',
-    diastolic: '',
-    healthTemperature: '',
+    systolicError: '',
+    diastolicError: '',
+    healthTemperatureError: '',
   })
 
-  const handleSelectOption = (key: keyof ChartData['nursingManagement'], value: any) => {
-    setSelectedOptions((prev) => {
-      const updatedOptions = { ...prev, [key]: value }
-      localStorage.setItem('nursingManagement', JSON.stringify(updatedOptions))
-      return updatedOptions
-    })
+  useEffect(() => {
+    const savedChartData = localStorage.getItem('chartData')
+    if (savedChartData) {
+      const parsedData = JSON.parse(savedChartData)
+
+      setSelectedOptions((prev) => ({
+        ...prev,
+        systolic: parsedData.nursingManagement?.systolic || '',
+        diastolic: parsedData.nursingManagement?.diastolic || '',
+        healthTemperature: parsedData.nursingManagement?.healthTemperature || '',
+        healthCareProvided: parsedData.nursingManagement?.healthCareProvided || false,
+        nursingCareProvided: parsedData.nursingManagement?.nursingCareProvided || false,
+        emergencyCareProvided: parsedData.nursingManagement?.emergencyCareProvided || false,
+        healthNote: parsedData.nursingManagement?.healthNote || '',
+      }))
+    }
+  }, [])
+
+  const selectOption = (key: keyof Chart['nursingManagement'], value: any) => {
+    const existingChartData = JSON.parse(localStorage.getItem('chartData') || '{}')
+
+    const updatedNursingManagement = {
+      ...existingChartData.nursingManagement,
+      [key]: value,
+    }
+
+    const updatedChartData = {
+      ...existingChartData,
+      nursingManagement: updatedNursingManagement,
+    }
+    localStorage.setItem('chartData', JSON.stringify(updatedChartData))
+
+    // Update the component's state
+    setSelectedOptions(updatedNursingManagement)
   }
 
-  const handleInputChange = (key: keyof ChartData['nursingManagement'], value: string) => {
-    handleSelectOption(key, value.replace(/\D/g, ''))
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [key]: '', // Clear error when user types something valid
-    }))
+  const handleInputChange = (key: keyof Chart['nursingManagement'], value: any) => {
+    selectOption(key, value)
   }
 
   const validateInputs = () => {
     const { systolic, diastolic, healthTemperature } = selectedOptions
-    const newErrors: typeof errors = {
-      systolic: '',
-      diastolic: '',
-      healthTemperature: '',
+    const newErrors: any = {
+      systolicError: '',
+      diastolicError: '',
+      healthTemperatureError: '',
     }
 
-    if (!systolic) newErrors.systolic = '최고 혈압을 입력해주세요'
-    if (!diastolic) newErrors.diastolic = '최저 혈압을 입력해주세요'
-    if (!healthTemperature) newErrors.healthTemperature = '체온을 입력해주세요'
+    if (!systolic) newErrors.systolicError = '최고 혈압을 입력해주세요'
+    if (!diastolic) newErrors.diastolicError = '최저 혈압을 입력해주세요'
+    if (!healthTemperature) newErrors.healthTemperatureError = '체온을 입력해주세요'
 
     setErrors(newErrors)
+
     return !Object.values(newErrors).some((error) => error)
   }
 
-  const handleConfirm = () => {
+  const confirm = () => {
     if (validateInputs()) {
       navigate('/chart/significant/nursing')
     }
@@ -85,13 +111,13 @@ export const NursingChoicePage = () => {
             isDualInput={true}
             placeholderFirst="최고"
             placeholderSecond="최저"
-            firstInputValue={selectedOptions.systolic.toString()}
-            secondInputValue={selectedOptions.diastolic.toString()}
+            firstInputValue={selectedOptions.systolic}
+            secondInputValue={selectedOptions.diastolic}
             onFirstInputChange={(value) => handleInputChange('systolic', value)}
             onSecondInputChange={(value) => handleInputChange('diastolic', value)}
           />
-          {errors.systolic && <ErrorMessage>{errors.systolic}</ErrorMessage>}
-          {errors.diastolic && <ErrorMessage>{errors.diastolic}</ErrorMessage>}
+          {errors.systolicError && <ErrorMessage>{errors.systolicError}</ErrorMessage>}
+          {errors.diastolicError && <ErrorMessage>{errors.diastolicError}</ErrorMessage>}
         </div>
         <div>
           <WriteBox
@@ -103,37 +129,35 @@ export const NursingChoicePage = () => {
             firstInputValue={selectedOptions.healthTemperature}
             onFirstInputChange={(value) => handleInputChange('healthTemperature', value)}
           />
-          {errors.healthTemperature && <ErrorMessage>{errors.healthTemperature}</ErrorMessage>}
+          {errors.healthTemperatureError && (
+            <ErrorMessage>{errors.healthTemperatureError}</ErrorMessage>
+          )}
         </div>
         <CheckBox
           icon={health}
           title="건강 관리"
-          checked={selectedOptions.isHealthCareProvided}
-          onChange={() =>
-            handleSelectOption('isHealthCareProvided', !selectedOptions.isHealthCareProvided)
-          }
+          checked={selectedOptions.healthCareProvided}
+          onChange={() => selectOption('healthCareProvided', !selectedOptions.healthCareProvided)}
         />
         <CheckBox
           icon={nursing}
           title="간호 관리"
-          checked={selectedOptions.isNursingCareProvided}
-          onChange={() =>
-            handleSelectOption('isNursingCareProvided', !selectedOptions.isNursingCareProvided)
-          }
+          checked={selectedOptions.nursingCareProvided}
+          onChange={() => selectOption('nursingCareProvided', !selectedOptions.nursingCareProvided)}
         />
         <CheckBox
           icon={emergency}
           title="기타(응급)"
-          checked={selectedOptions.isEmergencyCareProvided}
+          checked={selectedOptions.emergencyCareProvided}
           onChange={() =>
-            handleSelectOption('isEmergencyCareProvided', !selectedOptions.isEmergencyCareProvided)
+            selectOption('emergencyCareProvided', !selectedOptions.emergencyCareProvided)
           }
         />
       </ChoiceGrid>
       <ButtonWrapper>
         <Button
           theme="dark"
-          onClick={handleConfirm}
+          onClick={confirm}
           css={{
             width: '100%',
             height: '62px',

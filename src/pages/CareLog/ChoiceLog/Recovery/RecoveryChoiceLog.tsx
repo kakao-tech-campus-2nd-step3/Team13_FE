@@ -11,10 +11,38 @@ import { IoCalendarNumberOutline } from 'react-icons/io5'
 import { colors } from '@/styles/colors/colors'
 import Steps from '@/components/common/Steps/Steps'
 import { Heading } from '@/components/common/Text/TextFactory'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { getDetailLogData } from '@/api/hooks/chart/useGetChart'
+import { Chart } from '@/api/hooks/user/chart/types'
+import { Spinner } from 'basic-loading'
 
 export const RecoveryChoiceLogPage = () => {
   const navigate = useNavigate()
+  const location = useLocation()
+  const { selectedDate } = location.state || {}
+  const { chartId } = useParams<{ chartId: string }>()
+  const [detailLog, setDetailLog] = useState<Chart | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    if (chartId) {
+      // Convert chartId to a number and fetch data
+      const fetchCareLogData = async () => {
+        try {
+          const response = await getDetailLogData({ chartId: Number(chartId) })
+          if (response.success) {
+            setDetailLog(response.response)
+          }
+        } catch (error) {
+          console.error('Chart API 호출 중 오류 발생:', error)
+        } finally {
+          setIsLoading(false)
+        }
+      }
+      fetchCareLogData()
+    }
+  }, [chartId])
   return (
     <Wrapper>
       <div
@@ -32,19 +60,55 @@ export const RecoveryChoiceLogPage = () => {
           style={{ color: `${colors.border.prominent}`, width: '23px', height: '23px' }}
         />
         <div style={{ fontSize: '20px', color: `${colors.text.subtle}`, fontWeight: '700' }}>
-          2024.09.19.
+          {selectedDate}
         </div>
       </div>
-      <Steps currentStep={4} totalSteps={4} isLog={true} />
+      <Steps currentStep={4} totalSteps={4} isLog={true} chartId={chartId} />
       <div style={{ padding: '26px 0 0 0', lineHeight: '1.2' }}>
         <Heading.Medium>기능 회복 훈련</Heading.Medium>
       </div>
-      <ChoiceGrid>
-        <ChoiceBox icon={program} title="기능향상 프로그램" content={'재활 댄스'} />
-        <ChoiceBox icon={moving} title="신체 동작 훈련" content={'O'} />
-        <ChoiceBox icon={cognitiveTreatment} title="인지기능 훈련" content={'X'} />
-        <ChoiceBox icon={physicalTreatment} title="물리치료" content={'O'} />
-      </ChoiceGrid>
+      {isLoading ? (
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Spinner
+            option={{ size: 70, thickness: 5, bgColor: '#EDF4FF', barColor: colors.primary.main }}
+          />
+        </div>
+      ) : (
+        <ChoiceGrid>
+          <ChoiceBox
+            icon={program}
+            title="기능향상 프로그램"
+            content={
+              detailLog?.recoveryTraining.recoveryProgram === ''
+                ? '해당 없음'
+                : `${detailLog?.recoveryTraining.recoveryProgram}`
+            }
+          />
+          <ChoiceBox
+            icon={moving}
+            title="신체 동작 훈련"
+            content={detailLog?.recoveryTraining.recoveryTraining ? 'O' : 'X'}
+          />
+          <ChoiceBox
+            icon={cognitiveTreatment}
+            title="인지기능 훈련"
+            content={detailLog?.recoveryTraining.cognitiveTrainingProvided ? 'O' : 'X'}
+          />
+          <ChoiceBox
+            icon={physicalTreatment}
+            title="물리치료"
+            content={detailLog?.recoveryTraining.physicalTherapyProvided ? 'O' : 'X'}
+          />
+        </ChoiceGrid>
+      )}
       <ButtonWrapper>
         <Button
           theme="dark"
@@ -53,7 +117,7 @@ export const RecoveryChoiceLogPage = () => {
             height: '62px',
           }}
           onClick={() => {
-            navigate('/careLog/significant/recovery')
+            navigate(`/careLog/significant/recovery/${chartId}`, { state: { selectedDate } })
           }}
         >
           확인

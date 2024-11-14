@@ -3,8 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import newChart from '@/assets/icons/chart_write.svg'
 import chartList from '@/assets/icons/chart_list.svg'
 import styled from 'styled-components'
+import { Calendar } from '@/api/hooks/user/chart/types'
+import { getCalendarData } from '@/api/hooks/user/chart/useGetCalendar'
+import { getDetailLogData } from '@/api/hooks/chart/useGetChart'
 
 interface Props {
+  recipientId: number
   picture: string
   name: string
   birthday: string
@@ -14,6 +18,7 @@ interface Props {
 }
 
 export const RecipientsList = ({
+  recipientId,
   picture,
   name,
   birthday,
@@ -23,12 +28,62 @@ export const RecipientsList = ({
 }: Props) => {
   const navigate = useNavigate()
   const currentRole = localStorage.getItem('role')
+  console.log(recipientId)
+
+  const formatBirthDate = (dateString: string) => {
+    const [year, month, day] = dateString.split('-')
+    return `${year.slice(2)}${month}${day}`
+  }
+  const role = localStorage.getItem('role')
+
+  const handleNewChartClick = async () => {
+    try {
+      const response = await getCalendarData(recipientId, role!)
+      const todayChart = response.find(
+        (chart: Calendar) => chart.chartDate === new Date().toISOString().split('T')[0],
+      )
+
+      if (todayChart) {
+        const chartId = todayChart.chartId
+        console.log(chartId)
+        localStorage.setItem('chartId', chartId.toString())
+        localStorage.removeItem('state')
+        localStorage.setItem('state', 'put')
+        const chartResponse = await getDetailLogData({ chartId: Number(chartId) })
+        const chartData = chartResponse.response
+
+        localStorage.setItem('chartData', JSON.stringify(chartData))
+        console.log(localStorage.getItem('chartData'))
+        navigate('/chart/choice/body')
+      } else {
+        console.log('No chart for today found.')
+        localStorage.removeItem('state')
+        localStorage.removeItem('recipientId')
+        localStorage.removeItem('recipientName')
+        localStorage.removeItem('recipientBirthday')
+        localStorage.setItem('state', 'post')
+        localStorage.setItem('recipientId', recipientId.toString())
+        localStorage.setItem('recipientName', name)
+        localStorage.setItem('recipientBirthday', birthday)
+        navigate('/share')
+      }
+    } catch (error) {
+      console.error('Error fetching chart data:', error)
+    }
+  }
+
   return (
     <Wrapper
       onClick={
-        currentRole == 'GUARDIAN'
+        currentRole == 'guardian'
           ? () => {
-              navigate('/calendar')
+              localStorage.removeItem('recipientId')
+              localStorage.removeItem('recipientName')
+              localStorage.removeItem('recipientBirthday')
+              localStorage.setItem('recipientId', recipientId.toString())
+              localStorage.setItem('recipientName', name)
+              localStorage.setItem('recipientBirthday', birthday)
+              navigate('/calendar', { state: { name, birthday } })
             }
           : () => {}
       }
@@ -46,16 +101,18 @@ export const RecipientsList = ({
         <div style={{ color: colors.text.moderate, fontSize: '24px', marginRight: '12px' }}>
           {name}
         </div>
-        <div style={{ color: colors.text.subtle, fontSize: '20px' }}>{birthday}</div>
+        <div style={{ color: colors.text.subtle, fontSize: '20px' }}>
+          {formatBirthDate(birthday)}
+        </div>
       </ProfileWrapper>
 
-      {currentRole == 'CAREWORKER' ? (
+      {currentRole == 'careworker' ? (
         <SelectWrapper>
           <img
             src={newChart}
             alt="new chart"
             onClick={() => {
-              navigate('/share')
+              handleNewChartClick()
             }}
           />
 
@@ -63,7 +120,13 @@ export const RecipientsList = ({
             src={chartList}
             alt="chart list"
             onClick={() => {
-              navigate('/calendar')
+              localStorage.removeItem('recipientId')
+              localStorage.removeItem('recipientName')
+              localStorage.removeItem('recipientBirthday')
+              localStorage.setItem('recipientId', recipientId.toString())
+              localStorage.setItem('recipientName', name)
+              localStorage.setItem('recipientBirthday', birthday)
+              navigate('/calendar', { state: { name, birthday } })
             }}
           />
         </SelectWrapper>

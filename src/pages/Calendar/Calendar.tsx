@@ -1,44 +1,59 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import Back from '@/components/common/Back/Back'
 import { colors } from '@/styles/colors/colors'
 import { Heading, TextBody } from '@/components/common/Text/TextFactory'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { getCalendarData } from '@/api/hooks/user/chart/useGetCalendar'
+import { Calendar } from '@/api/hooks/user/chart/types'
 
-interface CalendarProps {
-  availableDates: { date: string; name: string }[]
-}
-
-const Calendar = ({ availableDates }: CalendarProps) => {
+export const CalendarPage = () => {
+  const location = useLocation()
+  const { name, birthday } = location.state || {}
+  const [selectedDate, setSelectedDate] = useState('')
+  const [availableDates, setAvailableDates] = useState<Calendar[]>([])
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear())
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1) // January is 0
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1)
   const [daysInMonth, setDaysInMonth] = useState<number[]>([])
   const navigate = useNavigate()
-  // Extract available date strings for easier checking
-  const availableDateStrings = availableDates.map((item) => item.date)
+
+  const recipientId = Number(localStorage.getItem('recipientId'))
+  const role = localStorage.getItem('role')
+  useEffect(() => {
+    const fetchCalendarData = async () => {
+      try {
+        const data = await getCalendarData(recipientId, role!)
+        setAvailableDates(data)
+      } catch (error) {
+        console.error('Failed to fetch recipients:', error)
+      }
+    }
+    fetchCalendarData()
+  }, [])
 
   useEffect(() => {
-    // Calculate number of days in the selected month
+    // 월의 날짜 수 계산
     const days = new Date(selectedYear, selectedMonth, 0).getDate()
     setDaysInMonth(Array.from({ length: days }, (_, i) => i + 1))
   }, [selectedYear, selectedMonth])
 
   const isDateAvailable = (day: number) => {
     const dateStr = `${selectedYear}-${String(selectedMonth).padStart(2, '0')}-${String(day).padStart(2, '0')}`
-    return availableDateStrings.includes(dateStr)
+    return availableDates.some((item) => item.chartDate === dateStr)
   }
 
-  const handleDayClick = (day: number) => {
+  const dayClick = (day: number) => {
     if (isDateAvailable(day)) {
-      console.log(`Date clicked: ${selectedYear}-${selectedMonth}-${day}`)
       const clickedDate = availableDates.find(
         (item) =>
-          item.date ===
+          item.chartDate ===
           `${selectedYear}-${String(selectedMonth).padStart(2, '0')}-${String(day).padStart(2, '0')}`,
       )
       if (clickedDate) {
-        console.log(`Selected name: ${clickedDate.name}`)
-        // Redirect to another page or handle selection with clickedDate.name
+        const newSelectedDate = `${selectedYear}.${String(selectedMonth).padStart(2, '0')}.${String(day).padStart(2, '0')}`
+        setSelectedDate(newSelectedDate)
+        navigate(`/careLog/${clickedDate.chartId}`, {
+          state: { name, birthday, selectedDate: newSelectedDate },
+        })
       }
     }
   }
@@ -57,7 +72,10 @@ const Calendar = ({ availableDates }: CalendarProps) => {
     <Wrapper>
       <Header>
         <Heading.Medium style={{ color: 'black', margin: '70px 0 13px 0' }}>
-          <span style={{ color: `${colors.text.prominent}` }}>김쿠키</span> 님의 요양일지
+          <span style={{ color: `${colors.text.prominent}` }}>
+            {localStorage.getItem('recipientName')}
+          </span>{' '}
+          님의 요양일지
         </Heading.Medium>
         <TextBody.Large style={{ color: `${colors.text.subtle}` }}>
           일지를 확인할 날짜를 선택해주세요.
@@ -66,12 +84,16 @@ const Calendar = ({ availableDates }: CalendarProps) => {
       <CalendarWrapper>
         <MonthWraper>
           <MonthButton onClick={() => handleMonthChange('prev')}>◀</MonthButton>
-          <Title>{`${selectedYear}. ${selectedMonth.toString().padStart(2, '0')}`}</Title>{' '}
+          <Title>{`${selectedYear}. ${selectedMonth.toString().padStart(2, '0')}`}</Title>
           <MonthButton onClick={() => handleMonthChange('next')}>▶</MonthButton>
         </MonthWraper>
         <DaysGrid>
           {daysInMonth.map((day) => (
-            <Day key={day} available={isDateAvailable(day)} onClick={() => handleDayClick(day)}>
+            <Day
+              key={day}
+              available={isDateAvailable(day) ? 'true' : undefined} // 수정된 부분
+              onClick={() => dayClick(day)}
+            >
               {day}
             </Day>
           ))}
@@ -91,19 +113,6 @@ const Calendar = ({ availableDates }: CalendarProps) => {
   )
 }
 
-// Example data for availableDates
-const exampleAvailableDates = [
-  { date: '2024-10-02', name: 'Event 1' },
-  { date: '2024-09-04', name: 'Event 2' },
-  { date: '2024-03-16', name: 'Event 3' },
-  { date: '2024-11-02', name: 'Event 1' },
-  { date: '2024-11-04', name: 'Event 2' },
-  { date: '2024-11-16', name: 'Event 3' },
-]
-
-const CalendarPage = () => <Calendar availableDates={exampleAvailableDates} />
-
-// Styled components
 const Wrapper = styled.div`
   width: 100vw;
   height: calc(100vh - 50px);
@@ -160,7 +169,7 @@ const DaysGrid = styled.div`
 `
 
 interface DayProps {
-  available: boolean
+  available?: string // 타입을 string으로 수정
 }
 
 const Day = styled.div<DayProps>`
@@ -170,13 +179,12 @@ const Day = styled.div<DayProps>`
   border-radius: 20px;
   font-weight: 600;
   font-size: 20px;
-  color: ${({ available }) => (available ? colors.primary.main : colors.border.subtle)};
-  cursor: ${({ available }) => (available ? 'pointer' : 'default')};
-  pointer-events: ${({ available }) => (available ? 'auto' : 'none')};
+  color: ${({ available }) => (available === 'true' ? colors.primary.main : colors.border.subtle)};
+  cursor: ${({ available }) => (available === 'true' ? 'pointer' : 'default')};
+  pointer-events: ${({ available }) => (available === 'true' ? 'auto' : 'none')};
   &:hover {
-    background-color: ${({ available }) => (available ? colors.primary.main : 'transparent')};
-    color: ${({ available }) => (available ? 'white' : colors.border.subtle)};
+    background-color: ${({ available }) =>
+      available === 'true' ? colors.primary.main : 'transparent'};
+    color: ${({ available }) => (available === 'true' ? 'white' : colors.border.subtle)};
   }
 `
-
-export default CalendarPage

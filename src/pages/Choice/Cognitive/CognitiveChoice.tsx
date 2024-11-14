@@ -9,29 +9,46 @@ import Steps from '@/components/common/Steps/Steps'
 import { CheckBox } from '@/components/features/MultipleChoice/CheckBox'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { ChartData } from '@/types/types'
+import { Chart } from '@/api/hooks/user/chart/types'
 
 export const CognitiveChoicePage = () => {
   const navigate = useNavigate()
-  const [selectedOptions, setSelectedOptions] = useState<ChartData['cognitiveManagement']>({
+  const [selectedOptions, setSelectedOptions] = useState<Chart['cognitiveManagement']>({
     cognitiveHelp: false,
-    isCompanionshipProvided: false,
+    companionshipProvided: false,
     cognitiveNote: '',
   })
 
   useEffect(() => {
-    const savedData = localStorage.getItem('cognitiveManagement')
-    if (savedData) {
-      setSelectedOptions(JSON.parse(savedData))
+    const savedChartData = localStorage.getItem('chartData')
+    if (savedChartData) {
+      const parsedData = JSON.parse(savedChartData)
+
+      setSelectedOptions((prev) => ({
+        ...prev,
+        cognitiveHelp: parsedData.cognitiveManagement?.cognitiveHelp || false,
+        companionshipProvided: parsedData.cognitiveManagement?.companionshipProvided || false,
+        cognitiveNote: parsedData.cognitiveManagement?.cognitiveNote || '',
+      }))
     }
   }, [])
 
-  const handleSelectOption = (key: keyof ChartData['cognitiveManagement'], value: any) => {
-    setSelectedOptions((prev) => {
-      const updatedOptions = { ...prev, [key]: value }
-      localStorage.setItem('cognitiveManagement', JSON.stringify(updatedOptions))
-      return updatedOptions
-    })
+  const selectOption = (key: keyof Chart['cognitiveManagement'], value: any) => {
+    const existingChartData = JSON.parse(localStorage.getItem('chartData') || '{}')
+
+    const updatedCognitiveManagement = {
+      ...existingChartData.cognitiveManagement,
+      [key]: value,
+    }
+
+    const updatedChartData = {
+      ...existingChartData,
+      cognitiveManagement: updatedCognitiveManagement,
+    }
+    localStorage.setItem('chartData', JSON.stringify(updatedChartData))
+
+    // Update the component's state
+    setSelectedOptions(updatedCognitiveManagement)
   }
 
   return (
@@ -45,14 +62,14 @@ export const CognitiveChoicePage = () => {
           icon={cognitive}
           title="인지관리 지원"
           checked={selectedOptions.cognitiveHelp}
-          onChange={() => handleSelectOption('cognitiveHelp', !selectedOptions.cognitiveHelp)}
+          onChange={() => selectOption('cognitiveHelp', !selectedOptions.cognitiveHelp)}
         />
         <CheckBox
           icon={clap}
           title="말벗 및 격려"
-          checked={selectedOptions.isCompanionshipProvided}
+          checked={selectedOptions.companionshipProvided}
           onChange={() =>
-            handleSelectOption('isCompanionshipProvided', !selectedOptions.isCompanionshipProvided)
+            selectOption('companionshipProvided', !selectedOptions.companionshipProvided)
           }
         />
       </ChoiceGrid>

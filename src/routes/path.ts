@@ -1,8 +1,8 @@
 export const RouterPath = {
   ROOT: '/',
+  LANDING: '/landing',
   HOME: '/',
   LOGIN: '/login',
-  SELECT: '/select',
   CALENDAR: '/calendar',
   RECIPIENTS: '/recipients',
   CHART: '/chart',
@@ -21,23 +21,24 @@ export const RouterPath = {
     NURSING: '/chart/choice/nursing',
     RECOVERY: '/chart/choice/recovery',
   },
-  CARE_LOG: '/careLog',
+  CARE_LOG: '/careLog/:chartId',
   CHOICE_LOG: {
-    BODY: '/careLog/choice/body',
-    COGNITIVE: '/careLog/choice/cognitive',
-    NURSING: '/careLog/choice/nursing',
-    RECOVERY: '/careLog/choice/recovery',
+    BODY: '/careLog/choice/body/:chartId',
+    COGNITIVE: '/careLog/choice/cognitive/:chartId',
+    NURSING: '/careLog/choice/nursing/:chartId',
+    RECOVERY: '/careLog/choice/recovery/:chartId',
   },
   SIGNIFICANT_LOG: {
-    BODY: '/careLog/significant/body',
-    COGNITIVE: '/careLog/significant/cognitive',
-    NURSING: '/careLog/significant/nursing',
-    RECOVERY: '/careLog/significant/recovery',
+    BODY: '/careLog/significant/body/:chartId',
+    COGNITIVE: '/careLog/significant/cognitive/:chartId',
+    NURSING: '/careLog/significant/nursing/:chartId',
+    RECOVERY: '/careLog/significant/recovery/:chartId',
   },
   SPEECH_TO_TEXT: '/speechToText',
   OCR: '/ocr',
   OCR_LOADING: '/ocr/loading',
   OCR_CHECKING: '/ocr/check',
+  MYPAGE: '/my',
   ADMIN: {
     ROOT: '/admin',
     CAREWORKER: '/admin/careWorker',
@@ -49,7 +50,6 @@ export const RouterPath = {
 }
 
 export const getDynamicPath = {
-  // theme: (themeKey: string) => RouterPath.theme.replace(':themeKey', themeKey),
   login: (redirect?: string) => {
     const currentRedirect = redirect ?? window.location.href
     return `${RouterPath.LOGIN}?redirect=${encodeURIComponent(currentRedirect)}`

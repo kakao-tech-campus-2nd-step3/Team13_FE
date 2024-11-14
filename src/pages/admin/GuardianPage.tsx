@@ -5,12 +5,11 @@ import { useDeleteGuardian } from '@/api/hooks/admin/guardian/useDeleteGuardian'
 import { useUpdateGuardian } from '@/api/hooks/admin/guardian/useUpdateGuardian'
 import { Guardian } from '@/api/hooks/admin/guardian/types'
 
-// const guardians: Guardian[] = [{ phone: '010-0000-0000', name: '이지수', isActive: true }]
-
 const columns: { key: keyof Guardian; label: string }[] = [
+  { key: 'institutionId', label: '요양원 ID' },
   { key: 'name', label: '이름' },
   { key: 'phone', label: '연락처' },
-  { key: 'isActive', label: '활성화' },
+  { key: 'loginPassword', label: '비밀번호' },
 ]
 
 export const GuardianPage = () => {
@@ -33,6 +32,8 @@ export const GuardianPage = () => {
         const { id: guardianId, ...updatedData } = updatedRow
         updateGuardian({ guardianId, updatedData })
       }}
+      downloadUrl="/v1/excel/guardian/download"
+      uploadUrl="/v1/excel/guardian/upload"
     />
   )
 }

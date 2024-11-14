@@ -7,7 +7,7 @@ import recording from '@/assets/icons/recording.svg'
 import pencil from '@/assets/icons/pencil.svg'
 import cameraLineIcon from '@/assets/icons/camera_line.svg'
 import galleryLineIcon from '@/assets/icons/gallery_line.svg'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 interface Props {
@@ -28,15 +28,27 @@ export const ChartPage = () => {
     }
   }
 
-  const handleCamera = () => {}
 
-  const handleRecord = () => {
+  const navigateToCamera = () => {}
+
+  const navigateToRecord = () => {
     navigate('/chart/audioRecord')
   }
 
-  const handleDIY = () => {
+  const navigateToDIY = () => {
     navigate('/chart/choice/body')
   }
+
+  useEffect(() => {
+    localStorage.removeItem('bodyManagement')
+    localStorage.removeItem('physicalNote')
+    localStorage.removeItem('cognitiveManagement')
+    localStorage.removeItem('cognitiveNote')
+    localStorage.removeItem('nursingManagement')
+    localStorage.removeItem('healthNote')
+    localStorage.removeItem('recoveryTraining')
+    localStorage.removeItem('recoveryNote')
+  })
 
   return (
     <Wrapper>
@@ -50,7 +62,7 @@ export const ChartPage = () => {
         }}
       >
         <TextBody.Large style={{ color: colors.text.subtle }}>
-          오늘 김쿠키님의 상태는 어땠나요?
+          오늘 {localStorage.getItem('recipientName')}님의 상태는 어땠나요?
         </TextBody.Large>
         <Heading.Medium>간편하게 차트를 작성해 보아요!</Heading.Medium>
       </div>
@@ -65,13 +77,13 @@ export const ChartPage = () => {
           icon={recording}
           title="음성 녹음"
           sub="작성할 내용을 녹음해주세요."
-          onClick={handleRecord}
+          onClick={navigateToRecord}
         ></ChartBlock>
         <ChartBlock
           icon={pencil}
           title="직접 입력"
           sub="작성할 내용을 직접 입력해주세요."
-          onClick={handleDIY}
+          onClick={navigateToDIY}
         ></ChartBlock>
       </div>
       {showPopup && (
