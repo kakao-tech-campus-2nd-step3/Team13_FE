@@ -19,7 +19,6 @@ const initInstance = (config: AxiosRequestConfig): AxiosInstance => {
   instance.interceptors.request.use(
     async (config) => {
       let accessToken = localStorage.getItem('accessToken')
-
       if (accessToken && !tokenIsExpired(accessToken)) {
         config.headers['Authorization'] = `Bearer ${accessToken}`
         return config
@@ -30,10 +29,8 @@ const initInstance = (config: AxiosRequestConfig): AxiosInstance => {
 
         try {
           const newToken = await renewTokens()
-
-          accessToken = newToken
-          localStorage.setItem('accessToken', accessToken)
-          pendingRequests.forEach((callback) => callback(accessToken!))
+          localStorage.setItem('accessToken', newToken)
+          pendingRequests.forEach((callback) => callback(newToken))
           pendingRequests = []
         } catch (error) {
           pendingRequests = []

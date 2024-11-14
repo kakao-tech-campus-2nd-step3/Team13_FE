@@ -60,7 +60,7 @@ function HeroSection({ id }: { id?: string }) {
               </TextBody.MLarge>
               <Button
                 theme="white"
-                onClick={() => navigate('/')}
+                onClick={() => navigate('/role')}
                 css={{
                   marginTop: '15px',
                   borderRadius: '40px',

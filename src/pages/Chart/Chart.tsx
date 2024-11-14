@@ -21,20 +21,24 @@ export const ChartPage = () => {
   const [showPopup, setShowPopup] = useState(false)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const navigate = useNavigate()
-
+  localStorage.removeItem('chartType')
   const handleFileSelect = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click()
     }
   }
 
-  const navigateToCamera = () => {}
+  const navigateToCamera = () => {
+    localStorage.setItem('chartType', 'ocr')
+  }
 
   const navigateToRecord = () => {
-    navigate('/chart/audioRecord')
+    localStorage.setItem('chartType', 'record')
+    navigate('/chart/choice/body')
   }
 
   const navigateToDIY = () => {
+    localStorage.setItem('chartType', 'DIY')
     navigate('/chart/choice/body')
   }
 
@@ -87,11 +91,11 @@ export const ChartPage = () => {
       {showPopup && (
         <PopupOverlay onClick={() => setShowPopup(false)}>
           <PopupContent onClick={(e) => e.stopPropagation()} className="slide-up">
-            <Option>
+            <Option onClick={() => navigate('/camera')}>
               <img src={cameraLineIcon} alt="camera" />
               <Paragraph.Large>사진 촬영</Paragraph.Large>
             </Option>
-            <Option onClick={handleFileSelect}>
+            <Option onClick={() => navigate('/ocr')}>
               <img src={galleryLineIcon} alt="gallery" />
               <Paragraph.Large>갤러리에서 선택</Paragraph.Large>
               <input type="file" ref={fileInputRef} style={{ display: 'none' }} />

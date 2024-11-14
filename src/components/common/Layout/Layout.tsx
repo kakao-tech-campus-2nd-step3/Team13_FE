@@ -23,11 +23,21 @@ export const LayoutWithoutMyPage = () => (
     </Wrapper>
   </WrapperBody>
 )
+export const LayoutWithoutBack = () => (
+  <WrapperBody>
+    <Wrapper>
+      <Back back={false} />
+      <InnerWrapper>
+        <Outlet />
+      </InnerWrapper>
+    </Wrapper>
+  </WrapperBody>
+)
 
 export const AdminLayout = () => (
   <AdminWrapperBody>
     <AdminWrapper>
-      <Back myPage={false} />
+      <Back myPage={false} logout={true} />
       <InnerWrapper>
         <Outlet />
       </InnerWrapper>
@@ -41,7 +51,7 @@ const WrapperBody = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 100vh;
   width: 100vw;
   box-sizing: border-box;
 `
@@ -72,7 +82,6 @@ const AdminWrapperBody = styled.div`
 const AdminWrapper = styled.div`
   width: 100%;
   min-height: 100vh;
-  padding-top: 15px;
   position: relative;
 `
 const InnerWrapper = styled.div`
