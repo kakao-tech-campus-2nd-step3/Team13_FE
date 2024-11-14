@@ -2,10 +2,13 @@ import { colors } from '@/styles/colors/colors'
 import styled from '@emotion/styled'
 
 export const Container = styled.div`
-  padding: 20px;
+  padding: 0 20px;
   display: flex;
+  width: 100%;
+  height: calc(100vh - 50px);
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
 `
 
 export const Header = styled.div`
@@ -13,6 +16,7 @@ export const Header = styled.div`
   justify-content: center;
   align-items: center;
   padding: 10px 0;
+  box-sizing: border-box;
   font-size: 24px;
   font-weight: bold;
 `
@@ -22,10 +26,12 @@ export const ProfileSection = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
+  box-sizing: border-box;
 `
 
 export const ProfileName = styled.h2`
   margin-top: 12px;
+
   font-size: 20px;
   font-weight: bold;
 `
@@ -40,6 +46,7 @@ export const LogOut = styled.p`
 
 export const InfoSection = styled.div`
   width: 90%;
+
   margin-top: 32px;
   padding: 4px 16px;
   // background-color: ${colors.primary.mainOpacity15};
@@ -49,6 +56,7 @@ export const InfoSection = styled.div`
 
 export const InfoItem = styled.div`
   display: flex;
+
   justify-content: space-between;
   align-items: center;
   padding: 16px 0;

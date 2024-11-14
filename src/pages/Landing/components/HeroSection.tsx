@@ -97,7 +97,7 @@ function HeroSection({ id }: { id?: string }) {
           </ButtonContainer>
           {isModalOpen && (
             <Modal onClose={closeModal}>
-              <Heading.Medium>Contact Us !</Heading.Medium>
+              <Heading.Medium>Contact us !</Heading.Medium>
               <TextBody.Large>e-mail: halfmoonjy99@gmail.com</TextBody.Large>
             </Modal>
           )}

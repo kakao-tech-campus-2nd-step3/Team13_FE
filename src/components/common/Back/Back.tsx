@@ -16,7 +16,7 @@ function Back() {
     <div
       onClick={handleGoBack}
       style={{
-        width: '100vw',
+        width: '100%',
         paddingLeft: '15px',
         position: 'relative',
         boxSizing: 'border-box',

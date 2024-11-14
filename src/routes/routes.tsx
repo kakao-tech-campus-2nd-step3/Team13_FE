@@ -10,7 +10,7 @@ import { SpeechToTextPage } from '@/pages/SpeechToText/SpeechToText'
 import { OCRPage } from '@/pages/OCR/OCR'
 import { LoginPage } from '@/pages/Login/Login'
 import { RecipientsPage } from '@/pages/Recipients/Recipients'
-import { Layout } from '@/components/common/Layout/Layout'
+import { AdminLayout, Layout } from '@/components/common/Layout/Layout'
 import { SignificantPage } from '@/pages/Significant/Significant'
 import { OCRCheckPage } from '@/pages/OCR/OCRCheck/OCRCheck'
 import { SharePage } from '@/pages/Share/Share'
@@ -143,12 +143,19 @@ const router = createBrowserRouter([
       { path: RouterPath.OCR_CHECKING, element: <OCRCheckPage /> },
       { path: RouterPath.MYPAGE, element: <MyPage /> },
 
-      // Admin Routes
+      { path: RouterPath.NOT_FOUND, element: <HomePage /> },
+    ],
+  },
+
+  // Admin Routes
+  {
+    path: RouterPath.ROOT,
+    element: <AdminLayout />,
+    children: [
       { path: RouterPath.ADMIN.CAREWORKER, element: <CareWorkerPage /> },
       { path: RouterPath.ADMIN.GUARDIAN, element: <GuardianPage /> },
       { path: RouterPath.ADMIN.INSTITUTION, element: <InstitutionPage /> },
       { path: RouterPath.ADMIN.RECIPIENT, element: <RecipientPage /> },
-      { path: RouterPath.NOT_FOUND, element: <HomePage /> },
     ],
   },
 ])

@@ -118,10 +118,6 @@ const Wrapper = styled.div`
   padding: 0 23px;
 `
 
-const DateWrapper = styled.div`
-  width: 100%;
-`
-
 const ChoiceGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);

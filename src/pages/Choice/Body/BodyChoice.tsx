@@ -232,7 +232,8 @@ const ButtonWrapper = styled.div`
 const ListWrapper = styled.div.withConfig({
   shouldForwardProp: (prop) => !['isScrolled'].includes(prop),
 })<ListWrapperProps>`
-  width: 100vw;
+  width: 100%;
+
   display: flex;
   justify-content: flex-start;
   align-items: center;
