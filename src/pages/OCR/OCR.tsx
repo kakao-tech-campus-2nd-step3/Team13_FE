@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useSaveImageUrl } from '@/api/hooks/user/OCR/useSaveImageUrl'
 import { usePerformOCR } from '@/api/hooks/user/OCR/usePerformOCR'
 import { fetchInstance } from '@/api/instance/instance'
+import { OCRTable } from './OCRTable/OCRTable'
+import { parseData } from '@/utils/dataParser'
 
 export const OCRPage = () => {
   const [imageFile, setImageFile] = useState<File | null>(null)
@@ -47,12 +49,7 @@ export const OCRPage = () => {
       <input type="file" accept="image/*" onChange={handleFileChange} />
       <button onClick={handleOCRRequest}>OCR 요청</button>
 
-      {ocrResult && (
-        <div>
-          <h3>분석 결과:</h3>
-          <pre>{JSON.stringify(ocrResult, null, 2)}</pre>
-        </div>
-      )}
+      {ocrResult && <OCRTable data={parseData(ocrResult)} />}
     </div>
   )
 }
