@@ -1,22 +1,57 @@
 export const RouterPath = {
-  root: '/',
-  home: '/',
-  login: '/login',
-  recipients: '/recipients',
-  chart: '/chart',
-  DIY: '/chart/DIY',
-  camera: '/camera',
-  audioRecord: '/audioRecord',
-  careLog: '/careLog',
-  speechToText: '/speechToText',
-  ocr: '/ocr',
-  notFound: '*',
+  ROOT: '/',
+  LANDING: '/landing',
+  HOME: '/',
+  LOGIN: '/login',
+  CALENDAR: '/calendar',
+  RECIPIENTS: '/recipients',
+  CHART: '/chart',
+  SHARE: '/share',
+  CAMERA: '/camera',
+  AUDIO_RECORD: '/chart/audioRecord',
+  SIGNIFICANT: {
+    BODY: '/chart/significant/body',
+    COGNITIVE: '/chart/significant/cognitive',
+    NURSING: '/chart/significant/nursing',
+    RECOVERY: '/chart/significant/recovery',
+  },
+  CHOICE: {
+    BODY: '/chart/choice/body',
+    COGNITIVE: '/chart/choice/cognitive',
+    NURSING: '/chart/choice/nursing',
+    RECOVERY: '/chart/choice/recovery',
+  },
+  CARE_LOG: '/careLog/:chartId',
+  CHOICE_LOG: {
+    BODY: '/careLog/choice/body/:chartId',
+    COGNITIVE: '/careLog/choice/cognitive/:chartId',
+    NURSING: '/careLog/choice/nursing/:chartId',
+    RECOVERY: '/careLog/choice/recovery/:chartId',
+  },
+  SIGNIFICANT_LOG: {
+    BODY: '/careLog/significant/body/:chartId',
+    COGNITIVE: '/careLog/significant/cognitive/:chartId',
+    NURSING: '/careLog/significant/nursing/:chartId',
+    RECOVERY: '/careLog/significant/recovery/:chartId',
+  },
+  SPEECH_TO_TEXT: '/speechToText',
+  OCR: '/ocr',
+  OCR_LOADING: '/ocr/loading',
+  OCR_CHECKING: '/ocr/check',
+  MYPAGE: '/my',
+  ADMIN: {
+    ROOT: '/admin',
+    CAREWORKER: '/admin/careWorker',
+    GUARDIAN: '/admin/guardian',
+    INSTITUTION: '/admin/institution',
+    RECIPIENT: '/admin/recipient',
+  },
+  NOT_FOUND: '*',
 }
 
 export const getDynamicPath = {
-  // theme: (themeKey: string) => RouterPath.theme.replace(':themeKey', themeKey),
   login: (redirect?: string) => {
     const currentRedirect = redirect ?? window.location.href
-    return `${RouterPath.login}?redirect=${encodeURIComponent(currentRedirect)}`
+    return `${RouterPath.LOGIN}?redirect=${encodeURIComponent(currentRedirect)}`
   },
 }

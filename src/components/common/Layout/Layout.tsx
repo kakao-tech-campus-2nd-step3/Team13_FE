@@ -1,0 +1,30 @@
+import Back from '../Back/Back'
+import styled from '@emotion/styled'
+import { Outlet } from 'react-router-dom'
+
+export const Layout = () => (
+  <Wrapper>
+    <Back />
+    <InnerWrapper>
+      <Outlet />
+    </InnerWrapper>
+  </Wrapper>
+)
+
+const Wrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  padding-top: 15px;
+  box-sizing: border-box;
+  position: relative;
+`
+
+const InnerWrapper = styled.div`
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-top: 50px;
+  box-sizing: border-box;
+`
