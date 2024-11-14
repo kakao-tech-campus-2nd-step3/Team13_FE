@@ -23,6 +23,7 @@ const noteFieldMap: { [key: string]: string[] } = {
 
 export const SignificantPage = ({ step, title, navigateTo }: DIYProps) => {
   const navigate = useNavigate()
+  const [loading, setLoading] = useState<boolean>(false)
   const [note, setNote] = useState<string>('')
   const state = localStorage.getItem('state')
 
@@ -53,10 +54,17 @@ export const SignificantPage = ({ step, title, navigateTo }: DIYProps) => {
     if (step === 4) {
       const confirmSave = window.confirm('차트를 저장하시겠습니까?')
       if (confirmSave) {
-        if (state === 'post') {
-          await submitChartData()
-        } else if (state === 'put') {
-          await updateChartData(Number(localStorage.getItem('chartId')))
+        setLoading(true)
+        try {
+          if (state === 'post') {
+            await submitChartData()
+          } else if (state === 'put') {
+            await updateChartData(Number(localStorage.getItem('chartId')))
+          }
+        } catch (error) {
+          console.error('Error saving chart:', error)
+        } finally {
+          setLoading(false)
         }
       }
       navigate('/recipients')
@@ -82,15 +90,16 @@ export const SignificantPage = ({ step, title, navigateTo }: DIYProps) => {
         onChange={(e) => setNote(e.target.value)}
       />
       <Button
-        theme="dark"
+        theme={loading ? 'gray' : 'dark'}
         onClick={confirmClick}
+        disabled={loading}
         css={{
           margin: '26px 0',
           width: '100%',
           height: '62px',
         }}
       >
-        확인
+        {loading ? '저장 중...' : '확인'}
       </Button>
     </Wrapper>
   )
