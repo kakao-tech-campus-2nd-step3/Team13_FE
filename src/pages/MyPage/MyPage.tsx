@@ -8,24 +8,40 @@ import { useLogout } from '@/api/hooks/common/useLogout'
 import { useUserInfo } from '@/api/hooks/user/my/useUserInfo'
 
 export const MyPage = () => {
-  const { data, isLoading, isError } = useUserInfo()
-
+  const { data, isLoading, isError, updateUserInfo } = useUserInfo()
   const logout = useLogout()
+
+  const role = localStorage.getItem('role') || 'careworker'
 
   const [alarmTime, setAlarmTime] = useState(data?.alertTime || '')
   const [smsSubscription, setSmsSubscription] = useState(data?.smsSubscription || false)
   const [lineSubscription, setLineSubscription] = useState(data?.lineSubscription || false)
+  const [workingDays, setWorkingDays] = useState<string[]>([])
 
   useEffect(() => {
     if (data) {
       setAlarmTime(data.alertTime || '')
       setSmsSubscription(data.smsSubscription || false)
       setLineSubscription(data.lineSubscription || false)
+      if (role === 'careworker' && 'workingDays' in data) {
+        setWorkingDays(data.workingDays || [])
+      }
     }
-  }, [data])
+  }, [data, role])
 
   const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAlarmTime(e.target.value)
+  }
+
+  const handleUpdate = () => {
+    const updatedData = {
+      alertTime: alarmTime,
+      smsSubscription,
+      lineSubscription,
+      ...(role === 'careworker' && { workingDays }),
+    }
+
+    updateUserInfo(updatedData)
   }
 
   if (isLoading) return <p>Loading...</p>
@@ -44,11 +60,9 @@ export const MyPage = () => {
       <S.InfoSection>
         <S.InfoItem>
           <S.Label>역할</S.Label>
-          <S.Value>
-            {localStorage.getItem('role') === 'careworker' ? '요양보호사' : '보호자'}
-          </S.Value>
+          <S.Value>{role === 'careworker' ? '요양보호사' : '보호자'}</S.Value>
         </S.InfoItem>
-        {localStorage.getItem('role') === 'careworker' && data && (
+        {role === 'careworker' && data && (
           <>
             <S.InfoItem>
               <S.Label>소속</S.Label>
@@ -97,7 +111,7 @@ export const MyPage = () => {
           </S.Value>
         </S.InfoItem>
       </S.InfoSection>
-      <Button theme="dark" width="300px" margin="40px">
+      <Button theme="dark" width="300px" margin="40px" onClick={handleUpdate}>
         수정
       </Button>
     </S.Container>
