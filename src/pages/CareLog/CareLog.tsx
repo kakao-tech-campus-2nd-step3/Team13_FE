@@ -209,6 +209,7 @@ const LogWrapper = styled.div.withConfig({
   shouldForwardProp: (prop) => !['isScrolled'].includes(prop),
 })<LogWrapperProps>`
   width: 100%;
+  height: 400px;
   display: flex;
   justify-content: flex-start;
   align-items: start;
