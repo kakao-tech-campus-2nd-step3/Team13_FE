@@ -3,10 +3,10 @@ interface SectionData {
 }
 
 interface DataStructure {
-  physicalActivitySupport: SectionData
-  cognitiveManagementAndCommunication: SectionData
-  healthAndNursingCare: SectionData
-  functionalRecoveryTraining: SectionData
+  bodyManagement: SectionData
+  cognitiveManagement: SectionData
+  nursingManagement: SectionData
+  recoveryTraining: SectionData
 }
 
 const toggleYesNo = (value: string): string => {
@@ -27,10 +27,10 @@ const getRemainingIntakeAmounts = (selectedAmount1: string, selectedAmount2: str
 
 export const transformData = (data: DataStructure): DataStructure => {
   const transformedData: DataStructure = {
-    physicalActivitySupport: {},
-    cognitiveManagementAndCommunication: {},
-    healthAndNursingCare: {},
-    functionalRecoveryTraining: {},
+    bodyManagement: {},
+    cognitiveManagement: {},
+    nursingManagement: {},
+    recoveryTraining: {},
   }
 
   for (const sectionKey in data) {

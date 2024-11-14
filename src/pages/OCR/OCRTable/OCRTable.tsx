@@ -6,10 +6,10 @@ interface Section {
 }
 
 interface Data {
-  physicalActivitySupport: Section
-  cognitiveManagementAndCommunication: Section
-  healthAndNursingCare: Section
-  functionalRecoveryTraining: Section
+  bodyManagement: Section
+  cognitiveManagement: Section
+  nursingManagement: Section
+  recoveryTraining: Section
 }
 
 export const OCRTable: React.FC<{ data: Data }> = ({ data }) => {
