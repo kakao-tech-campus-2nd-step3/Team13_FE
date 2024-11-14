@@ -13,9 +13,13 @@ export const OCRPage = () => {
   const [isOCRReady, setIsOCRReady] = useState(false)
 
   const saveImageUrlMutation = useSaveImageUrl()
-  const { data: ocrResult, isLoading } = usePerformOCR(objectKey || '', '8', {
-    enabled: isOCRReady && !!objectKey,
-  }) // TODO: id 수정
+  const { data: ocrResult, isLoading } = usePerformOCR(
+    objectKey || '',
+    localStorage.getItem('recipientId')!,
+    {
+      enabled: isOCRReady && !!objectKey,
+    },
+  ) // TODO: id 수정
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {

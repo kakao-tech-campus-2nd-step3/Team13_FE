@@ -7,7 +7,6 @@ export const RouterPath = {
   CALENDAR: '/calendar',
   RECIPIENTS: '/recipients',
   CHART: '/chart',
-  SHARE: '/share',
   CAMERA: '/camera',
   AUDIO_RECORD: {
     BODY: '/chart/audioRecord/body',
@@ -46,7 +45,6 @@ export const RouterPath = {
     NURSING: '/careLog/significant/nursing/:chartId',
     RECOVERY: '/careLog/significant/recovery/:chartId',
   },
-  SPEECH_TO_TEXT: '/speechToText',
   OCR: '/ocr',
   OCR_LOADING: '/ocr/loading',
   OCR_CHECKING: '/ocr/check',

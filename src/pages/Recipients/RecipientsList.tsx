@@ -69,7 +69,7 @@ export const RecipientsList = ({
         localStorage.setItem('recipientId', recipientId.toString())
         localStorage.setItem('recipientName', name)
         localStorage.setItem('recipientBirthday', birthday)
-        navigate('/share')
+        navigate('/chart')
       }
     } catch (error) {
       console.error('Error fetching chart data:', error)
@@ -119,7 +119,6 @@ export const RecipientsList = ({
               handleNewChartClick()
             }}
           />
-
           <img
             src={chartList}
             alt="chart list"
