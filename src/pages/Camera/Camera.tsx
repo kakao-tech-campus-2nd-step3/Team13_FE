@@ -4,25 +4,28 @@ import takePicture from '@/assets/icons/take_picture.svg'
 import downloadPicture from '@/assets/icons/download_picture.svg'
 import leftRightSwitch from '@/assets/icons/switch.svg'
 import { colors } from '@/styles/colors/colors'
+import fetchInstance from '@/api/instance/instance'
+import { useSaveImageUrl } from '@/api/hooks/user/OCR/useSaveImageUrl'
 
 export const CameraPage = () => {
   const videoRef = useRef<HTMLVideoElement>(null) as MutableRefObject<HTMLVideoElement>
   const [isCaptured, setIsCaptured] = useState(false)
   const [isFlipped, setIsFlipped] = useState(false)
+  const [objectKey, setObjectKey] = useState<string | null>(null)
+  const saveImageUrlMutation = useSaveImageUrl()
 
   const pauseVideo = () => {
     videoRef.current.pause()
     setIsCaptured(true)
   }
 
-  const saveImage = () => {
+  const saveImage = async () => {
     const canvas = document.createElement('canvas')
     canvas.width = videoRef.current.videoWidth
     canvas.height = videoRef.current.videoHeight
-
     const context = canvas.getContext('2d')
 
-    if (context != null) {
+    if (context) {
       if (isFlipped) {
         context.translate(canvas.width, 0)
         context.scale(-1, 1)
@@ -31,20 +34,46 @@ export const CameraPage = () => {
     }
 
     const dataUrl = canvas.toDataURL('image/png')
-
-    downloadUrl(dataUrl)
+    const file = dataURLtoFile(dataUrl, 'captured_image.png')
+    setObjectKey(`${Date.now()}`)
+    handleOCRRequest(file)
   }
 
-  const downloadUrl = (url: string, name?: string) => {
-    const ae = document.createElement('a')
-    const fileName = name || Date.now().toString()
+  // Helper function to convert data URL to File
+  const dataURLtoFile = (dataUrl: string, filename: string): File => {
+    const arr = dataUrl.split(',')
+    const mime = arr[0].match(/:(.*?);/)![1]
+    const bstr = atob(arr[1])
+    let n = bstr.length
+    const u8arr = new Uint8Array(n)
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n)
+    }
+    return new File([u8arr], filename, { type: mime })
+  }
 
-    ae.href = url
-    ae.download = fileName + '.png'
+  const handleOCRRequest = async (file: File) => {
+    if (!file || !objectKey) return
 
-    document.body.appendChild(ae)
-    ae.click()
-    document.body.removeChild(ae)
+    const formData = new FormData()
+    formData.append('file', file)
+
+    try {
+      await fetchInstance.post(`/v1/s3/chart/test-upload?objectKey=${objectKey}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+
+      await saveImageUrlMutation.mutateAsync(objectKey)
+      alert('OCR 요청이 성공적으로 전송되었습니다.')
+    } catch (error) {
+      console.error('OCR 요청 중 오류가 발생했습니다:', error)
+    }
+  }
+
+  const toggleFlip = () => {
+    setIsFlipped(!isFlipped)
   }
 
   useEffect(() => {
@@ -62,10 +91,6 @@ export const CameraPage = () => {
         alert(error)
       })
   }, [])
-
-  const toggleFlip = () => {
-    setIsFlipped(!isFlipped)
-  }
 
   return (
     <Wrapper>
@@ -92,7 +117,7 @@ export const CameraPage = () => {
             </StyledButton>
           ) : (
             <StyledButton onClick={saveImage}>
-              <img src={downloadPicture} alt="다운로드" />
+              <img src={downloadPicture} alt="OCR 요청" />
             </StyledButton>
           )}
         </CenterButton>
