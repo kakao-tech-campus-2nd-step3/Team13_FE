@@ -54,7 +54,7 @@ export const RecipientsPage = () => {
 }
 
 const Wrapper = styled.div`
-  width: 100vw;
+  width: 100%;
   height: calc(100vh - 50px);
   display: flex;
   justify-content: start;
@@ -67,7 +67,7 @@ const Wrapper = styled.div`
 const ListWrapper = styled.div.withConfig({
   shouldForwardProp: (prop) => !['isScrolled'].includes(prop),
 })<ListWrapperProps>`
-  width: 100vw;
+  width: 100%;
   height: calc(100vh - 200px);
   margin-top: 10px;
   display: flex;
@@ -77,7 +77,6 @@ const ListWrapper = styled.div.withConfig({
   box-sizing: border-box;
   overflow-y: auto;
   flex-grow: 1;
-  padding: 0 28px;
 
   box-shadow: ${({ isScrolled }) =>
     isScrolled ? 'inset 0 10px 10px -10px rgba(0, 0, 0, 0.2)' : 'none'};

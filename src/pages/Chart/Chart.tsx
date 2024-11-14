@@ -28,7 +28,6 @@ export const ChartPage = () => {
     }
   }
 
-
   const navigateToCamera = () => {}
 
   const navigateToRecord = () => {
@@ -56,8 +55,7 @@ export const ChartPage = () => {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          height: '50px',
-          justifyContent: 'space-between',
+          gap: '10px',
           marginBottom: '44px',
         }}
       >

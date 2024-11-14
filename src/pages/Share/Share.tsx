@@ -35,8 +35,7 @@ export const SharePage = () => {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          height: '50px',
-          justifyContent: 'space-between',
+          gap: '10px',
           marginBottom: '44px',
         }}
       >
@@ -84,7 +83,9 @@ const ShareSquare = ({ icon, title, sub, onClick, children }: Props) => {
         }}
       >
         <Heading.Small>{title}</Heading.Small>
-        <TextBody.Large style={{ padding: '0 10px', color: colors.text.subtle }}>
+        <TextBody.Large
+          style={{ padding: '0 10px', boxSizing: 'border-box', color: colors.text.subtle }}
+        >
           {sub}
         </TextBody.Large>
       </div>
@@ -107,6 +108,7 @@ const Wrapper = styled.div`
 const SquareWrapper = styled.div`
   border: 2px dashed ${colors.border.subtle};
   border-radius: 8px;
+  box-sizing: border-box;
   height: 180px;
   width: 100%;
   gap: 19px;
@@ -114,11 +116,12 @@ const SquareWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  cursor: pointer; /* 클릭할 수 있도록 커서 스타일 추가 */
+  cursor: pointer;
 `
 
 const ButtonWrapper = styled.div`
   width: 100%;
+  max-width: 600px;
   padding: 0 23px 26px 23px;
   box-sizing: border-box;
   position: fixed;

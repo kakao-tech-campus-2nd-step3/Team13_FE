@@ -53,7 +53,7 @@ export const WriteBox = ({
               placeholder={placeholderFirst}
               onFocus={(e) => (e.target.placeholder = '')}
               onBlur={(e) => (e.target.placeholder = placeholderFirst)}
-              width="20%"
+              width="25%"
             />
             <Separator>/</Separator>
             <StyledInput
@@ -63,7 +63,7 @@ export const WriteBox = ({
               placeholder={placeholderSecond}
               onFocus={(e) => (e.target.placeholder = '')}
               onBlur={(e) => (e.target.placeholder = placeholderSecond)}
-              width="20%"
+              width="25%"
             />
             <UnitText>{unit}</UnitText>
           </>

@@ -169,6 +169,7 @@ export const BodyChoiceLogPage = () => {
 
 const Wrapper = styled.div`
   height: 100%;
+  width: 100%;
   display: flex;
   justify-content: start;
   align-items: start;
@@ -203,12 +204,12 @@ const ButtonWrapper = styled.div`
   width: 100%;
   padding: 0 0 26px 0;
   box-sizing: border-box;
-  margin-top: auto; /* 항상 하단에 위치 */
+  margin-top: auto;
 `
 const ListWrapper = styled.div.withConfig({
   shouldForwardProp: (prop) => !['isScrolled'].includes(prop),
 })<ListWrapperProps>`
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;

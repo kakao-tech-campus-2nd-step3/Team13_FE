@@ -14,15 +14,17 @@ interface RoleProps {
 
 export const HomePage = () => {
   return (
-    <Wrapper>
-      <LogoWrapper>
-        <img src={logo} alt="logo" style={{ width: '140px' }} />
-      </LogoWrapper>
-      <RoleButton title="요양보호사" role="careworker" isBlue={false} />
-      <RoleButton title="보호자" role="guardian" isBlue={true} />
-      <RoleButton title="요양원" role="institution" isBlue={false} />
-      <RoleButton title="관리자" role="admin" isBlue={true} />
-    </Wrapper>
+    <WrapperBody>
+      <Wrapper>
+        <LogoWrapper>
+          <img src={logo} alt="logo" style={{ width: '140px' }} />
+        </LogoWrapper>
+        <RoleButton title="요양보호사" role="careworker" isBlue={true} />
+        <RoleButton title="보호자" role="guardian" isBlue={true} />
+        <RoleButton title="요양원" role="institution" isBlue={false} />
+        <RoleButton title="관리자" role="admin" isBlue={false} />
+      </Wrapper>
+    </WrapperBody>
   )
 }
 
@@ -44,9 +46,21 @@ const RoleButton = ({ title, role, isBlue }: RoleProps) => {
   )
 }
 
+const WrapperBody = styled.div`
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+`
+
 const Wrapper = styled.div`
-  width: 100vw;
-  height: calc(100vh - 50px);
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,6 +68,11 @@ const Wrapper = styled.div`
   padding: 0 25px;
   box-sizing: border-box;
   gap: 33px;
+  @media (max-width: 600px) {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+  }
 `
 
 const LogoWrapper = styled.div`
