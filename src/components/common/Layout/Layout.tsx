@@ -27,7 +27,7 @@ export const LayoutWithoutMyPage = () => (
 export const AdminLayout = () => (
   <AdminWrapperBody>
     <AdminWrapper>
-      <Back myPage={false} />
+      <Back myPage={false} logout={true} />
       <InnerWrapper>
         <Outlet />
       </InnerWrapper>
@@ -72,7 +72,6 @@ const AdminWrapperBody = styled.div`
 const AdminWrapper = styled.div`
   width: 100%;
   min-height: 100vh;
-  padding-top: 15px;
   position: relative;
 `
 const InnerWrapper = styled.div`
