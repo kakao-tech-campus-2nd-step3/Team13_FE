@@ -51,8 +51,9 @@ export const CalendarPage = () => {
       if (clickedDate) {
         const newSelectedDate = `${selectedYear}.${String(selectedMonth).padStart(2, '0')}.${String(day).padStart(2, '0')}`
         setSelectedDate(newSelectedDate)
+        localStorage.setItem('selectedDate', newSelectedDate)
         navigate(`/careLog/${clickedDate.chartId}`, {
-          state: { name, birthday, selectedDate: newSelectedDate },
+          state: { name, birthday },
         })
       }
     }
@@ -101,7 +102,7 @@ export const CalendarPage = () => {
       </CalendarWrapper>
       <Footer>
         <div
-          style={{ borderBottom: `1px solid  ${colors.text.subtle}` }}
+          style={{ borderBottom: `1px solid  ${colors.text.subtle}`, cursor: 'pointer' }}
           onClick={() => navigate('/recipients')}
         >
           <TextBody.Large style={{ color: `${colors.text.subtle}` }}>

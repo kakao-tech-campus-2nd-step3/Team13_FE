@@ -25,8 +25,7 @@ interface ListWrapperProps {
 
 export const BodyChoiceLogPage = () => {
   const navigate = useNavigate()
-  const location = useLocation()
-  const { selectedDate } = location.state || {}
+  const selectedDate = localStorage.getItem('selectedDate')
   const { chartId } = useParams<{ chartId: string }>()
   const [detailLog, setDetailLog] = useState<Chart | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -156,7 +155,7 @@ export const BodyChoiceLogPage = () => {
               height: '62px',
             }}
             onClick={() => {
-              navigate(`/careLog/significant/body/${chartId}`, { state: { selectedDate } })
+              navigate(`/careLog/significant/body/${chartId}`)
             }}
           >
             확인

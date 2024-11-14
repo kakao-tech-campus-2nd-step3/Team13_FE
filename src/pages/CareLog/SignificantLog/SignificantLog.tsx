@@ -28,8 +28,7 @@ function getNestedValue<T, K1 extends keyof T>(obj: T, path: [K1, string]): any 
 }
 export const SignificantLogPage = ({ step, title, navigateTo }: DIYProps) => {
   const navigate = useNavigate()
-  const location = useLocation()
-  const { selectedDate } = location.state || {}
+  const selectedDate = localStorage.getItem('selectedDate')
   const { chartId } = useParams<{ chartId: string }>()
   const [detailLog, setDetailLog] = useState<Chart | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -103,9 +102,7 @@ export const SignificantLogPage = ({ step, title, navigateTo }: DIYProps) => {
         margin="26px 0"
         width="100%"
         height="62px"
-        onClick={() =>
-          navigate(`${navigateTo.replace(':chartId', chartId!)}`, { state: { selectedDate } })
-        }
+        onClick={() => navigate(`${navigateTo.replace(':chartId', chartId!)}`)}
       >
         확인
       </Button>

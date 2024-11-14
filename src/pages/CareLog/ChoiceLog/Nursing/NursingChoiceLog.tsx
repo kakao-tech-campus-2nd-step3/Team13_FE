@@ -1,4 +1,3 @@
-import Date from '@/components/common/Date/Date'
 import styled from 'styled-components'
 import waterDrop from '@/assets/icons/water_drop.svg'
 import temperature from '@/assets/icons/temperature.svg'
@@ -20,8 +19,7 @@ import { getDetailLogData } from '@/api/hooks/chart/useGetChart'
 
 export const NursingChoiceLogPage = () => {
   const navigate = useNavigate()
-  const location = useLocation()
-  const { selectedDate } = location.state || {}
+  const selectedDate = localStorage.getItem('selectedDate')
   const { chartId } = useParams<{ chartId: string }>()
   const [detailLog, setDetailLog] = useState<Chart | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -119,7 +117,7 @@ export const NursingChoiceLogPage = () => {
             height: '62px',
           }}
           onClick={() => {
-            navigate(`/careLog/significant/nursing/${chartId}`, { state: { selectedDate } })
+            navigate(`/careLog/significant/nursing/${chartId}`)
           }}
         >
           확인

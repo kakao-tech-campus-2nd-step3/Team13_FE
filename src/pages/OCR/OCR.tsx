@@ -19,7 +19,7 @@ export const OCRPage = () => {
     {
       enabled: isOCRReady && !!objectKey,
     },
-  ) // TODO: id 수정
+  )
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
