@@ -4,6 +4,7 @@ export default {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '\\.(css|less|sass|scss)$': 'jest-transform-css',
+    '\\.svg$': '<rootDir>/__mocks__/svgMock.js',
   },
   setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
   transform: {
