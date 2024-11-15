@@ -2,7 +2,7 @@ interface SectionData {
   [key: string]: string
 }
 
-interface DataStructure {
+export interface DataStructure {
   bodyManagement: SectionData
   cognitiveManagement: SectionData
   nursingManagement: SectionData
