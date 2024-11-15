@@ -23,7 +23,7 @@
     "forceConsistentCasingInFileNames": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "resolveJsonModule": true,
-    "types": ["vite-plugin-svgr/client"],
+    "types": ["vite-plugin-svgr/client", "jest"],
     "outDir": "dist"
   },
   "include": ["src/**/*", "svg.d.ts"],
