@@ -157,12 +157,12 @@ const Message = styled.div`
   position: absolute;
   top: 70px;
   color: #7c7c7c;
-  font-size: 23px; /* 텍스트 크기 */
+  font-size: 23px;
   font-weight: 600;
   line-height: 1.3;
-  text-align: center; /* 텍스트 정렬 */
-  width: 80%; /* 텍스트 폭 */
-  padding: 10px; /* 여백 */
+  text-align: center;
+  width: 80%;
+  padding: 10px;
 `
 
 const ButtonContainer = styled.div`

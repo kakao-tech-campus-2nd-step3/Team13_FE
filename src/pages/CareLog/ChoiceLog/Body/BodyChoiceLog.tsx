@@ -34,7 +34,6 @@ export const BodyChoiceLogPage = () => {
     const scrollTop = event.target.scrollTop
     setIsScrolled(scrollTop > 0)
   }
-  console.log(selectedDate)
 
   useEffect(() => {
     if (chartId) {
