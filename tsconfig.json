@@ -23,9 +23,9 @@
     "forceConsistentCasingInFileNames": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "resolveJsonModule": true,
-    "types": ["vite-plugin-svgr/client"],
+    "types": ["jest", "vite-plugin-svgr/client"],
     "outDir": "dist"
   },
-  "include": ["src/**/*", "svg.d.ts"],
+  "include": ["src/**/*", "svg.d.ts", "setupTests.ts", "babel.config.js", "jest.config.js"],
   "exclude": ["node_modules"]
 }
