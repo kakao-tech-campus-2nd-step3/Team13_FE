@@ -112,8 +112,6 @@ export const OCRPage = () => {
     if (!ocrResult) return
     const transformedData = transformData(parseData(ocrResult))
     const chartData = formatToChart(transformedData)
-    console.log(chartData)
-    // 로컬 스토리지에 chartData 저장
     localStorage.setItem('chartData', JSON.stringify(chartData))
 
     try {

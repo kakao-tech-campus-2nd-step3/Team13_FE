@@ -5,7 +5,6 @@ export const useSpeechToText = () => {
 
   const toggleListening = () => {
     if (listening) {
-      console.log(transcript)
       SpeechRecognition.stopListening()
     } else {
       SpeechRecognition.startListening({ language: 'ko-KR', continuous: true })
