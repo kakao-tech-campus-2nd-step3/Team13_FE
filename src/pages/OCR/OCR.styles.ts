@@ -1,6 +1,10 @@
 import { colors } from '@/styles/colors/colors'
 import styled from '@emotion/styled'
 
+export const Container = styled.div`
+  padding: 40px;
+`
+
 export const FileInput = styled.input`
   display: none;
 `
@@ -15,4 +19,11 @@ export const SquareWrapper = styled.div`
   align-items: center;
   gap: 10px;
   cursor: pointer;
+`
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  margin-top: 8px;
 `

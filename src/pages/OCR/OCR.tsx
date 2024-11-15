@@ -134,7 +134,7 @@ export const OCRPage = () => {
   }
 
   return (
-    <div>
+    <S.Container>
       <label htmlFor="file-upload">
         <S.SquareWrapper>
           {imageFile ? (
@@ -147,13 +147,15 @@ export const OCRPage = () => {
           )}
         </S.SquareWrapper>
 
-        <Button theme="gray" width="100%" margin="12px 0 12px 0" onClick={handleDownload}>
-          양식 다운로드
-        </Button>
+        <S.ButtonWrapper>
+          <Button theme="gray" onClick={handleDownload}>
+            양식 다운로드
+          </Button>
 
-        <Button theme="dark" width="100%" margin="0px 0 12px 0" onClick={handleOCRRequest}>
-          OCR 요청
-        </Button>
+          <Button theme="dark" onClick={handleOCRRequest}>
+            OCR 요청
+          </Button>
+        </S.ButtonWrapper>
       </label>
 
       <S.FileInput id="file-upload" type="file" accept="image/*" onChange={handleFileChange} />
@@ -164,17 +166,12 @@ export const OCRPage = () => {
         ocrResult && (
           <div>
             <OCRTable data={transformData(parseData(ocrResult))} />
-            <Button
-              theme="light-outlined"
-              width="100%"
-              margin="12px 0 12px 0"
-              onClick={handleSubmit}
-            >
-              확인
+            <Button theme="dark" width="100%" margin="20px 0 12px 0" onClick={handleSubmit}>
+              등록
             </Button>
           </div>
         )
       )}
-    </div>
+    </S.Container>
   )
 }
