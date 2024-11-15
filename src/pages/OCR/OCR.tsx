@@ -1,4 +1,3 @@
-// OCRPage.tsx
 import { useState } from 'react'
 import { useSaveImageUrl } from '@/api/hooks/user/OCR/useSaveImageUrl'
 import { usePerformOCR } from '@/api/hooks/user/OCR/usePerformOCR'
@@ -61,12 +60,12 @@ export const OCRPage = () => {
   const formatToChart = (data: DataStructure): Chart => {
     const recipientId = Number(localStorage.getItem('recipientId'))
 
-    // physicalRestroom에서 "회" 글자 제거
     const physicalRestroom = data.bodyManagement?.physicalRestroom.replace(/회$/, '') || ''
 
-    // systolic과 diastolic을 분리하고, "mmHg" 제거
     const bloodPressure = data.nursingManagement?.systolic.replace(/mmHg/g, '') || ''
     const [systolic, diastolic] = bloodPressure.split('/').map((val) => val.trim())
+
+    const temperature = data.nursingManagement?.temperature.replace(/도$/, '') || ''
 
     return {
       conditionDisease: '',
@@ -88,9 +87,9 @@ export const OCRPage = () => {
         cognitiveNote: data.cognitiveManagement?.cognitiveNote || '',
       },
       nursingManagement: {
-        systolic: systolic || '', // systolic 값
-        diastolic: diastolic || '', // diastolic 값
-        healthTemperature: data.nursingManagement?.healthTemperature || '',
+        systolic: systolic || '',
+        diastolic: diastolic || '',
+        healthTemperature: temperature,
         healthCareProvided: false,
         nursingCareProvided: false,
         emergencyCareProvided: false,
@@ -115,7 +114,7 @@ export const OCRPage = () => {
     localStorage.setItem('chartData', JSON.stringify(chartData))
 
     try {
-      await submitChartData() // 로컬 스토리지의 데이터를 사용해 POST 요청 전송
+      await submitChartData()
       alert('차트 데이터가 성공적으로 저장되었습니다.')
       //navigate('/chart/choice/body') // routerpath.ts CHOICE.BODY
       navigate('/recipients')
@@ -135,7 +134,7 @@ export const OCRPage = () => {
   }
 
   return (
-    <div>
+    <S.Container>
       <label htmlFor="file-upload">
         <S.SquareWrapper>
           {imageFile ? (
@@ -148,13 +147,15 @@ export const OCRPage = () => {
           )}
         </S.SquareWrapper>
 
-        <Button theme="gray" width="100%" margin="12px 0 12px 0" onClick={handleDownload}>
-          양식 다운로드
-        </Button>
+        <S.ButtonWrapper>
+          <Button theme="gray" onClick={handleDownload}>
+            양식 다운로드
+          </Button>
 
-        <Button theme="dark" width="100%" margin="0px 0 12px 0" onClick={handleOCRRequest}>
-          OCR 요청
-        </Button>
+          <Button theme="dark" onClick={handleOCRRequest}>
+            OCR 요청
+          </Button>
+        </S.ButtonWrapper>
       </label>
 
       <S.FileInput id="file-upload" type="file" accept="image/*" onChange={handleFileChange} />
@@ -165,17 +166,12 @@ export const OCRPage = () => {
         ocrResult && (
           <div>
             <OCRTable data={transformData(parseData(ocrResult))} />
-            <Button
-              theme="light-outlined"
-              width="100%"
-              margin="12px 0 12px 0"
-              onClick={handleSubmit}
-            >
-              확인
+            <Button theme="dark" width="100%" margin="20px 0 12px 0" onClick={handleSubmit}>
+              등록
             </Button>
           </div>
         )
       )}
-    </div>
+    </S.Container>
   )
 }
