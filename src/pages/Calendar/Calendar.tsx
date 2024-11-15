@@ -75,7 +75,7 @@ export const CalendarPage = () => {
         <Heading.Medium style={{ color: 'black', margin: '70px 0 13px 0' }}>
           <span style={{ color: `${colors.text.prominent}` }}>
             {localStorage.getItem('recipientName')}
-          </span>{' '}
+          </span>
           님의 요양일지
         </Heading.Medium>
         <TextBody.Large style={{ color: `${colors.text.subtle}` }}>

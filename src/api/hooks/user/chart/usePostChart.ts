@@ -54,7 +54,7 @@ export const submitChartData = async () => {
     `${postChartPath}?recipient-id=${recipientId}`,
     chart,
   )
-  console.log('sdf')
+
   localStorage.removeItem('chartData')
   return response.data
 }

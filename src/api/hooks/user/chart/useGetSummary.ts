@@ -4,7 +4,6 @@ import { Summary, SummaryResponseData } from './types'
 const getSummaryPath = `/v1/chart/summary`
 
 export const getSummaryData = async (chartId: number): Promise<Summary> => {
-  console.log(chartId)
   const response = await fetchInstance.get<SummaryResponseData>(
     `${getSummaryPath}?chartId=${chartId}`,
   )
