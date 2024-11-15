@@ -10,6 +10,10 @@ import { OCRLoadingPage } from './OCRLoading/OCRLoading'
 import { submitChartData } from '@/api/hooks/user/chart/usePostChart'
 import { Chart } from '@/api/hooks/user/chart/types'
 import { DataStructure } from '@/utils/dataParser'
+import { useNavigate } from 'react-router-dom'
+import * as S from './OCR.styles'
+import { IoCloudUploadOutline } from 'react-icons/io5'
+import Button from '@/components/common/Button/Button'
 
 export const OCRPage = () => {
   const [imageFile, setImageFile] = useState<File | null>(null)
@@ -102,6 +106,8 @@ export const OCRPage = () => {
     }
   }
 
+  const navigate = useNavigate()
+
   const handleSubmit = async () => {
     if (!ocrResult) return
     const transformedData = transformData(parseData(ocrResult))
@@ -113,6 +119,8 @@ export const OCRPage = () => {
     try {
       await submitChartData() // 로컬 스토리지의 데이터를 사용해 POST 요청 전송
       alert('차트 데이터가 성공적으로 저장되었습니다.')
+      //navigate('/chart/choice/body') // routerpath.ts CHOICE.BODY
+      navigate('/recipients')
     } catch (error) {
       console.error('데이터 저장 중 오류가 발생했습니다:', error)
       alert('데이터 저장에 실패했습니다.')
@@ -130,8 +138,28 @@ export const OCRPage = () => {
 
   return (
     <div>
-      <input type="file" accept="image/*" onChange={handleFileChange} />
-      <button onClick={handleOCRRequest}>OCR 요청</button>
+      <label htmlFor="file-upload">
+        <S.SquareWrapper>
+          {imageFile ? (
+            <>{imageFile.name}</>
+          ) : (
+            <>
+              <IoCloudUploadOutline size="30" />
+              파일 선택
+            </>
+          )}
+        </S.SquareWrapper>
+
+        <Button theme="gray" width="100%" margin="12px 0 12px 0" onClick={handleDownload}>
+          양식 다운로드
+        </Button>
+
+        <Button theme="dark" width="100%" margin="0px 0 12px 0" onClick={handleOCRRequest}>
+          OCR 요청
+        </Button>
+      </label>
+
+      <S.FileInput id="file-upload" type="file" accept="image/*" onChange={handleFileChange} />
 
       {isLoading ? (
         <OCRLoadingPage />
@@ -139,12 +167,17 @@ export const OCRPage = () => {
         ocrResult && (
           <div>
             <OCRTable data={transformData(parseData(ocrResult))} />
-            <button onClick={handleSubmit}>확인</button>
+            <Button
+              theme="light-outlined"
+              width="100%"
+              margin="12px 0 12px 0"
+              onClick={handleSubmit}
+            >
+              확인
+            </Button>
           </div>
         )
       )}
-
-      <button onClick={handleDownload}>양식 다운로드</button>
     </div>
   )
 }
