@@ -29,7 +29,7 @@ const IntroductionSection = ({ id }: IntroductionSectionProps) => {
             <div ref={phone1} style={{ opacity: '0' }}>
               <TextWrapper>
                 <Heading.Medium>
-                  보호자와 요양보호자를 이어주는
+                  보호자와 요양보호사를 이어주는
                   <br />
                   소통창구,
                 </Heading.Medium>

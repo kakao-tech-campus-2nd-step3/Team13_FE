@@ -28,8 +28,14 @@ export const RecipientsList = ({
 }: Props) => {
   const navigate = useNavigate()
   const currentRole = localStorage.getItem('role')
-  console.log(recipientId)
-
+  const todayKST = new Date()
+    .toLocaleDateString('ko-KR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+    .replace(/\. /g, '-')
+    .replace('.', '')
   const formatBirthDate = (dateString: string) => {
     const [year, month, day] = dateString.split('-')
     return `${year.slice(2)}${month}${day}`
@@ -39,13 +45,10 @@ export const RecipientsList = ({
   const handleNewChartClick = async () => {
     try {
       const response = await getCalendarData(recipientId, role!)
-      const todayChart = response.find(
-        (chart: Calendar) => chart.chartDate === new Date().toISOString().split('T')[0],
-      )
+      const todayChart = response.find((chart: Calendar) => chart.chartDate === todayKST)
 
       if (todayChart) {
         const chartId = todayChart.chartId
-        console.log(chartId)
         localStorage.setItem('chartId', chartId.toString())
         localStorage.removeItem('state')
         localStorage.setItem('state', 'put')
@@ -53,7 +56,6 @@ export const RecipientsList = ({
         const chartData = chartResponse.response
 
         localStorage.setItem('chartData', JSON.stringify(chartData))
-        console.log(localStorage.getItem('chartData'))
         navigate('/chart/choice/body')
       } else {
         console.log('No chart for today found.')
@@ -65,7 +67,7 @@ export const RecipientsList = ({
         localStorage.setItem('recipientId', recipientId.toString())
         localStorage.setItem('recipientName', name)
         localStorage.setItem('recipientBirthday', birthday)
-        navigate('/share')
+        navigate('/chart')
       }
     } catch (error) {
       console.error('Error fetching chart data:', error)
@@ -115,7 +117,6 @@ export const RecipientsList = ({
               handleNewChartClick()
             }}
           />
-
           <img
             src={chartList}
             alt="chart list"

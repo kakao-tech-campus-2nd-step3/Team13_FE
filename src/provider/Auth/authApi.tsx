@@ -23,33 +23,28 @@ export const AuthProvider = async (
   }
 }
 
-export const renewTokens = async (): Promise<string> => {
+export const renewTokens = async () => {
   const refreshToken = localStorage.getItem('refreshToken')
   if (!refreshToken) throw new Error('No refresh token available')
 
   try {
-    const response = await fetchInstance.post<UserResponseData>('/v1/auth/renew', {
-      request: refreshToken,
-    })
+    const response = await fetchInstance.post('/auth/renew', { refreshToken })
     const { accessToken, refreshToken: newRefreshToken } = response.data
-
     localStorage.setItem('accessToken', accessToken)
     localStorage.setItem('refreshToken', newRefreshToken)
-
     return accessToken
   } catch (error) {
-    console.error('Error renewing tokens:', error)
+    console.error('Failed to renew tokens:', error)
     throw error
   }
 }
 
-// Utility function to check token expiration
 export function tokenIsExpired(token: string): boolean {
   try {
     const payload = JSON.parse(atob(token.split('.')[1]))
     return payload.exp * 1000 < Date.now()
   } catch (error) {
     console.error('Token parsing failed', error)
-    return true // Treat as expired if there's an error
+    return true
   }
 }

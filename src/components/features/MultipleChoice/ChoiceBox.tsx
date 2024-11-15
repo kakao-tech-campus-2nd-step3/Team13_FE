@@ -71,6 +71,7 @@ const PlusBox = styled.div`
   justify-content: center;
   align-items: center;
   display: flex;
+  padding: 0px 5px;
   background-color: ${colors.primary.mainOpacity15};
   border-radius: 0 0 16px 16px;
   font-weight: 700;

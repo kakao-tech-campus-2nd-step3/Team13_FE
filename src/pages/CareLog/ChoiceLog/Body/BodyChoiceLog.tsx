@@ -25,8 +25,7 @@ interface ListWrapperProps {
 
 export const BodyChoiceLogPage = () => {
   const navigate = useNavigate()
-  const location = useLocation()
-  const { selectedDate } = location.state || {}
+  const selectedDate = localStorage.getItem('selectedDate')
   const { chartId } = useParams<{ chartId: string }>()
   const [detailLog, setDetailLog] = useState<Chart | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -35,7 +34,6 @@ export const BodyChoiceLogPage = () => {
     const scrollTop = event.target.scrollTop
     setIsScrolled(scrollTop > 0)
   }
-  console.log(selectedDate)
 
   useEffect(() => {
     if (chartId) {
@@ -156,7 +154,7 @@ export const BodyChoiceLogPage = () => {
               height: '62px',
             }}
             onClick={() => {
-              navigate(`/careLog/significant/body/${chartId}`, { state: { selectedDate } })
+              navigate(`/careLog/significant/body/${chartId}`)
             }}
           >
             확인
@@ -169,6 +167,7 @@ export const BodyChoiceLogPage = () => {
 
 const Wrapper = styled.div`
   height: 100%;
+  width: 100%;
   display: flex;
   justify-content: start;
   align-items: start;
@@ -203,12 +202,12 @@ const ButtonWrapper = styled.div`
   width: 100%;
   padding: 0 0 26px 0;
   box-sizing: border-box;
-  margin-top: auto; /* 항상 하단에 위치 */
+  margin-top: auto;
 `
 const ListWrapper = styled.div.withConfig({
   shouldForwardProp: (prop) => !['isScrolled'].includes(prop),
 })<ListWrapperProps>`
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;

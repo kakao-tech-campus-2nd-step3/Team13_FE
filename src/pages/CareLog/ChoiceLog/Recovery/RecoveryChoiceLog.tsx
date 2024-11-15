@@ -19,8 +19,7 @@ import { Spinner } from 'basic-loading'
 
 export const RecoveryChoiceLogPage = () => {
   const navigate = useNavigate()
-  const location = useLocation()
-  const { selectedDate } = location.state || {}
+  const selectedDate = localStorage.getItem('selectedDate')
   const { chartId } = useParams<{ chartId: string }>()
   const [detailLog, setDetailLog] = useState<Chart | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -117,7 +116,7 @@ export const RecoveryChoiceLogPage = () => {
             height: '62px',
           }}
           onClick={() => {
-            navigate(`/careLog/significant/recovery/${chartId}`, { state: { selectedDate } })
+            navigate(`/careLog/significant/recovery/${chartId}`)
           }}
         >
           확인
