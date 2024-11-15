@@ -4,6 +4,7 @@ import { colors } from '@/styles/colors/colors'
 const Title = styled.div`
   font-size: 24px;
   font-weight: bold;
+  margin-left: 23px;
 `
 
 const Table = styled.table`
@@ -62,6 +63,7 @@ const ButtonWrapper = styled.div`
   margin-top: 10px;
   display: flex;
   justify-content: end;
+  margin-right: 20px;
 `
 
 export { Title, Table, Thead, Tbody, Input, TableButtonWrapper, ButtonWrapper }

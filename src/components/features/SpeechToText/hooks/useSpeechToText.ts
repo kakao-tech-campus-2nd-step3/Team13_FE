@@ -7,10 +7,13 @@ export const useSpeechToText = () => {
     if (listening) {
       SpeechRecognition.stopListening()
     } else {
-      resetTranscript()
       SpeechRecognition.startListening({ language: 'ko-KR', continuous: true })
     }
   }
 
-  return { transcript, listening, toggleListening }
+  const toggleReset = () => {
+    resetTranscript()
+  }
+
+  return { transcript, listening, toggleListening, toggleReset }
 }

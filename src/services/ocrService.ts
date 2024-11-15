@@ -47,8 +47,6 @@ const requestOCR = async (imageFile: FileWithPath[] | File[]): Promise<OCRRespon
         },
       },
     )
-
-    console.log(response.data)
     return response.data
   } catch (error) {
     console.error('OCR 요청 중 오류 발생:', error)

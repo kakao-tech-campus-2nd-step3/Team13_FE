@@ -21,23 +21,10 @@ const noteFieldMap: { [key: string]: string[] } = {
   '기능 회복 훈련': ['recoveryTraining', 'recoveryNote'],
 }
 
-export const SignificantPage = ({ step, title, navigateTo }: DIYProps) => {
+export const CheckPage = ({ step, title, navigateTo }: DIYProps) => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState<boolean>(false)
-  const [note, setNote] = useState<string>('')
-  const state = localStorage.getItem('state')
-
-  useEffect(() => {
-    const savedChartData = localStorage.getItem('chartData')
-    if (savedChartData) {
-      const parsedData = JSON.parse(savedChartData)
-      const field = noteFieldMap[title]
-      const savedNote = parsedData?.[field[0]]?.[field[1]] || ''
-      setNote(savedNote)
-    } else {
-      setNote('')
-    }
-  }, [title])
+  const [note, setNote] = useState<string>(localStorage.getItem('data')!)
 
   const confirmClick = async () => {
     const existingChartData = JSON.parse(localStorage.getItem('chartData') || '{}')
@@ -56,11 +43,7 @@ export const SignificantPage = ({ step, title, navigateTo }: DIYProps) => {
       if (confirmSave) {
         setLoading(true)
         try {
-          if (state === 'post') {
-            await submitChartData()
-          } else if (state === 'put') {
-            await updateChartData(Number(localStorage.getItem('chartId')))
-          }
+          await submitChartData()
         } catch (error) {
           console.error('Error saving chart:', error)
         } finally {
@@ -115,4 +98,4 @@ const Wrapper = styled.div`
   box-sizing: border-box;
 `
 
-export default SignificantPage
+export default CheckPage

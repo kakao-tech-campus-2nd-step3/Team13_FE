@@ -23,6 +23,7 @@ interface ListWrapperProps {
 }
 export const BodyChoicePage = () => {
   const navigate = useNavigate()
+  const chartType = localStorage.getItem('chartType')
   const [selectedOptions, setSelectedOptions] = useState<Chart['bodyManagement']>({
     wash: false,
     bath: false,
@@ -99,7 +100,11 @@ export const BodyChoicePage = () => {
 
   const confirm = () => {
     if (validateInputs()) {
-      navigate('/chart/significant/body')
+      if (chartType === 'DIY') {
+        navigate('/chart/significant/body')
+      } else if (chartType === 'record') {
+        navigate('/chart/audioRecord/body')
+      }
     }
   }
 
@@ -232,7 +237,8 @@ const ButtonWrapper = styled.div`
 const ListWrapper = styled.div.withConfig({
   shouldForwardProp: (prop) => !['isScrolled'].includes(prop),
 })<ListWrapperProps>`
-  width: 100vw;
+  width: 100%;
+
   display: flex;
   justify-content: flex-start;
   align-items: center;

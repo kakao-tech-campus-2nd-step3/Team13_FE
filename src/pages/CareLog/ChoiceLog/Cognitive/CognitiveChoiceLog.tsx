@@ -8,7 +8,7 @@ import { IoCalendarNumberOutline } from 'react-icons/io5'
 import { colors } from '@/styles/colors/colors'
 import Steps from '@/components/common/Steps/Steps'
 import { Heading } from '@/components/common/Text/TextFactory'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getDetailLogData } from '@/api/hooks/chart/useGetChart'
 import { Chart } from '@/api/hooks/user/chart/types'
@@ -16,15 +16,13 @@ import { Spinner } from 'basic-loading'
 
 export const CognitiveChoiceLogPage = () => {
   const navigate = useNavigate()
-  const location = useLocation()
-  const { selectedDate } = location.state || {}
+  const selectedDate = localStorage.getItem('selectedDate')
   const { chartId } = useParams<{ chartId: string }>()
   const [detailLog, setDetailLog] = useState<Chart | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if (chartId) {
-      // Convert chartId to a number and fetch data
       const fetchCareLogData = async () => {
         try {
           const response = await getDetailLogData({ chartId: Number(chartId) })
@@ -100,7 +98,7 @@ export const CognitiveChoiceLogPage = () => {
             height: '62px',
           }}
           onClick={() => {
-            navigate(`/careLog/significant/cognitive/${chartId}`, { state: { selectedDate } })
+            navigate(`/careLog/significant/cognitive/${chartId}`)
           }}
         >
           확인
@@ -116,10 +114,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: start;
   padding: 0 23px;
-`
-
-const DateWrapper = styled.div`
-  width: 100%;
 `
 
 const ChoiceGrid = styled.div`

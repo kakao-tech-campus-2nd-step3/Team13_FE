@@ -36,7 +36,7 @@ const themeStyles = {
 }
 
 function Button({ icon, children, theme, width, height, margin, onClick, ...rest }: ButtonProps) {
-  const { background, color, border } = themeStyles[theme] || themeStyles.dark // default색은 자유롭게 변경해 주세요!
+  const { background, color, border } = themeStyles[theme] || themeStyles.dark
 
   const buttonStyle = css`
     width: ${width || 'auto'};

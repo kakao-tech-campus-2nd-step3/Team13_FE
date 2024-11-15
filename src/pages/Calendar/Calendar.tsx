@@ -51,8 +51,9 @@ export const CalendarPage = () => {
       if (clickedDate) {
         const newSelectedDate = `${selectedYear}.${String(selectedMonth).padStart(2, '0')}.${String(day).padStart(2, '0')}`
         setSelectedDate(newSelectedDate)
+        localStorage.setItem('selectedDate', newSelectedDate)
         navigate(`/careLog/${clickedDate.chartId}`, {
-          state: { name, birthday, selectedDate: newSelectedDate },
+          state: { name, birthday },
         })
       }
     }
@@ -74,7 +75,7 @@ export const CalendarPage = () => {
         <Heading.Medium style={{ color: 'black', margin: '70px 0 13px 0' }}>
           <span style={{ color: `${colors.text.prominent}` }}>
             {localStorage.getItem('recipientName')}
-          </span>{' '}
+          </span>
           님의 요양일지
         </Heading.Medium>
         <TextBody.Large style={{ color: `${colors.text.subtle}` }}>
@@ -101,7 +102,7 @@ export const CalendarPage = () => {
       </CalendarWrapper>
       <Footer>
         <div
-          style={{ borderBottom: `1px solid  ${colors.text.subtle}` }}
+          style={{ borderBottom: `1px solid  ${colors.text.subtle}`, cursor: 'pointer' }}
           onClick={() => navigate('/recipients')}
         >
           <TextBody.Large style={{ color: `${colors.text.subtle}` }}>
@@ -114,7 +115,7 @@ export const CalendarPage = () => {
 }
 
 const Wrapper = styled.div`
-  width: 100vw;
+  width: 100%;
   height: calc(100vh - 50px);
   display: flex;
   justify-content: start;

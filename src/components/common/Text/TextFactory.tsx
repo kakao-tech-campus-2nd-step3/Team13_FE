@@ -66,7 +66,7 @@ export const Heading = {
   Medium: createTextComponent({
     defaultSize: '24px',
     responsiveSize: {
-      sm: '34px',
+      sm: '30px',
     },
     as: 'h3',
     weight: 'bold',

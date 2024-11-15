@@ -6,8 +6,8 @@ import styled from 'styled-components'
 interface Props {
   icon: string
   title: string
-  checked: boolean // 부모 컴포넌트에서 상태 전달받음
-  onChange: () => void // 부모 컴포넌트에서 함수 전달받음
+  checked: boolean
+  onChange: () => void
 }
 
 export const CheckBox = ({ icon, title, checked, onChange }: Props) => {
@@ -22,7 +22,7 @@ export const CheckBox = ({ icon, title, checked, onChange }: Props) => {
       </TitleBox>
       <Check>
         <div
-          onClick={onChange} // 기존 onClickCheck 대신 onChange로 대체
+          onClick={onChange}
           style={{
             width: '25px',
             height: '25px',
