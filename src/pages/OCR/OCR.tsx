@@ -148,6 +148,20 @@ export const OCRPage = () => {
         </S.SquareWrapper>
 
         <S.ButtonWrapper>
+          <Button
+            theme="gray"
+            onClick={() => {
+              const link = document.createElement('a')
+              link.href = '/sample.png'
+              link.download = 'sample.png'
+              document.body.appendChild(link)
+              link.click()
+              document.body.removeChild(link)
+            }}
+          >
+            샘플 사진 다운로드
+          </Button>
+
           <Button theme="gray" onClick={handleDownload}>
             양식 다운로드
           </Button>
