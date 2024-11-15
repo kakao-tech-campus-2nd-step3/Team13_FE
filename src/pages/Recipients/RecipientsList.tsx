@@ -49,7 +49,6 @@ export const RecipientsList = ({
 
       if (todayChart) {
         const chartId = todayChart.chartId
-        console.log(chartId)
         localStorage.setItem('chartId', chartId.toString())
         localStorage.removeItem('state')
         localStorage.setItem('state', 'put')
@@ -57,7 +56,6 @@ export const RecipientsList = ({
         const chartData = chartResponse.response
 
         localStorage.setItem('chartData', JSON.stringify(chartData))
-        console.log(localStorage.getItem('chartData'))
         navigate('/chart/choice/body')
       } else {
         console.log('No chart for today found.')

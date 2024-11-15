@@ -11,7 +11,6 @@ function Back({ back = true, myPage = true, logout = false }) {
 
   const goBack = () => {
     const previousPage = document.referrer
-    console.log(previousPage)
     if (!previousPage.includes('/login')) {
       navigate(-1)
     }
