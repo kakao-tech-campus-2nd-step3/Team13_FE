@@ -77,7 +77,7 @@ export const ChartPage = () => {
         ></ChartBlock>
         <ChartBlock
           icon={recording}
-          title="음성 녹음"
+          title="음성 인식"
           sub="작성할 내용을 녹음해주세요."
           onClick={navigateToRecord}
         ></ChartBlock>

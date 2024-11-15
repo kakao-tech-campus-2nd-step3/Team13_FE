@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import React from 'react'
 import Button from '@/components/common/Button/Button'
 import { IoCalendarNumberOutline } from 'react-icons/io5'
 import { useParams, useNavigate, useLocation } from 'react-router-dom'
@@ -8,6 +9,7 @@ import { getSummaryData } from '@/api/hooks/user/chart/useGetSummary'
 import { Spinner } from 'basic-loading'
 import { colors } from '@/styles/colors/colors'
 import styled from 'styled-components'
+import { useDeleteChart } from '@/api/hooks/user/chart/useDeleteChart'
 
 interface LogWrapperProps {
   isScrolled: boolean
@@ -20,6 +22,7 @@ export const CareLogPage = () => {
   const [careLog, setCareLog] = useState<Summary>()
   const [isLoading, setIsLoading] = useState(true)
   const [isScrolled, setIsScrolled] = useState(false)
+  const { mutate: deleteChart } = useDeleteChart()
   const scroll = (event: any) => {
     const scrollTop = event.target.scrollTop
     setIsScrolled(scrollTop > 0)
@@ -32,7 +35,7 @@ export const CareLogPage = () => {
     const [year, month, day] = dateString.split('-')
     return `${year}.${month}.${day}`
   }
-  console.log(selectedDate)
+
   useEffect(() => {
     if (chartId) {
       const fetchCalendarData = async () => {
@@ -48,6 +51,13 @@ export const CareLogPage = () => {
       fetchCalendarData()
     }
   }, [chartId])
+
+  const deleteClick = () => {
+    const confirmDelete = window.confirm(`해당 날짜의 일지를 삭제하시겠습니까?`)
+    if (confirmDelete && chartId) {
+      deleteChart(Number(chartId))
+    }
+  }
 
   return isLoading ? (
     <div
@@ -107,20 +117,23 @@ export const CareLogPage = () => {
           <Activity>{careLog?.summaryResponse.recovery_training}</Activity>
         </LogWrapper>
       </Content>
-
-      <Button
-        theme="dark"
-        margin="26px 0"
-        width="100%"
-        height="62px"
-        onClick={() => navigate(`/careLog/choice/body/${chartId}`)}
-      >
-        상세 일지 보기
-      </Button>
+      <ButtonWrapper>
+        <Button theme="gray" margin="26px 0" width="60%" height="62px" onClick={deleteClick}>
+          일지 삭제
+        </Button>
+        <Button
+          theme="dark"
+          margin="26px 0"
+          width="100%"
+          height="62px"
+          onClick={() => navigate(`/careLog/choice/body/${chartId}`)}
+        >
+          상세 일지 보기
+        </Button>
+      </ButtonWrapper>
     </Container>
   )
 }
-
 const Container = styled.div`
   height: 100%;
   display: flex;
@@ -237,4 +250,12 @@ const Activity = styled.div`
     color: #000;
     margin-top: 10px;
   }
+`
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
 `

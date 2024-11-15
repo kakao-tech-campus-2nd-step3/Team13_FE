@@ -19,3 +19,7 @@ export const getCalendar = async (): Promise<Calendar[]> => {
   const response = await fetchInstance.get<CalendarResponseData>(summaryPath)
   return response.data.response
 }
+
+export const deleteChart = async (chartId: number) => {
+  return await fetchInstance.delete(`${chartPath}/${chartId}`)
+}
