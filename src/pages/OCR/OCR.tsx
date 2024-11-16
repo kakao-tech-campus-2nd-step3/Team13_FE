@@ -60,12 +60,14 @@ export const OCRPage = () => {
   const formatToChart = (data: DataStructure): Chart => {
     const recipientId = Number(localStorage.getItem('recipientId'))
 
-    const physicalRestroom = data.bodyManagement?.physicalRestroom.replace(/회$/, '') || ''
+    const physicalRestroom = data.bodyManagement?.physicalRestroom?.replace(/회$/, '') || ''
 
-    const bloodPressure = data.nursingManagement?.systolic.replace(/mmHg/g, '') || ''
-    const [systolic, diastolic] = bloodPressure.split('/').map((val) => val.trim())
+    const bloodPressure = data.nursingManagement?.systolic?.replace(/mmHg/g, '') || ''
+    const [systolic, diastolic] = bloodPressure
+      ? bloodPressure.split('/').map((val) => val.trim())
+      : ['', '']
 
-    const temperature = data.nursingManagement?.temperature.replace(/도$/, '') || ''
+    const temperature = data.nursingManagement?.temperature?.replace(/도$/, '') || ''
 
     return {
       conditionDisease: '',
@@ -87,8 +89,8 @@ export const OCRPage = () => {
         cognitiveNote: data.cognitiveManagement?.cognitiveNote || '',
       },
       nursingManagement: {
-        systolic: systolic || '',
-        diastolic: diastolic || '',
+        systolic,
+        diastolic,
         healthTemperature: temperature,
         healthCareProvided: false,
         nursingCareProvided: false,
