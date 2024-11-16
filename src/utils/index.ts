@@ -1,5 +1,5 @@
 import { breakpoints } from '@/styles/breakpoints/breakpoints'
-import { ResponsiveCSSObjects, ResponsiveColumns, ScreenSize } from '@/styles/styles'
+import { ResponsiveCSSObjects, ResponsiveColumns } from '@/styles/styles'
 import { css, keyframes, SerializedStyles } from '@emotion/react'
 
 // Creates keyframe animations for landing transitions

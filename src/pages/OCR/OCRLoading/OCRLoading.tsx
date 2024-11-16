@@ -1,6 +1,5 @@
 import { Heading } from '@/components/common/Text/TextFactory'
 import { colors } from '@/styles/colors/colors'
-import { Spinner } from 'basic-loading'
 import styled, { keyframes } from 'styled-components'
 
 export const OCRLoadingPage = () => {
@@ -8,9 +7,6 @@ export const OCRLoadingPage = () => {
     <Wrapper>
       <div style={{ marginBottom: '37px', width: '130px', height: '130px' }}>
         <Loader />
-        {/* <Spinner
-          option={{ size: 80, thickness: 15, bgColor: '#EDF4FF', barColor: colors.primary.main }}
-        /> */}
       </div>
 
       <Heading.Medium

@@ -1,5 +1,3 @@
-import Logo from '@/assets/images/logo.svg'
-import SmallLogo from '@/assets/images/small_logo.svg'
 import githubIcon from '@/assets/images/github-icon.svg'
 import Container from '@/components/common/Container/Container'
 import { MAX_CONTENT_WIDTH } from '@/styles/sizes/sizes'

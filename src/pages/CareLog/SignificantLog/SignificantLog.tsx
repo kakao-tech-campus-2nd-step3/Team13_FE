@@ -7,7 +7,7 @@ import { colors } from '@/styles/colors/colors'
 import { Spinner } from 'basic-loading'
 import { useEffect, useState } from 'react'
 import { IoCalendarNumberOutline } from 'react-icons/io5'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 interface DIYProps {

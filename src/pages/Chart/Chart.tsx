@@ -22,15 +22,6 @@ export const ChartPage = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const navigate = useNavigate()
   localStorage.removeItem('chartType')
-  const handleFileSelect = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click()
-    }
-  }
-
-  const navigateToCamera = () => {
-    localStorage.setItem('chartType', 'ocr')
-  }
 
   const navigateToRecord = () => {
     localStorage.setItem('chartType', 'record')
