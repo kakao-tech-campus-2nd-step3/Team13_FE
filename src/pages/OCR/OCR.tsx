@@ -67,11 +67,11 @@ export const OCRPage = () => {
       ? bloodPressure.split('/').map((val) => val.trim())
       : ['', '']
 
-    const temperature = data.nursingManagement?.temperature?.replace(/도$/, '') || ''
+    const temperature = data.nursingManagement?.healthTemperature?.replace(/도$/, '') || ''
 
     return {
       conditionDisease: '',
-      recipientId,
+      recipientId: recipientId,
       bodyManagement: {
         wash: data.bodyManagement?.wash === '예',
         bath: data.bodyManagement?.bath === '예',
