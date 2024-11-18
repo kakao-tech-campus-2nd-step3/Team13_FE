@@ -121,8 +121,9 @@ export const OCRPage = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' })
       setIsRequesting(true)
       await submitChartData()
-      alert('차트 데이터가 성공적으로 저장되었습니다.')
-      //navigate('/chart/choice/body') // routerpath.ts CHOICE.BODY
+      alert(
+        '차트 데이터가 성공적으로 저장되었습니다. 내용 수정이 필요하다면 돌봄대상자 목록에서 연필 아이콘을 클릭해 주세요.',
+      )
       navigate('/recipients')
     } catch (error) {
       console.error('데이터 저장 중 오류가 발생했습니다:', error)
