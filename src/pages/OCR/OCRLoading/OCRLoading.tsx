@@ -2,7 +2,11 @@ import { Heading } from '@/components/common/Text/TextFactory'
 import { colors } from '@/styles/colors/colors'
 import styled, { keyframes } from 'styled-components'
 
-export const OCRLoadingPage = () => {
+interface OCRLoadingPageProps {
+  text?: string
+}
+
+export const OCRLoadingPage: React.FC<OCRLoadingPageProps> = ({ text }) => {
   return (
     <Wrapper>
       <div style={{ marginBottom: '37px', width: '130px', height: '130px' }}>
@@ -17,13 +21,18 @@ export const OCRLoadingPage = () => {
           textAlign: 'center',
         }}
       >
-        손글씨를 인식 중입니다
-        <br />
-        잠시만 기다려주세요
+        {text || (
+          <>
+            손글씨를 인식 중입니다
+            <br />
+            잠시만 기다려주세요
+          </>
+        )}
       </Heading.Medium>
     </Wrapper>
   )
 }
+
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
