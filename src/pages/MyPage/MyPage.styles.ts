@@ -46,17 +46,14 @@ export const LogOut = styled.p`
 
 export const InfoSection = styled.div`
   width: 90%;
-
   margin-top: 32px;
   padding: 4px 16px;
-  // background-color: ${colors.primary.mainOpacity15};
   border-radius: 12px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 `
 
 export const InfoItem = styled.div`
   display: flex;
-
   justify-content: space-between;
   align-items: center;
   padding: 16px 0;
@@ -74,7 +71,7 @@ export const Label = styled.span`
 export const Value = styled.span`
   text-align: end;
   color: #555;
-  width: 130px;
+  width: 150px;
 `
 
 export const Checkbox = styled.input`

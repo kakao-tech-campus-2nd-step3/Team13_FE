@@ -44,6 +44,19 @@ export const MyPage = () => {
     updateUserInfo(updatedData)
   }
 
+  const translateWorkingDays = (workingDays: string[]): string => {
+    const dayMap: { [key: string]: string } = {
+      MONDAY: '월',
+      TUESDAY: '화',
+      WEDNESDAY: '수',
+      THURSDAY: '목',
+      FRIDAY: '금',
+      SATURDAY: '토',
+      SUNDAY: '일',
+    }
+    return workingDays.map((day) => dayMap[day] || day).join(', ')
+  }
+
   if (isLoading) return <p>Loading...</p>
   if (isError) return <p>Error loading user data.</p>
 
@@ -70,7 +83,9 @@ export const MyPage = () => {
             </S.InfoItem>
             <S.InfoItem>
               <S.Label>근무일</S.Label>
-              <S.Value>{'workingDays' in data ? data.workingDays.join(', ') : ''}</S.Value>
+              <S.Value>
+                {'workingDays' in data ? translateWorkingDays(data.workingDays) : ''}
+              </S.Value>
             </S.InfoItem>
           </>
         )}
