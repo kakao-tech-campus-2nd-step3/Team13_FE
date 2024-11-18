@@ -48,15 +48,18 @@ export const RecipientsList = ({
       const todayChart = response.find((chart: Calendar) => chart.chartDate === todayKST)
 
       if (todayChart) {
-        const chartId = todayChart.chartId
-        localStorage.setItem('chartId', chartId.toString())
-        localStorage.removeItem('state')
-        localStorage.setItem('state', 'put')
-        const chartResponse = await getDetailLogData({ chartId: Number(chartId) })
-        const chartData = chartResponse.response
+        const confirmUpdate = window.confirm(`해당 날짜의 일지가 존재합니다. 수정하시겠습니까?`)
+        if (confirmUpdate) {
+          const chartId = todayChart.chartId
+          localStorage.setItem('chartId', chartId.toString())
+          localStorage.removeItem('state')
+          localStorage.setItem('state', 'put')
+          const chartResponse = await getDetailLogData({ chartId: Number(chartId) })
+          const chartData = chartResponse.response
 
-        localStorage.setItem('chartData', JSON.stringify(chartData))
-        navigate('/chart/choice/body')
+          localStorage.setItem('chartData', JSON.stringify(chartData))
+          navigate('/chart/choice/body')
+        }
       } else {
         console.log('No chart for today found.')
         localStorage.removeItem('state')
