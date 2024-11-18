@@ -91,7 +91,15 @@ export const MyPage = () => {
               <S.Checkbox
                 type="checkbox"
                 checked={smsSubscription}
-                onChange={() => setSmsSubscription(!smsSubscription)}
+                onChange={() => {
+                  if (!smsSubscription) {
+                    alert(
+                      'SMS와 LINE 중 하나만 선택 가능합니다. SMS 수신 동의를 선택하면 LINE 수신 동의가 해제됩니다.',
+                    )
+                    setLineSubscription(false)
+                  }
+                  setSmsSubscription(!smsSubscription)
+                }}
               />
               동의
             </label>
@@ -104,7 +112,15 @@ export const MyPage = () => {
               <S.Checkbox
                 type="checkbox"
                 checked={lineSubscription}
-                onChange={() => setLineSubscription(!lineSubscription)}
+                onChange={() => {
+                  if (!lineSubscription) {
+                    alert(
+                      'SMS와 LINE 중 하나만 선택 가능합니다. LINE 수신 동의를 선택하면 SMS 수신 동의가 해제됩니다.',
+                    )
+                    setSmsSubscription(false)
+                  }
+                  setLineSubscription(!lineSubscription)
+                }}
               />
               동의
             </label>
