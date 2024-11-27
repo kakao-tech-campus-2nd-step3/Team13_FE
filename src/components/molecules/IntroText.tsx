@@ -1,5 +1,4 @@
 import { breakpoints } from '@/styles/breakpoints/breakpoints'
-import { colors } from '@/styles/colors/colors'
 import styled from '@emotion/styled'
 
 type TextBoxProps = {

@@ -6,6 +6,7 @@ const chartPath = `/v1/${role}/chart`
 const summaryPath = `/v1/${role}/chart/recipient`
 
 export const addRecipient = async (newRecipient: Partial<Chart>) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id, isNew, ...recipientData } = newRecipient
   return await fetchInstance.post(chartPath, recipientData)
 }

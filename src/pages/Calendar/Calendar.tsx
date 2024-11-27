@@ -14,10 +14,12 @@ export const CalendarPage = () => {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear())
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1)
   const [daysInMonth, setDaysInMonth] = useState<number[]>([])
+  const [startDay, setStartDay] = useState(0)
   const navigate = useNavigate()
 
   const recipientId = Number(localStorage.getItem('recipientId'))
   const role = localStorage.getItem('role')
+
   useEffect(() => {
     const fetchCalendarData = async () => {
       try {
@@ -31,9 +33,11 @@ export const CalendarPage = () => {
   }, [])
 
   useEffect(() => {
-    // 월의 날짜 수 계산
     const days = new Date(selectedYear, selectedMonth, 0).getDate()
     setDaysInMonth(Array.from({ length: days }, (_, i) => i + 1))
+
+    const firstDayOfMonth = new Date(selectedYear, selectedMonth - 1, 1).getDay()
+    setStartDay(firstDayOfMonth)
   }, [selectedYear, selectedMonth])
 
   const isDateAvailable = (day: number) => {
@@ -89,10 +93,15 @@ export const CalendarPage = () => {
           <MonthButton onClick={() => handleMonthChange('next')}>▶</MonthButton>
         </MonthWraper>
         <DaysGrid>
+          {Array(startDay)
+            .fill(null)
+            .map((_, idx) => (
+              <Placeholder key={`empty-${idx}`} />
+            ))}
           {daysInMonth.map((day) => (
             <Day
               key={day}
-              available={isDateAvailable(day) ? 'true' : undefined} // 수정된 부분
+              available={isDateAvailable(day) ? 'true' : undefined}
               onClick={() => dayClick(day)}
             >
               {day}
@@ -114,6 +123,14 @@ export const CalendarPage = () => {
   )
 }
 
+const Placeholder = styled.div`
+  padding: 20px 7px;
+  box-sizing: border-box;
+  text-align: center;
+  border-radius: 20px;
+  background: none;
+  cursor: default;
+`
 const Wrapper = styled.div`
   width: 100%;
   height: calc(100vh - 50px);
@@ -170,7 +187,7 @@ const DaysGrid = styled.div`
 `
 
 interface DayProps {
-  available?: string // 타입을 string으로 수정
+  available?: string
 }
 
 const Day = styled.div<DayProps>`

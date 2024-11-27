@@ -1,4 +1,3 @@
-import Date from '@/components/common/Date/Date'
 import styled from 'styled-components'
 import cognitive from '@/assets/icons/cognitive.svg'
 import clap from '@/assets/icons/clap.svg'

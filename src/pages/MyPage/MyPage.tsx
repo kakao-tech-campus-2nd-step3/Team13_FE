@@ -44,6 +44,19 @@ export const MyPage = () => {
     updateUserInfo(updatedData)
   }
 
+  const translateWorkingDays = (workingDays: string[]): string => {
+    const dayMap: { [key: string]: string } = {
+      MONDAY: '월',
+      TUESDAY: '화',
+      WEDNESDAY: '수',
+      THURSDAY: '목',
+      FRIDAY: '금',
+      SATURDAY: '토',
+      SUNDAY: '일',
+    }
+    return workingDays.map((day) => dayMap[day] || day).join(', ')
+  }
+
   if (isLoading) return <p>Loading...</p>
   if (isError) return <p>Error loading user data.</p>
 
@@ -70,7 +83,9 @@ export const MyPage = () => {
             </S.InfoItem>
             <S.InfoItem>
               <S.Label>근무일</S.Label>
-              <S.Value>{'workingDays' in data ? data.workingDays.join(', ') : ''}</S.Value>
+              <S.Value>
+                {'workingDays' in data ? translateWorkingDays(data.workingDays) : ''}
+              </S.Value>
             </S.InfoItem>
           </>
         )}
@@ -91,7 +106,15 @@ export const MyPage = () => {
               <S.Checkbox
                 type="checkbox"
                 checked={smsSubscription}
-                onChange={() => setSmsSubscription(!smsSubscription)}
+                onChange={() => {
+                  if (!smsSubscription) {
+                    alert(
+                      'SMS와 LINE 중 하나만 선택 가능합니다. SMS 수신 동의를 선택하면 LINE 수신 동의가 해제됩니다.',
+                    )
+                    setLineSubscription(false)
+                  }
+                  setSmsSubscription(!smsSubscription)
+                }}
               />
               동의
             </label>
@@ -104,7 +127,15 @@ export const MyPage = () => {
               <S.Checkbox
                 type="checkbox"
                 checked={lineSubscription}
-                onChange={() => setLineSubscription(!lineSubscription)}
+                onChange={() => {
+                  if (!lineSubscription) {
+                    alert(
+                      'SMS와 LINE 중 하나만 선택 가능합니다. LINE 수신 동의를 선택하면 SMS 수신 동의가 해제됩니다.',
+                    )
+                    setSmsSubscription(false)
+                  }
+                  setLineSubscription(!lineSubscription)
+                }}
               />
               동의
             </label>

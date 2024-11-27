@@ -1,7 +1,7 @@
 # 🤝 [Team 13] 돌봄다리 - 요양원 관리 서비스
 
 <p align='center'>
-<img width="600" alt="care_bridge_logo" src="docs/source/care_bridge.png">
+<img width="600" alt="care_bridge_logo" src="https://github.com/user-attachments/assets/90c6facc-c0a4-4388-a75c-8d9483de9bd4">
 </p>
 <br/>
 <br/>
@@ -185,7 +185,7 @@
 - 이러한 어려움은 기록의 정확성과 신속성을 저해하고, 요양보호사의 업무 효율성에도 부정적인 영향을 미칩니다.
 
 <p align='center'>
-    <img width="600" alt="caregiver_difficulty" src="docs/source/caregiver_difficulty.png">
+    <img width="600" alt="caregiver_difficulty" src="https://github.com/user-attachments/assets/fa791e75-3f9f-43dd-9677-c3fa057b2819">
 </p>
 
 ```
@@ -213,7 +213,7 @@
 |                           📝 **돌봄대상자 차트 확인**                           |                                                          📝 **차트 요약**                                                           |
 | :-----------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: |
 |         **하루 상태 기록 확인**<br/> 사진과 차트 작성 시 **알림 수신**          |                                   긴 차트를 **핵심 내용 요약**<br/> 주요 사항을 **간결하게 확인**                                   |
-| <img width="200" alt="recipient_today" src="docs/source/recipient_one_day.png"> | <img width="200" alt="chart_summary_feature" src="https://github.com/user-attachments/assets/945784e9-6d78-47df-9e4a-d150cbc8ca04"> |
+| <img width="200" alt="recipient_today" src="https://github.com/user-attachments/assets/fe6dbb6c-86dd-415d-9499-e34d0231ce0d"> | <img width="200" alt="chart_summary_feature" src="https://github.com/user-attachments/assets/945784e9-6d78-47df-9e4a-d150cbc8ca04"> |
 
 </div>
 
@@ -229,7 +229,7 @@
 |                           📷 **OCR 차트 작성**                           |                                                        📑 **차트 요약 기능**                                                         |                            🔔 **알림 기능**                             |
 | :----------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------: |
 | **차트 양식 프린트 후 사진 인식**<br/> 사진 한 장으로 **자동 기록 완성** |                                   **환자 상태 요약 제공**<br/> 여러 환자의 **하루 상태 간편 확인**                                   |     사용자가 예약한 시간마다<br/> 문자/라인 메시지로 차트 작성 알림     |
-|    <img width="220" alt="ocr_chart" src="docs/source/ocr_chart.png">     | <img width="220" alt="chart_summary_feature"  src="https://github.com/user-attachments/assets/945784e9-6d78-47df-9e4a-d150cbc8ca04"> | <img width="220" alt="care_message" src="docs/source/care_message.jpg"> |
+|    <img width="220" alt="ocr_chart" src="https://github.com/user-attachments/assets/7859ece3-9f3d-47c5-9317-6ce78b8d2f3a">     | <img width="220" alt="chart_summary_feature"  src="https://github.com/user-attachments/assets/945784e9-6d78-47df-9e4a-d150cbc8ca04"> | <img width="220" alt="care_message" src="https://github.com/user-attachments/assets/02b72843-7507-42fe-82a6-7c284ff1ae78"> |
 
 </div>
 
@@ -386,7 +386,7 @@
 &nbsp; presigned URL을 통해 이미지 파일을 S3에 업로드하고, 백엔드 서버에는 objectKey 값만 전달하여 OCR을 수행하는 방식으로 서버 과부하를 방지하고 성능을 최적화했습니다. 이로써 서버 리소스를 절약하면서도 보안성을 유지한 상태에서 차트를 안전하게 OCR 처리할 수 있도록 구현했습니다.
 
 <p align="center">
-<img width="500" alt="care_bridge_logo" src="docs/source/ocr_example.png">
+<img width="500" alt="care_bridge_logo" src="https://github.com/user-attachments/assets/d4bcdd2a-f1b3-4658-9306-c456356cce63">
 </p>
 
 ### 🤖 AI 요약 기능 - 파인 튜닝
@@ -430,7 +430,7 @@
 ## 🧩 ERD
 
 <p align='center'>
-    <img width="700" alt="caregiver_difficulty" src="docs/source/erd.png">
+    <img width="700" alt="caregiver_difficulty" src="https://github.com/user-attachments/assets/a48750cb-3591-4940-bbb1-484d7b0a7c23">
 </p>
 
 <br/>
@@ -440,7 +440,7 @@
 ## 🌌 백엔드 전체 구상도
 
 <p align='center'>
-    <img width="700" alt="caregiver_difficulty" src="docs/source/be_structure.png">
+    <img width="700" alt="caregiver_difficulty" src="https://github.com/user-attachments/assets/20836751-b19c-4826-bf67-b1759cb8c460">
 </p>
 
 <br/>

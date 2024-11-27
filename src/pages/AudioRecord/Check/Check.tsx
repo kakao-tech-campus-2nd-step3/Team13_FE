@@ -4,9 +4,8 @@ import Steps from '@/components/common/Steps/Steps'
 import { Heading } from '@/components/common/Text/TextFactory'
 import { TextArea } from '@/components/common/TextArea/TextArea'
 import styled from 'styled-components'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { submitChartData } from '@/api/hooks/user/chart/usePostChart'
-import { updateChartData } from '@/api/hooks/user/chart/useUpdateChart'
 
 interface DIYProps {
   step: number

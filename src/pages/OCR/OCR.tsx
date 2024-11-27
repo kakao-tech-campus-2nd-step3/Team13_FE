@@ -18,6 +18,7 @@ export const OCRPage = () => {
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [objectKey, setObjectKey] = useState<string | null>(null)
   const [isOCRReady, setIsOCRReady] = useState(false)
+  const [isRequesting, setIsRequesting] = useState(false)
 
   const saveImageUrlMutation = useSaveImageUrl()
   const { data: ocrResult, isLoading } = usePerformOCR(
@@ -52,6 +53,7 @@ export const OCRPage = () => {
 
       await saveImageUrlMutation.mutateAsync(objectKey)
       setIsOCRReady(true)
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     } catch (error) {
       console.error('OCR 요청 중 오류가 발생했습니다:', error)
     }
@@ -60,16 +62,18 @@ export const OCRPage = () => {
   const formatToChart = (data: DataStructure): Chart => {
     const recipientId = Number(localStorage.getItem('recipientId'))
 
-    const physicalRestroom = data.bodyManagement?.physicalRestroom.replace(/회$/, '') || ''
+    const physicalRestroom = data.bodyManagement?.physicalRestroom?.replace(/회$/, '') || ''
 
-    const bloodPressure = data.nursingManagement?.systolic.replace(/mmHg/g, '') || ''
-    const [systolic, diastolic] = bloodPressure.split('/').map((val) => val.trim())
+    const bloodPressure = data.nursingManagement?.systolic?.replace(/mmHg/g, '') || ''
+    const [systolic, diastolic] = bloodPressure
+      ? bloodPressure.split('/').map((val) => val.trim())
+      : ['', '']
 
-    const temperature = data.nursingManagement?.temperature.replace(/도$/, '') || ''
+    const temperature = data.nursingManagement?.healthTemperature?.replace(/도$/, '') || ''
 
     return {
       conditionDisease: '',
-      recipientId,
+      recipientId: recipientId,
       bodyManagement: {
         wash: data.bodyManagement?.wash === '예',
         bath: data.bodyManagement?.bath === '예',
@@ -87,8 +91,8 @@ export const OCRPage = () => {
         cognitiveNote: data.cognitiveManagement?.cognitiveNote || '',
       },
       nursingManagement: {
-        systolic: systolic || '',
-        diastolic: diastolic || '',
+        systolic,
+        diastolic,
         healthTemperature: temperature,
         healthCareProvided: false,
         nursingCareProvided: false,
@@ -114,13 +118,18 @@ export const OCRPage = () => {
     localStorage.setItem('chartData', JSON.stringify(chartData))
 
     try {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      setIsRequesting(true)
       await submitChartData()
-      alert('차트 데이터가 성공적으로 저장되었습니다.')
-      //navigate('/chart/choice/body') // routerpath.ts CHOICE.BODY
+      alert(
+        '차트 데이터가 성공적으로 저장되었습니다. 내용 수정이 필요하다면 돌봄대상자 목록에서 연필 아이콘을 클릭해 주세요.',
+      )
       navigate('/recipients')
     } catch (error) {
       console.error('데이터 저장 중 오류가 발생했습니다:', error)
       alert('데이터 저장에 실패했습니다.')
+    } finally {
+      setIsRequesting(false)
     }
   }
 
@@ -173,7 +182,7 @@ export const OCRPage = () => {
       </label>
 
       <S.FileInput id="file-upload" type="file" accept="image/*" onChange={handleFileChange} />
-
+      {isRequesting && <OCRLoadingPage text="차트를 등록하는 중입니다." />}
       {isLoading ? (
         <OCRLoadingPage />
       ) : (

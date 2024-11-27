@@ -14,15 +14,9 @@ const getCareWorkerBaseURL = () => {
 export const addCareWorker = async (newCareWorker: Partial<CareWorker>) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id, isNew, ...careWorkerData } = newCareWorker
-  const loginPassword = localStorage.getItem('loginPassword')
-
-  const requestData = {
-    ...careWorkerData,
-    loginPassword,
-  }
 
   const baseURL = getCareWorkerBaseURL()
-  return await fetchInstance.post(baseURL, requestData)
+  return await fetchInstance.post(baseURL, careWorkerData)
 }
 
 export const getCareWorkers = async (): Promise<CareWorker[]> => {

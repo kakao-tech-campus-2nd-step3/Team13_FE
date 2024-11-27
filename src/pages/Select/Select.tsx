@@ -1,7 +1,5 @@
 import arrowBlue from '@/assets/icons/arrow-blue.svg'
-import arrowWhite from '@/assets/icons/arrow-white.svg'
-import logo from '@/assets/images/logo_transparent.svg'
-import { Heading, TextBody } from '@/components/common/Text/TextFactory'
+import { Heading } from '@/components/common/Text/TextFactory'
 import { colors } from '@/styles/colors/colors'
 import styled from '@emotion/styled'
 import { useNavigate } from 'react-router-dom'

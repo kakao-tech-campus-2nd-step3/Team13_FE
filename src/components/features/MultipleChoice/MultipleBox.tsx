@@ -1,5 +1,4 @@
 import whiteCheck from '@/assets/icons/check_white.svg'
-import grayCheck from '@/assets/icons/check_gray.svg'
 import { colors } from '@/styles/colors/colors'
 import styled from 'styled-components'
 
