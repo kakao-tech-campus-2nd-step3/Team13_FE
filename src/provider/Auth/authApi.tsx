@@ -7,7 +7,6 @@ export const AuthProvider = async (
   userInfo: { userId: string; password: string },
 ) => {
   const endpoint = `/v1/auth/login/${role}`
-  localStorage.setItem('loginPassword', userInfo.password)
   localStorage.removeItem('accessToken')
   localStorage.removeItem('refreshToken')
   try {

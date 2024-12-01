@@ -2,7 +2,7 @@
 import React from 'react'
 import Button from '@/components/common/Button/Button'
 import { IoCalendarNumberOutline } from 'react-icons/io5'
-import { useParams, useNavigate, useLocation } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { Summary } from '@/api/hooks/user/chart/types'
 import { getSummaryData } from '@/api/hooks/user/chart/useGetSummary'
@@ -29,7 +29,7 @@ export const CareLogPage = () => {
   }
   const name = localStorage.getItem('recipientName')
   const birthday = localStorage.getItem('recipientBirthday')
-
+  const role = localStorage.getItem('role')
   const formatBirthDate = (dateString: string) => {
     if (!dateString) return ''
     const [year, month, day] = dateString.split('-')
@@ -118,9 +118,11 @@ export const CareLogPage = () => {
         </LogWrapper>
       </Content>
       <ButtonWrapper>
-        <Button theme="gray" margin="26px 0" width="60%" height="62px" onClick={deleteClick}>
-          일지 삭제
-        </Button>
+        {role === 'careworker' ? (
+          <Button theme="gray" margin="26px 0" width="60%" height="62px" onClick={deleteClick}>
+            일지 삭제
+          </Button>
+        ) : null}
         <Button
           theme="dark"
           margin="26px 0"

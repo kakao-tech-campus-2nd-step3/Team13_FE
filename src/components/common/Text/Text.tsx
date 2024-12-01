@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { FontWeight, ScreenSize } from '@/styles/styles'
+import { FontWeight } from '@/styles/styles'
 import { TextProps } from '@/styles/props'
 import { breakpoints } from '@/styles/breakpoints/breakpoints'
 

@@ -39,7 +39,7 @@ export const submitChartData = async () => {
       healthCareProvided: parsedChartData.nursingManagement?.healthCareProvided || false,
       nursingCareProvided: parsedChartData.nursingManagement?.nursingCareProvided || false,
       emergencyCareProvided: parsedChartData.nursingManagement?.emergencyCareProvided || false,
-      healthNote: parsedChartData.nursingManagement?.recoveryNote || '',
+      healthNote: parsedChartData.nursingManagement?.healthNote || '',
     },
     recoveryTraining: {
       recoveryProgram: parsedChartData.recoveryTraining?.recoveryProgram || '',

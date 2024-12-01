@@ -35,6 +35,8 @@ export const Table = <T extends TableRow>({
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingRowIndex, setEditingRowIndex] = useState<number | null>(null)
 
+  const role = localStorage.getItem('role')
+
   const handleAddRow = () => {
     const newRow: T = { id: tableData.length + 1, isNew: true } as T
     columns.forEach((col) => {
@@ -141,9 +143,11 @@ export const Table = <T extends TableRow>({
           직접 추가
         </Button>
 
-        <Button theme="dark" height="50px" onClick={() => setIsModalOpen(true)}>
-          파일 업로드로 추가
-        </Button>
+        {role !== 'admin' && (
+          <Button theme="dark" height="50px" onClick={() => setIsModalOpen(true)}>
+            파일 업로드로 추가
+          </Button>
+        )}
 
         <FileUploadModal
           isOpen={isModalOpen}

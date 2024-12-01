@@ -20,7 +20,7 @@ export const LoginPage = () => {
       role === 'careworker' || role === 'guardian' ? navigate('/recipients') : navigate('/select')
     } catch (error) {
       console.error('Login failed:', error)
-      alert('Login failed. Please try again.')
+      alert('로그인에 실패하였습니다. 다시 시도해 주세요.')
     }
   }
 
