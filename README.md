@@ -8,7 +8,6 @@
 
 > 목차
 >
-> - [🧑‍💻 Collaborators](#-collaborators)
 > - [⚙️ 개발 스택](#-개발-스택)
 > - [🔗 프로젝트 관련 주소](#-프로젝트-관련-주소)
 > - [🤩 샘플 아이디 & 비밀번호](#-샘플-아이디--비밀번호)
@@ -21,46 +20,6 @@
 > - [🧩 ERD](#-erd)
 > - [🌌 백엔드 전체 구상도](#-백엔드-전체-구상도)
 > - [📄 팀 그라운드 규칙 설명](#-팀-그라운드-규칙-설명)
-
-# 🧑‍💻 Collaborators
-
-<div align="center">
-
-### 🗓️ 개발 기간
-
-2024.09 ~ 2024.11 (카카오 테크 캠퍼스 2기 - Step3)
-
-</div>
-
-<br/>
-<br/>
-
-<h3 align="center">Backend</h3>
-
-<div align="center">
-
-| **테크 리더**                                                                                           | **기획 리더**                                                                                                                     | **리액셔너**                                                                                                                      | **리마인더**                                                                                            | **리마인더**                                                                                            |
-| ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| <div align="center">[이영준](https://github.com/20jcode)</div>                                          | <div align="center">[김태윤](https://github.com/pykido)</div>                                                                     | <div align="center">[유경미](https://github.com/yooookm)</div>                                                                    | <div align="center">[박혜연](https://github.com/hyyyh0x)</div>                                          | <div align="center">[이진솔](https://github.com/mogld)</div>                                            |
-| <div align="center"><img src="https://avatars.githubusercontent.com/u/109460399?v=4" width="100"></div> | <div align="center"><img src="https://github.com/user-attachments/assets/b6434e99-2e5d-4d46-92f0-55004d16ec3c" width="100"></div> | <div align="center"><img src="https://github.com/user-attachments/assets/9a2c803f-a49f-4343-8de3-ae8de72b7927" width="100"></div> | <div align="center"><img src="https://avatars.githubusercontent.com/u/141637975?v=4" width="100"></div> | <div align="center"><img src="https://avatars.githubusercontent.com/u/143364802?v=4" width="100"></div> |
-
-</div>
-
-<h3 align="center">Frontend</h3>
-
-<div align="center">
-
-| **조장**                                                                                                | **타임 키퍼**                                                                                           |
-| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| <div align="center">[문정윤](https://github.com/nnoonjy)</div>                                          | <div align="center">[이지수](https://github.com/dlwltn0430)</div>                                       |
-| <div align="center"><img src="https://avatars.githubusercontent.com/u/102630375?v=4" width="100"></div> | <div align="center"><img src="https://avatars.githubusercontent.com/u/101401447?v=4" width="100"></div> |
-
-</div>
-
-<br/>
-<br/>
-
----
 
 ## ⚙️ 개발 스택
 
@@ -118,30 +77,6 @@
 
 <br/>
 <br/>
-
----
-
-# 🤩 샘플 아이디 & 비밀번호
-
-### 관리자
-
-- 로그인 아이디 : string
-- 로그인 비밀번호 : string
-
-### 요양원
-
-- 로그인 아이디 : love
-- 로그인 비밀번호 : 1234
-
-### 요양보호사
-
-- 로그인 아이디 : 01012341234
-- 로그인 비밀번호 : 1
-
-### 보호자
-
-- 로그인 아이디 : 01022223333
-- 로그인 비밀번호 : 1234
 
 ---
 
@@ -442,15 +377,3 @@
 <p align='center'>
     <img width="700" alt="caregiver_difficulty" src="https://github.com/user-attachments/assets/20836751-b19c-4826-bf67-b1759cb8c460">
 </p>
-
-<br/>
-
----
-
-## 📄 팀 그라운드 규칙 설명
-
-### [📑 팀 그라운드 룰](https://www.notion.so/e4ce811fa70d4feb94f988eefef9c380)
-
-### [😀 PR 템플릿 & 이슈 템플릿](https://www.notion.so/PR-e7db382239564304b49614cb6681cf22)
-
-### [⛳️ 커밋 컨벤션](https://www.notion.so/43ef62a4a9b842bdba1d954f1601ef54)
